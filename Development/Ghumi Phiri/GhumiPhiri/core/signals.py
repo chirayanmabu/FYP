@@ -5,13 +5,14 @@ from django.contrib.auth.models import Group
 
 def user_profile(sender, instance, created, **kwargs):
     if created: 
+        print(instance)
         group = Group.objects.get(name="normal_user")
         instance.groups.add(group)
 
         UserProfile.objects.create(
             user=instance,
-            username=instance.username,
-            email=instance.email,
+            # username=instance.username,
+            # email=instance.email,
         )
         print('Profile Created')
 

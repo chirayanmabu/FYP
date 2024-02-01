@@ -1,8 +1,12 @@
+from typing import Any
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from django.http import HttpResponseRedirect, JsonResponse
+from django.views.generic.edit import UpdateView, DeleteView
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
+from django.urls import reverse_lazy
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import *
 from .models import *
@@ -38,3 +42,77 @@ def loginPage(request):
             print('error')
 
     return render(request, 'core/login.html')
+
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
+
+def homePage(request):
+    context = {
+
+    }
+    return render(request, 'core/index.html', context)
+
+class HomePageView(View):
+    def get(self, request, pk, *args, **kwargs):
+        profile = UserProfile.get.objects.get(pk=pk)
+        context = {
+            'profile': profile,
+        }
+
+        return render(request, 'core/index.html', context)
+
+
+class ProfilePageView(View, LoginRequiredMixin):
+    def get(self, request, pk, *args, **kwargs):
+        profile = UserProfile.objects.get(pk=pk)
+        user = profile.user
+
+        context = {
+            'user': user,
+            'profile': profile,
+        }
+
+        return render(request, 'core/profile.html', context)
+    
+class ProfileEditView(View):
+
+    def get(self, request, pk, *args, **kwargs):
+        profile = UserProfile.objects.get(pk=pk)
+        user = profile.user
+
+        context = {
+            'user': user,
+            'profile': profile,
+        }
+        return render(request, 'core/profileEdit.html', context)
+
+    def post(self, request, pk, *args, **kwargs):
+        form = UpdateProfileForm(request.POST, request.FILES, initial={'user_id': pk})
+        if form.is_valid():
+            form.save()
+            return redirect('profile', pk=pk)
+        print(form.errors)
+        return redirect('profile-edit', pk=pk)
+    
+
+class CreatePackageView(View):
+    def get(self, request, *args, **kwargs):
+        form = CreatePackageModelForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'core/create_package.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = CreatePackageModelForm(request.POST)
+        if form.is_valid():
+            new_package = form.save(commit=False)
+            new_package.package_author = request.user
+            new_package.save()
+            print("Package created")
+
+        context = {
+            'form': form
+        }
+        return render(request, 'core/create_package.html', context)

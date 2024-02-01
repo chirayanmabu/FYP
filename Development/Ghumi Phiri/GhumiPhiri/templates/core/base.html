@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin&family=Merriweather&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head> 
+
+<body>
+  <nav class="navbar navbar-expand-md nav-background">
+    <div class="container-xxl">
+      <a href="{% url 'home' %}" class="navbar-brand">
+        <img src="/static/images/test/logo-white.png" alt="Logo" width="100%" height="30px"
+          class="d-inline-block align-text-top">
+      </a>
+      <!-- Toggle button for mobile nav -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav"
+        aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- navbar links -->
+      <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="{% url 'create-package' %}" class="nav-link nav-text">Create Packages</a>
+          </li>
+          <li class="nav-item">
+            <a href="#reviews" class="nav-link nav-text">Hotels</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'profile' request.user.profile.pk %}" class="nav-link nav-text">View Profile</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'logout' %}" class="nav-link nav-text">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  {% block content %}
+
+  {% endblock %}
+
+  <footer>
+    <div class="container my-3">
+      <div class="row">
+        <div class="col-3">
+          <img src="/static/images/test/logo-black.png" alt="logo" width="90px" height="30px">
+        </div>
+        <div class="col-3">
+          <ul class="footer-text">
+            <li class="mb-3">Company</li>
+            <li>Home</li>
+            <li>Packages</li>
+            <li>Hotels</li>
+            <li>Contact Us</li>
+            <li>About Us</li>
+          </ul>
+        </div>
+        <div class="col-3">
+          <ul class="footer-text">
+            <li class="mb-3">Account</li>
+            <li>View Profile</li>
+            <li>Manage your account</li>
+          </ul>
+        </div>
+        <div class="col-3">
+          <a href="" class="icon-color">
+            <i class="bi bi-facebook icon-color"></i>
+          </a>
+          
+          <i class="bi bi-instagram"></i>
+          <i class="bi bi-tiktok"></i>
+          <i class="bi bi-twitter-x"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
