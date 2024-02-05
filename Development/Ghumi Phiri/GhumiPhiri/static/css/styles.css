@@ -58,3 +58,28 @@ color: black;
     border: 1px solid #83C5BE;
     border-radius: 30px;
 }
+
+
+
+
+/* list package */
+.package-image{
+    /* overflow: hidden; */
+    width: 313px;
+    height: 200px;
+}
+
+.package-image img{
+    width: 100%;
+    height: 100%;
+}
+
+.package-detail-img{
+    width: 800px;
+    height: 500px;
+}
+
+.package-detail-img img{
+    width: 100%;
+    height: 100%;
+}

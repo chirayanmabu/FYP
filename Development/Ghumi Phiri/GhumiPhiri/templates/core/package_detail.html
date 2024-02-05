@@ -1,0 +1,102 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ package.package_title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div>
+                <h5>{{ package.package_title }}</h5>
+                <p>By: {{ package.package_author }}</p>
+                <p>{{ package.package_locations }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="package-detail-img">
+            <img src="{{ package.package_pic.url }}" alt="">
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-10">
+            <div class="row">
+                <div class="col">
+                    <h5>About</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{ package.package_desc }}
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            Features
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="contaner">
+            <div class="row">
+                <div class="col">
+                    <h5>Reviews</h5>
+                </div>
+                <div class="col">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#postReviewModal">
+                        Write a review
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="postReviewModal" tabindex="-1" aria-labelledby="postReviewModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form action="" method="POST">
+                                    {% csrf_token %}
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="postReviewModalLabel">Write a review</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        
+                                            <div class="mb-3 row">
+                                                <div class="mb-3">
+                                                    <label for="comment" class="form-label">Your review</label>
+                                                    <textarea class="form-control" id="comment" rows="3" name="comment"></textarea>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Post</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

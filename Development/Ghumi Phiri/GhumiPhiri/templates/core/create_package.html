@@ -12,7 +12,7 @@
                 <button class="btn edit-profile-btn" type="submit">Save Changes</button>
             </form> -->
             <div class="container-xxl profile-info-container p-3">
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="mb-3 row">
                         <label for="package_title" class="col-sm-2 col-form-label">Package title</label>
@@ -22,10 +22,52 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="email" class="col-sm-2 col-form-label">Package description</label>
+                        <label for="profilePicture" class="col-sm-2 col-form-label">Package picture</label>
+                        <div class="col-sm-10">
+                            <!-- <input type="file" class="form-control" id="profilePicture" name="profile_pic"> -->
+                            {{ form.package_pic }}
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Package description</label>
                         <div class="col-sm-10">
                             <!-- <input type="text" class="form-control" id="email" value="{{ user.email }}" name="email"> -->
                             {{ form.package_desc }}
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Package price</label>
+                        <div class="col-sm-10">
+                            <!-- <input type="text" class="form-control" id="email" value="{{ user.email }}" name="email"> -->
+                            {{ form.package_price }}
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Start date</label>
+                        <div class="col-sm-10">
+                            <!-- <input type="text" class="form-control" id="email" value="{{ user.email }}" name="email"> -->
+                            {{ form.package_start_date }}
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">End date</label>
+                        <div class="col-sm-10">
+                            <!-- <input type="text" class="form-control" id="email" value="{{ user.email }}" name="email"> -->
+                            {{ form.package_end_date }}
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Locations</label>
+                        <div class="col-sm-10">
+                            <!-- <input type="text" class="form-control" id="email" value="{{ user.email }}" name="email"> -->
+                            {{ form.package_locations }}
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Activities</label>
+                        <div class="col-sm-10">
+                            <!-- <input type="text" class="form-control" id="email" value="{{ user.email }}" name="email"> -->
+                            {{ form.package_activities }}
                         </div>
                     </div>
                     <div class="mb-3 row">

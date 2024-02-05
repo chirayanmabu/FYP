@@ -105,14 +105,59 @@ class CreatePackageView(View):
         return render(request, 'core/create_package.html', context)
 
     def post(self, request, *args, **kwargs):
-        form = CreatePackageModelForm(request.POST)
+        form = CreatePackageModelForm(request.POST, request.FILES)
         if form.is_valid():
             new_package = form.save(commit=False)
             new_package.package_author = request.user
             new_package.save()
             print("Package created")
+        else:
+            print(form.errors)
 
         context = {
             'form': form
         }
         return render(request, 'core/create_package.html', context)
+    
+
+class ListPackageView(View):
+    def get(self, request, *args, **kwargs):
+        package_list = Package.objects.all()
+        context = {
+            'package_list': package_list
+        }
+        return render(request, 'core/list_packages.html', context)
+    
+
+class PackageDetailView(View):
+    def get(self, request, pk, *args, **kwargs):
+        package = Package.objects.get(pk=pk)
+        context = {
+            'package': package
+        }
+
+        return render(request, 'core/package_detail.html', context)
+    
+    def post(self, request, pk, *args, **kwargs):
+        package = Package.objects.get(pk=pk)
+        form = CreateCommentForm(request.POST)
+
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.feedback_author = request.user
+            new_comment.package = package
+            new_comment.save()
+            print("Posted review")
+
+        else:
+            print(form.errors)
+
+        context = {
+            'package': package,
+            'form': form
+        }
+
+        return render(request, 'core/package_detail.html', context)
+
+    
+    
