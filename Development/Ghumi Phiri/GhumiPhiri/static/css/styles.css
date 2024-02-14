@@ -5,6 +5,10 @@
     box-sizing: border-box;
 }
 
+body{
+    font-family: "Libre Franklin";
+}
+
 /* Nav */
 .nav-background {
     background-color: #006D77;
@@ -64,7 +68,6 @@ color: black;
 
 /* list package */
 .package-image{
-    /* overflow: hidden; */
     width: 313px;
     height: 200px;
 }
@@ -82,4 +85,83 @@ color: black;
 .package-detail-img img{
     width: 100%;
     height: 100%;
+}
+
+.package-header{
+    font-family: "Merriweather";
+    font-size: 32px;
+}
+
+.package-author-font{
+    font-family: "Libre Franklin";
+    font-size: 14px;
+}
+
+.subheadings{
+    font-size: 22px;
+    font-weight: 450;
+}
+
+.rating {
+    width: 125px;
+    font-size: 30px;
+    overflow:hidden;
+}
+.comment-rating{
+    width: 92px;
+    font-size: 22px;
+    overflow:hidden;
+}
+
+.rating input, .comment-rating input {
+    float: right;
+    opacity: 0;
+    position: absolute;
+}
+.rating a, .comment-rating a,
+.rating label, .comment-rating label {
+    float:right;
+    color: #aaa;
+    text-decoration: none;
+    -webkit-transition: color .4s;
+    -moz-transition: color .4s;
+    -o-transition: color .4s;
+    transition: color .4s;
+}
+.rating label:hover ~ label, .comment-rating label:hover ~ label,
+.rating input:focus ~ label, .comment-rating input:focus ~ label,
+.rating label:hover, .comment-rating label:hover,
+.rating a:hover, .comment-rating a:hover,
+.rating a:hover ~ a, .comment-rating a:hover ~ a,
+.rating a:focus, .comment-rating a:focus,
+.rating a:focus ~ a, .comment-rating a:focus ~ a{
+    color: orange;
+    cursor: pointer;
+}
+
+
+/* Reviews page */
+.feedback-content{
+    background-color: #EDF6F9;
+    border-radius: 30px;
+    padding: 16px;
+}
+
+.comment-profile-picture{
+    /* display: inline-block; */
+    position: relative;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.comment-profile-picture img{
+    width: 100%;
+    height: 100%;
+}
+
+.comment-author-info{
+    font-size: 16px;
+    font-family: "Libre Franklin";
 }

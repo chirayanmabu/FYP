@@ -132,8 +132,11 @@ class ListPackageView(View):
 class PackageDetailView(View):
     def get(self, request, pk, *args, **kwargs):
         package = Package.objects.get(pk=pk)
+        feedbacks = Feedback.objects.filter(package=package).order_by('-created_on')
+        
         context = {
-            'package': package
+            'package': package,
+            'feedbacks': feedbacks
         }
 
         return render(request, 'core/package_detail.html', context)

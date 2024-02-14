@@ -38,5 +38,9 @@ class Feedback(models.Model):
 
     def __str__(self):
         return self.comment
-    
+
+
+# class Booking(models.Model):
+#     booked_by = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
