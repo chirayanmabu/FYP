@@ -143,21 +143,33 @@ class PackageDetailView(View):
     
     def post(self, request, pk, *args, **kwargs):
         package = Package.objects.get(pk=pk)
-        form = CreateCommentForm(request.POST)
+        comment_form = CreateCommentForm(request.POST)
+        booking_form = BookingForm(request.POST)
 
-        if form.is_valid():
-            new_comment = form.save(commit=False)
-            new_comment.feedback_author = request.user
-            new_comment.package = package
-            new_comment.save()
-            print("Posted review")
+        if 'post_comment' in request.POST:
+            if comment_form.is_valid():
+                new_comment = comment_form.save(commit=False)
+                new_comment.feedback_author = request.user
+                new_comment.package = package
+                new_comment.save()
+                print("Posted review")
 
-        else:
-            print(form.errors)
+            else:
+                print(comment_form.errors())
+        elif 'book_package' in request.POST:
+            if booking_form.is_valid():
+                new_booking = booking_form.save(commit=False)
+                new_booking.booked_by = request.user
+                new_booking.package = package
+                booking_form.save()
+                print("Booking successful")
+            else:
+                print(booking_form.errors())
 
         context = {
             'package': package,
-            'form': form
+            'form': comment_form,
+            'booking_form': booking_form,
         }
 
         return render(request, 'core/package_detail.html', context)

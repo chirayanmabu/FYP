@@ -188,7 +188,7 @@ class CreatePackageModelForm(ModelForm):
 
     package_price = forms.FloatField(
         label='Package Price',
-        widget=forms.NumberInput(attrs={'placeholder': 'Package price', 'class': 'form-control', 'step': '1'})
+        widget=forms.NumberInput(attrs={'placeholder': 'Package price', 'class': 'form-control'})
     )
 
     package_start_date = forms.DateField(
@@ -235,6 +235,16 @@ class CreateCommentForm(ModelForm):
         model = Feedback
         fields = ["comment"]
 
+
+class BookingForm(ModelForm):
+    booking_date = forms.DateField(
+        label='End date',
+        widget=forms.TextInput(attrs={'type': 'date'})
+    )
+
+    class Meta:
+        model = Booking
+        fields = ["booking_date"]
 
 
         

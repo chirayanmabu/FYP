@@ -102,6 +102,19 @@ color: black;
     font-weight: 450;
 }
 
+.book-package-btn{
+    border-radius: 30px;
+    background-color: #E29578;
+    color: white;
+    width: 100%;
+    height: 45px;
+}
+
+.book-package-btn:hover{
+    background-color: #D86D46;
+    color: white;
+}
+
 .rating {
     width: 125px;
     font-size: 30px;
@@ -165,3 +178,28 @@ color: black;
     font-size: 16px;
     font-family: "Libre Franklin";
 }
+
+
+.confirm-booking-btn{
+    border-radius: 30px;
+    background-color: #E29578;
+    color: white;
+    height: 45px;
+}
+
+
+.confirm-booking-btn:hover{
+    background-color: #D86D46;
+    color: white;
+}
+
+.close-btn{
+    border-radius: 30px;
+    height: 45px;
+}
+
+/* 
+.close-btn:hover{
+    background-color: #D86D46;
+    color: white;
+} */

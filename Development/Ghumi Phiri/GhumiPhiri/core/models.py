@@ -40,7 +40,8 @@ class Feedback(models.Model):
         return self.comment
 
 
-# class Booking(models.Model):
-#     booked_by = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
+class Booking(models.Model):
+    booked_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    package = models.ForeignKey(Package, on_delete=models.CASCADE)
+    booking_date = models.DateField(null=True, blank=True)
+    

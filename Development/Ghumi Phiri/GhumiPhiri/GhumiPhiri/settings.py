@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'core.apps.CoreConfig',
+    'Payment',
 
     'crispy_forms',
     'crispy_bootstrap5',
+
 
 ]
 
@@ -148,3 +150,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51OgOakIwUEEjjEJr1rDdg9QWOTaZlJb78eKL1QGL6LCAfhBdxC9KYeDzUYWia29q4BBDKTwPoBIBMxuCyWwaea0e00wmQ928Rk'
+STRIPE_SECRET_KEY = 'sk_test_51OgOakIwUEEjjEJrXIm1ykrb1h3tMgYZPPOOqNvFex1B8ksGKfrserXYbPYpMppIYohtcb7ACzsGLt9xD4JZkA5l00qFIx4Ed1'
