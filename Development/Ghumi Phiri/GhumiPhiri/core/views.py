@@ -132,10 +132,12 @@ class ListPackageView(View):
 class PackageDetailView(View):
     def get(self, request, pk, *args, **kwargs):
         package = Package.objects.get(pk=pk)
+        package_images = PackageImage.objects.filter(package=package)
         feedbacks = Feedback.objects.filter(package=package).order_by('-created_on')
         
         context = {
             'package': package,
+            'package_images': package_images,
             'feedbacks': feedbacks
         }
 
@@ -143,6 +145,7 @@ class PackageDetailView(View):
     
     def post(self, request, pk, *args, **kwargs):
         package = Package.objects.get(pk=pk)
+        # bookings = Booking.objects.filter(package=package.package_title)
         comment_form = CreateCommentForm(request.POST)
         booking_form = BookingForm(request.POST)
 

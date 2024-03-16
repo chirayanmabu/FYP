@@ -1,6 +1,4 @@
-// console.log("Hello");
 id = document.getElementById("bookPackage").name
-// console.log("Hello2")
 fetch("/config/")
 .then((result) => {return result.json();})
 .then((data) => {

@@ -29,6 +29,10 @@ class Package(models.Model):
     package_pic = models.ImageField(upload_to='package_pictures/', null=True, blank=True)
 
 
+class PackageImage(models.Model):
+    package = models.ForeignKey(Package, on_delete=models.CASCADE)
+    images = models.ImageField(upload_to='package_pictures/', null=True, blank=True)
+
 
 class Feedback(models.Model):
     created_on = models.DateTimeField(default=timezone.now)

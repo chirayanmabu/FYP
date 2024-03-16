@@ -203,3 +203,72 @@ color: black;
     background-color: #D86D46;
     color: white;
 } */
+
+
+
+.img-container{
+    width: 100%;
+}
+
+.wrapper{
+    display: flex;
+    width: 90%;
+    height: 100vh;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.all-images{
+    height: 80vh;
+    display: flex;
+}
+
+.small-images{
+    display: flex;
+    flex-direction: column;
+}
+
+.small-images img{
+    height: 19vh;
+    margin-bottom: 9px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.small-images img:hover{
+    opacity: 1;
+}
+
+.main-images img{
+    height: 100%;
+    margin-left: 9px;
+}
+
+@media only screen and (max-width:1200px){
+    .wrapper{
+        flex-direction: column;
+        height: auto;
+        padding: 5% 0;
+    }
+}
+
+@media only screen and (max-width:600px){
+    .all-images{
+        flex-direction: column;
+        height: auto;
+    }
+    .small-images{
+        flex-direction: row;
+        justify-content: space-evenly;
+        order: 1;
+    }
+    .product-box{
+        width: 100%;
+    }
+    .main-images img{
+        width: 100%;
+    }
+    .small-images img{
+        width: 25%;
+    }
+}

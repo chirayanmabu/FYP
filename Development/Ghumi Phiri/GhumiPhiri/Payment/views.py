@@ -3,10 +3,11 @@ from django.conf import settings
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views import View
-from django.views.generic.base import TemplateView
-import stripe
-from core.models import Package
+from django.http import HttpResponse
 
+import stripe, json
+
+from core.models import Package, Booking
 
 
 # Create your views here.
@@ -45,17 +46,46 @@ def create_checkout_session(request,pk):
                 ]
             )
 
+            # Booking.objects.create(booked_by=request.user, package=package, booking_date=)
+
             return JsonResponse({
                 'sessionId': checkout_session['id']
             })
         except Exception as e:
             return JsonResponse({"error": str(e)})
         
+@csrf_exempt
+def stripe_webhook(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    endpoint_secret = settings.STRIPE_ENDPOINT_SECRET
+    payload = request.body
+    # stripe_signature = request.META.get("HTTP_STRIPE_SIGNATURE")
+    sig_header = request.headers.get("stripe_signature")
+    event = None
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    except ValueError as e:
+        return HttpResponse(status=400)
+    
+    except stripe.error.SignatureVerificationError as e:
+        print("error")
+        return HttpResponse(status=400)
+    
+    if event.get("type") == 'checkout.session.completed':
+        print("Payment success")
+
+    return HttpResponse(status=200)
+
+
+
 
 class PaymentSuccessView(View):
     def get(self, request, *args, **kwargs):
-        ''' WRITE LOGIC FOR PAYEMENT SUCCESS'''
-        
+        ''' WRITE LOGIC FOR PAYEMENT SUCCESS '''
+
 
         return render(request, 'core/payment_success.html')
 
@@ -64,3 +94,6 @@ class PaymentCancelledView(View):
         def get(self, request, *args, **kwargs):
             ''' '''
             return render(request, 'core/payment_cancellation.html')
+        
+
+

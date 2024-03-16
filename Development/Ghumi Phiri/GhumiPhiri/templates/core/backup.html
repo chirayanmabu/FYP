@@ -18,7 +18,7 @@
                         <div class="modal fade" id="bookPackageModal" tabindex="-1"
                             aria-labelledby="bookPackageModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
-                                <form action="" method="POST" name="book_package">
+                                <form action="" method="POST">
                                     {% csrf_token %}
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -60,21 +60,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="img-container">
-            <div class="wrapper">
-                <div class="product-box">
-                    <div class="all-images">                    
-                        <div class="small-images">
-                            {% for package_image in package_images %}
-                                <img src="{{ package_image.images.url }}" alt="" onclick="clickimg(this)">
-                            {% endfor %}
-                        </div>
-                        <div class="main-images">
-                            <img src="{{ package.package_pic.url }}" alt="" id="imagebox">
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="package-detail-img">
+            <img src="{{ package.package_pic.url }}" alt="">
         </div>
     </div>
     <div class="row my-3">
@@ -107,7 +94,7 @@
                                 aria-labelledby="postReviewModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <form action="" method="POST" name="post_comment">
+                                        <form action="" method="POST">
                                             {% csrf_token %}
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="postReviewModalLabel">Write a review</h1>
@@ -174,12 +161,5 @@
     </div>
 
 </div>
-
-<script>
-    function clickimg(smallImg){
-    var fullImg = document.getElementById("imagebox")
-    fullImg.src = smallImg.src
-}
-</script>
 
 {% endblock %}
