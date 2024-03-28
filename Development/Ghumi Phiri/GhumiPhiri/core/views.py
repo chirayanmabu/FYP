@@ -47,17 +47,13 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
-def homePage(request):
-    context = {
-
-    }
-    return render(request, 'core/index.html', context)
 
 class HomePageView(View):
-    def get(self, request, pk, *args, **kwargs):
-        profile = UserProfile.get.objects.get(pk=pk)
+    def get(self, request, *args, **kwargs):
+        packages = Package.objects.all()
+
         context = {
-            'profile': profile,
+            'packages': packages
         }
 
         return render(request, 'core/index.html', context)
@@ -68,9 +64,12 @@ class ProfilePageView(View, LoginRequiredMixin):
         profile = UserProfile.objects.get(pk=pk)
         user = profile.user
 
+        gender = UserProfile.GENDER_CHOICES
+
         context = {
             'user': user,
             'profile': profile,
+            'gender_choices': gender,
         }
 
         return render(request, 'core/profile.html', context)
