@@ -7,7 +7,7 @@ from django.http import HttpResponse
 
 import stripe, json
 
-from core.models import Package, Booking
+from Packages.models import Package, Booking
 
 
 # Create your views here.
