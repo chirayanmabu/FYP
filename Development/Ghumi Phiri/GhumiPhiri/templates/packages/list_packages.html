@@ -12,11 +12,14 @@
     </div>
     <div class="row">
         <div class="col-3">
-            filter
+            <form action="" method="GET">
+                {{ package_filter.form.package_price }}
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
         </div>
         <div class="col">
             <div class="container">
-                {% for package in package_list %}
+                {% for package in package_filter.qs %}
                 <div class="row mb-3">
                     <div class="col">
                         <div class="card">

@@ -17,8 +17,9 @@ def registerPage(request):
     if request.method == "POST":
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            username = form.cleaned_data.get('username')
+            new_user = form.save(commit=False)
+            new_user.role=1
+            new_user.save()
 
             print("success")
             return redirect('login')
@@ -48,20 +49,14 @@ def logoutUser(request):
     return redirect('login')
 
 
-
-
-
 class ProfilePageView(View, LoginRequiredMixin):
     def get(self, request, pk, *args, **kwargs):
         profile = UserProfile.objects.get(pk=pk)
         user = profile.user
 
-        gender = UserProfile.GENDER_CHOICES
-
         context = {
             'user': user,
             'profile': profile,
-            'gender_choices': gender,
         }
 
         return render(request, 'core/profile.html', context)

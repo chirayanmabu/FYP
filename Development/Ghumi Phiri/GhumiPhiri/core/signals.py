@@ -1,13 +1,13 @@
 from django.db.models.signals import post_save
-from django.contrib.auth.models import User
-from .models import UserProfile
+# from django.contrib.auth.models import User
+from .models import User, UserProfile
 from django.contrib.auth.models import Group
 
 def user_profile(sender, instance, created, **kwargs):
     if created: 
         print(instance)
-        group = Group.objects.get(name="normal_user")
-        instance.groups.add(group)
+        # group = Group.objects.get(name="normal_user")
+        # instance.groups.add(group)
 
         UserProfile.objects.create(
             user=instance,

@@ -62,12 +62,12 @@ class CreateCommentForm(ModelForm):
     comment = forms.CharField(
         label='Comment',
         required=False,
-        widget=forms.TextInput(attrs={'placeholder': 'Comment', 'class': 'form-control'})
+        widget=forms.Textarea(attrs={'placeholder': 'Comment', 'class': 'form-control', 'rows': '3'})
     )
 
     class Meta:
         model = Feedback
-        fields = ["comment"]
+        fields = ["comment", "rating"]
 
 
 class BookingForm(ModelForm):

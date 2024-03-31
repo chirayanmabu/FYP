@@ -97,7 +97,7 @@
                         </div>
                         <div class="col">
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary edit-profile-btn" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-primary edit-profile-btn hide-feedback-btn" data-bs-toggle="modal"
                                 data-bs-target="#postReviewModal">
                                 Write a review
                             </button>
@@ -107,7 +107,7 @@
                                 aria-labelledby="postReviewModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <form action="" method="POST" name="post_comment">
+                                        <form action="{% url 'add_feedback' pk=package.id %}" method="POST" name="post_comment" id="post_comment">
                                             {% csrf_token %}
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="postReviewModalLabel">Write a review</h1>
@@ -118,8 +118,9 @@
                                                 <div class="mb-3 row">
                                                     <div class="mb-3">
                                                         <label for="comment" class="form-label">Your review</label>
-                                                        <textarea class="form-control" id="comment" rows="3"
-                                                            name="comment"></textarea>
+                                                        {{comment_form}}
+                                                        <!-- <textarea class="form-control" id="comment" rows="3"
+                                                            name="comment"></textarea> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -135,35 +136,42 @@
                         </div>
                     </div>
                     <div class="container">
-                        {% for feedback in feedbacks %}
-                        <div class="row mb-3 feedback-content">
-                            <div class="container px-0">
-                                <div class="row row g-0 mb-1">
-                                    <div class="col-md-2 comment-profile-picture">
-                                        <img src="{{ feedback.feedback_author.profile.profile_pic.url }}" alt="">
-                                    </div>
-                                    <div class="col ms-3">
-                                        <div class="comment-author-info">
-                                            <span>{{ feedback.feedback_author }}</span>
-                                            <span class="ms-3" style="font-weight: 200;">{{ feedback.created_on }}</span>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <strong class="text-success" id="feedback-resp"></strong>
+                            </div>
+                        </div>
+                        <div class="feedback-list">
+                            {% for feedback in feedbacks %}
+                            <div class="row mb-3 feedback-content">
+                                <div class="container px-0">
+                                    <div class="row row g-0 mb-1">
+                                        <div class="col-md-2 comment-profile-picture">
+                                            <img src="{{ feedback.feedback_author.profile.profile_pic.url }}" alt="">
                                         </div>
-                                        <div class="comment-rating">
-                                            <a href="#5" title="Give 5 stars">★</a>
-                                            <a href="#4" title="Give 4 stars">★</a>
-                                            <a href="#3" title="Give 3 stars">★</a>
-                                            <a href="#2" title="Give 2 stars">★</a>
-                                            <a href="#1" title="Give 1 star">★</a>
+                                        <div class="col ms-3">
+                                            <div class="comment-author-info">
+                                                <span>{{ feedback.feedback_author }}</span>
+                                                <span class="ms-3" style="font-weight: 200;">{{ feedback.created_on }}</span>
+                                            </div>
+                                            <div class="comment-rating">
+                                                <a href="#5" title="Give 5 stars">★</a>
+                                                <a href="#4" title="Give 4 stars">★</a>
+                                                <a href="#3" title="Give 3 stars">★</a>
+                                                <a href="#2" title="Give 2 stars">★</a>
+                                                <a href="#1" title="Give 1 star">★</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <span>{{ feedback.comment }}</span>
+                                    <div class="row">
+                                        <div class="col">
+                                            <span>{{ feedback.comment }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
             </div>

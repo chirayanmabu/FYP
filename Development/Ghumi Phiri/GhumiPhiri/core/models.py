@@ -1,6 +1,18 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+
+class User(AbstractUser):
+    BUYER = 1
+    TOUR_AGENCY = 2
+    HOTEL =3
+    
+    ROLE_CHOICES = (
+        (BUYER, 'Buyer'),
+        (TOUR_AGENCY, 'Tour_Agency'),
+        (HOTEL, 'Hotel'),
+    )
+    role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, blank=True, null=True)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, primary_key=True, verbose_name='user', related_name='profile', on_delete=models.CASCADE)

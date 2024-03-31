@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from Packages.forms import *
 from Packages.models import *
+from Packages.filters import PackageFilter
 
 class HomePageView(View):
     def get(self, request, *args, **kwargs):
@@ -47,8 +48,11 @@ class CreatePackageView(View):
 class ListPackageView(View):
     def get(self, request, *args, **kwargs):
         package_list = Package.objects.all()
+        package_filter = PackageFilter(request.GET)
+
         context = {
-            'package_list': package_list
+            'package_list': package_list,
+            'package_filter': package_filter
         }
         return render(request, 'Packages/list_packages.html', context)
     
@@ -58,11 +62,20 @@ class PackageDetailView(View):
         package = Package.objects.get(pk=pk)
         package_images = PackageImage.objects.filter(package=package)
         feedbacks = Feedback.objects.filter(package=package).order_by('-created_on')
+        comment_form = CreateCommentForm()
+
+        # add_feedback = True
+        # if request.user.is_authenticated:
+        #     user_feedback_count = Feedback.objects.filter(feedback_author = request.user, package = package).count()
+        #     if user_feedback_count > 0:
+        #         add_feedback = False
         
         context = {
             'package': package,
             'package_images': package_images,
-            'feedbacks': feedbacks
+            'feedbacks': feedbacks,
+            'comment_form': comment_form,
+            # 'add_feedback': add_feedback
         }
 
         return render(request, 'Packages/package_detail.html', context)
@@ -83,6 +96,7 @@ class PackageDetailView(View):
 
             else:
                 print(comment_form.errors())
+
         elif 'book_package' in request.POST:
             if booking_form.is_valid():
                 new_booking = booking_form.save(commit=False)
@@ -100,3 +114,40 @@ class PackageDetailView(View):
         }
 
         return render(request, 'Packages/package_detail.html', context)
+    
+
+class WriteReview(View):
+    def post(self, request, pk, *args, **kwargs):
+        package = Package.objects.get(pk=pk)
+        user = request.user
+
+        feedback = Feedback.objects.create(
+            feedback_author=user,
+            package = package,
+            comment = request.POST.get('comment'),
+            rating = request.POST.get('raitng')
+        )
+
+        context = {
+            'user': user.username,
+            'comment': request.POST.get('comment'),
+            'rating': request.POST.get('raitng'),
+            'date': request.POST.get('created_on')
+        }
+
+        return JsonResponse(
+            {
+                'bool': True,
+                'context': context
+            }
+        )
+
+class ListSellerPackages(View):
+    def get(self, request, pk, *args, **kwargs):
+        profile = User.objects.get(pk=pk)
+        packages = Package.objects.filter(package_author=profile)
+
+        context = {
+            'packages': packages
+        }
+        return render(request, 'Packages/seller_packages.html', context)

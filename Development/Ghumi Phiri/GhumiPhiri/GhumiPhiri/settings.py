@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'crispy_bootstrap5',
+    'django_filters',
 
 
 ]
@@ -96,7 +97,7 @@ WSGI_APPLICATION = 'GhumiPhiri.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'GhumiPhiri',
+        'NAME': 'GhumiPhiriDB',
         'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOST': 'localhost',
@@ -137,6 +138,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
+
+AUTH_USER_MODEL = "core.User"
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
