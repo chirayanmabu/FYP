@@ -1,5 +1,6 @@
 {% extends 'core/base.html' %}
 {% load static %}
+{% load ratings %}
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -47,13 +48,28 @@
                 </div>
                 <div class="package-author-font">
                     <span>By: {{ package.package_author }}</span>
-                    <div class="rating">
+                    <!-- <div class="rating">
                         <a href="#5" title="Give 5 stars">★</a>
                         <a href="#4" title="Give 4 stars">★</a>
                         <a href="#3" title="Give 3 stars">★</a>
                         <a href="#2" title="Give 2 stars">★</a>
                         <a href="#1" title="Give 1 star">★</a>
-                    </div>
+                    </div> -->
+                    
+                    <!-- <fieldset class="starability-basic">
+                        <legend>First rating:</legend>
+                        <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="rating" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="rating" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="rating" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="rating" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="rating" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                      </fieldset> -->
                     <span>Location: {{ package.package_locations }}</span>
                 </div>
             </div>
@@ -118,9 +134,10 @@
                                                 <div class="mb-3 row">
                                                     <div class="mb-3">
                                                         <label for="comment" class="form-label">Your review</label>
-                                                        {{comment_form}}
-                                                        <!-- <textarea class="form-control" id="comment" rows="3"
-                                                            name="comment"></textarea> -->
+                                                        <!-- {{comment_form}} -->
+                                                        {% ratings package %}
+                                                        <textarea class="form-control" id="comment" rows="3"
+                                                            name="comment"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -178,6 +195,7 @@
         </div>
         <div class="col-2">
             <span class="subheadings">Features</span>
+            
         </div>
     </div>
 

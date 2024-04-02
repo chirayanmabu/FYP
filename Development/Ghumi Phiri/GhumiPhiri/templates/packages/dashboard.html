@@ -45,6 +45,9 @@
                             <a href="{% url 'profile' request.user.pk %}" class="nav-link nav-text">View Profile</a>
                         </li>
                         <li class="nav-item">
+                            <a href="{% url 'my_packages' request.user.pk %}" class="nav-link nav-text">Manage</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{% url 'logout' %}" class="nav-link nav-text">Logout</a>
                         </li>
                     </ul>

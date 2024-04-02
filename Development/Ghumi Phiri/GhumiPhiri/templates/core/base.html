@@ -1,4 +1,5 @@
 {% load static %}
+{% load ratings %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +13,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/stars.css' %}">
+  <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+  <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
   <script src="https://js.stripe.com/v3/"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head> 
@@ -40,6 +44,9 @@
           </li>
           <li class="nav-item">
             <a href="{% url 'profile' request.user.pk %}" class="nav-link nav-text">View Profile</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'my_packages' request.user.pk %}" class="nav-link nav-text">Manage</a>
           </li>
           <li class="nav-item">
             <a href="{% url 'logout' %}" class="nav-link nav-text">Logout</a>

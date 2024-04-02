@@ -26,11 +26,18 @@ class PackageImage(models.Model):
 
 
 class Feedback(models.Model):
+    RATING_RANGE = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5')
+    )
     created_on = models.DateTimeField(default=timezone.now)
     package = models.ForeignKey(Package, on_delete=models.CASCADE)
     feedback_author = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=200, null=True, blank=True)
-    rating = models.FloatField(default=None, blank=True, null=True)
+    rating = models.IntegerField(choices = RATING_RANGE, blank=True, null=True)
 
     def __str__(self):
         return self.comment
