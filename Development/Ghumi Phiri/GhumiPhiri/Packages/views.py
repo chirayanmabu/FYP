@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic.edit import UpdateView, DeleteView
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from datetime import datetime
 
 from Packages.forms import *
 from Packages.models import *
@@ -63,6 +65,7 @@ class PackageDetailView(View):
         package_images = PackageImage.objects.filter(package=package)
         feedbacks = Feedback.objects.filter(package=package).order_by('-created_on')
         comment_form = CreateCommentForm()
+        booking_form = BookingForm(request.POST)
 
         # add_feedback = True
         # if request.user.is_authenticated:
@@ -75,6 +78,7 @@ class PackageDetailView(View):
             'package_images': package_images,
             'feedbacks': feedbacks,
             'comment_form': comment_form,
+            'booking_form': booking_form,
             # 'add_feedback': add_feedback
         }
 
@@ -82,9 +86,18 @@ class PackageDetailView(View):
     
     def post(self, request, pk, *args, **kwargs):
         package = Package.objects.get(pk=pk)
-        # bookings = Booking.objects.filter(package=package.package_title)
+        bookings = Booking.objects.filter(package=package)
+
+        existing_booking_dates=list(Booking.objects.filter(package=package).values_list('booking_date', flat=True))
+
         comment_form = CreateCommentForm(request.POST)
         booking_form = BookingForm(request.POST)
+
+        context = {
+            'package': package,
+            'form': comment_form,
+            'booking_form': booking_form,
+        }
 
         if 'post_comment' in request.POST:
             if comment_form.is_valid():
@@ -98,20 +111,22 @@ class PackageDetailView(View):
                 print(comment_form.errors())
 
         elif 'book_package' in request.POST:
+            user_booking_date_str = request.POST.get('booking_date')
+            user_booking_date = datetime.strptime(user_booking_date_str, "%Y-%m-%d").date()
+            if user_booking_date in existing_booking_dates:
+                print('cannot book')
+                return redirect(reverse('package_detail', kwargs={'pk': pk}) + '?bookingError=true')
             if booking_form.is_valid():
                 new_booking = booking_form.save(commit=False)
                 new_booking.booked_by = request.user
                 new_booking.package = package
                 booking_form.save()
+                context['booking_date_available'] = True
                 print("Booking successful")
             else:
                 print(booking_form.errors())
 
-        context = {
-            'package': package,
-            'form': comment_form,
-            'booking_form': booking_form,
-        }
+        
 
         return render(request, 'Packages/package_detail.html', context)
     

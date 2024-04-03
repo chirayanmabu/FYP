@@ -4,18 +4,31 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div class="toast" id="bookingToast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <strong class="me-auto">Booking Error</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          Sorry, the selected date is not available for booking.
+        </div>
+      </div>
+</div>
 <div class="container">
     <div class="row my-3">
         <div class="col">
             <div>
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-6">
                         <p class="package-header">{{ package.package_title }}</p>
-                        <button type="submit" id="bookPackage" class="btn btn-primary" name={{package.id}}>Test</button>
                     </div>
-                    <div class="col-2">
-                        <button class="btn book-package-btn" data-bs-toggle="modal"
+                    <div class="col-6 d-flex justify-content-end align-items-center">
+                        <button class="book-package-btn" data-bs-toggle="modal"
                             data-bs-target="#bookPackageModal">Book</button>
+                        {% if booking_date_available %}
+                        <button type="submit" id="bookPackage" class="checkout-btn ms-2" name={{package.id}}>Checkout</button>
+                        {% endif %}
                         <div class="modal fade" id="bookPackageModal" tabindex="-1"
                             aria-labelledby="bookPackageModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -31,7 +44,8 @@
                                             <div class="mb-3 row">
                                                 <div class="mb-3">
                                                     <label for="start-date" class="form-label">Booking date</label>
-                                                    <input type="date" name="booking_date" id="booking_date" class="form-control">
+                                                    <!-- <input type="date" name="booking_date" id="booking_date" class="form-control"> -->
+                                                    {{ booking_form.booking_date }}
                                                 </div>
                                             </div>
                                         </div>
@@ -48,28 +62,6 @@
                 </div>
                 <div class="package-author-font">
                     <span>By: {{ package.package_author }}</span>
-                    <!-- <div class="rating">
-                        <a href="#5" title="Give 5 stars">★</a>
-                        <a href="#4" title="Give 4 stars">★</a>
-                        <a href="#3" title="Give 3 stars">★</a>
-                        <a href="#2" title="Give 2 stars">★</a>
-                        <a href="#1" title="Give 1 star">★</a>
-                    </div> -->
-                    
-                    <!-- <fieldset class="starability-basic">
-                        <legend>First rating:</legend>
-                        <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
-                        <input type="radio" id="first-rate1" name="rating" value="1" />
-                        <label for="first-rate1" title="Terrible">1 star</label>
-                        <input type="radio" id="first-rate2" name="rating" value="2" />
-                        <label for="first-rate2" title="Not good">2 stars</label>
-                        <input type="radio" id="first-rate3" name="rating" value="3" />
-                        <label for="first-rate3" title="Average">3 stars</label>
-                        <input type="radio" id="first-rate4" name="rating" value="4" />
-                        <label for="first-rate4" title="Very good">4 stars</label>
-                        <input type="radio" id="first-rate5" name="rating" value="5" />
-                        <label for="first-rate5" title="Amazing">5 stars</label>
-                      </fieldset> -->
                     <span>Location: {{ package.package_locations }}</span>
                 </div>
             </div>
@@ -206,6 +198,15 @@
     var fullImg = document.getElementById("imagebox")
     fullImg.src = smallImg.src
 }
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const bookingError = urlParams.get('bookingError');
+  if (bookingError === 'true') {
+    const bookingToast = new bootstrap.Toast(document.getElementById('bookingToast'));
+    bookingToast.show();
+  }
+});
 </script>
 
 {% endblock %}

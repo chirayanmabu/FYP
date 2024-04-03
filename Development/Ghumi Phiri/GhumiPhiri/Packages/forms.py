@@ -73,7 +73,8 @@ class CreateCommentForm(ModelForm):
 class BookingForm(ModelForm):
     booking_date = forms.DateField(
         label='End date',
-        widget=forms.TextInput(attrs={'type': 'date'})
+        widget=forms.TextInput(attrs={'type': 'date', 'class': 'form-control'}),
+        required=True
     )
 
     class Meta:

@@ -1,3 +1,4 @@
+from datetime import timezone
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.http.response import JsonResponse
@@ -75,6 +76,22 @@ def stripe_webhook(request):
         return HttpResponse(status=400)
     
     if event.get("type") == 'checkout.session.completed':
+        session = event['data']['object']
+        
+        package_id = session['metadata']['product_id']
+        package = Package.objects.get(pk=package_id)
+        
+        payment_intent_id = session['payment_intent']
+        payment_status = session['payment_status']
+        payment_amount = session['amount_total']
+        currency = session['currency']
+        
+        
+        booking = Booking.objects.create(
+            booked_by=request.user,
+            package=package,
+            booking_date=timezone.now() 
+        )
         print("Payment success")
 
     return HttpResponse(status=200)
