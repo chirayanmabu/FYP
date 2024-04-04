@@ -9,4 +9,5 @@ urlpatterns = [
     path('add-feedback/<int:pk>', views.WriteReview.as_view(), name="add_feedback"),
 
     path('my-packages/<int:pk>', views.ListSellerPackages.as_view(), name="my_packages"),
+    path('payment-details/', views.ListPaymentDetails.as_view(), name="payment_details"),
 ]

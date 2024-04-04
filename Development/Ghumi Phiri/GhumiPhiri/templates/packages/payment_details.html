@@ -1,0 +1,40 @@
+{% extends 'packages/dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12">
+            <div class="card p-0">
+                <div class="card-body d-flex">
+                    <h4 class="mb-0">My packages</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-container mt-3">
+                <table class="table">
+                    <thead>
+                        {% for header in headers %}
+                            <th scope="col">{{ header }}</th>
+                        {% endfor %}
+                    </thead>
+                    <tbody>
+                        {% for data in booking_list %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ data.package__package__package_title }}</td>
+                            <td>{{ data.package__booked_by__username }}</td>
+                            <td>{{ data.package__booking_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

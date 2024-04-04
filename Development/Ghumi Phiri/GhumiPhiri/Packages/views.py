@@ -166,3 +166,23 @@ class ListSellerPackages(View):
             'packages': packages
         }
         return render(request, 'Packages/seller_packages.html', context)
+    
+class ListPaymentDetails(View):
+    def get(self, request, *args, **kwargs):
+        user = request.user
+
+        headers = [
+            'S no.',
+            'Package Title',
+            'Booked By',
+            'Booked date',
+        ]
+
+        booking_list = Package.objects.prefetch_related('package').filter(package_author=user).values('package__package__package_title', 'package__booked_by__username', 'package__booking_date')
+
+        context = {
+            'headers': headers,
+            'booking_list': booking_list
+        }
+
+        return render(request, 'packages/payment_details.html', context)

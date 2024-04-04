@@ -515,3 +515,38 @@ article {
     color: white;
     transition: 0.2s;
   }
+
+
+
+/* seller payment pages */
+.table-container {
+  border-radius: 12px;
+  background: var(--Gray-White, #fff);
+  padding: 20px 20px 20px 20px;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.06);
+}
+
+.table th {
+  color: rgba(0, 109, 119) !important;
+  background-color: rgba(0, 109, 119, 0.1) !important;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+}
+tr:first-child th:first-child {
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+}
+tr:first-child th:last-child {
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+
+td:first-child {
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+}
+td:last-child {
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
