@@ -56,6 +56,12 @@ function openCompareModal() {
     // Show the modal
     var compareModal = new bootstrap.Modal(document.getElementById('compareModal'));
     compareModal.show();
+
+    document.getElementById('compareModal').addEventListener('hidden.bs.modal', function () {
+        // Reset packageId1 and packageId2 to empty strings
+        packageId1 = "";
+        packageId2 = "";
+    });
 }
 
 function updateModalContent() {
