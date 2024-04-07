@@ -27,6 +27,7 @@
                             <th scope="row">{{ forloop.counter }}</th>
                             <td>{{ data.package__package__package_title }}</td>
                             <td>{{ data.package__booked_by__username }}</td>
+                            <td>Rs. {{ data.package__paid_amount }}</td>
                             <td>{{ data.package__booking_date }}</td>
                         </tr>
                         {% endfor %}

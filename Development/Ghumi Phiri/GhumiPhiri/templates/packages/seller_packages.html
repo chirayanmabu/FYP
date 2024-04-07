@@ -6,8 +6,69 @@
     <div class="row">
         <div class="col-12">
             <div class="card p-0">
-                <div class="card-body d-flex">
+                <div class="card-body d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">My packages</h4>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="checkout-btn" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
+                        Add package
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="row g-3" action="" method="POST" enctype="multipart/form-data" name="create_package">
+                                        {% csrf_token %}
+                                        <div class="col-md-12">
+                                            <label for="project_name" class="form-label">Package title</label>
+                                            {{ form.package_title }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="client_name" class="form-label">Package picture</label>
+                                            {{ form.package_pic }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="focal_person" class="form-label">Package description</label>
+                                            {{ form.package_desc }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="project_name" class="form-label">Package price</label>
+                                            {{ form.package_price }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="project_name" class="form-label">Start date</label>
+                                            {{ form.package_start_date}}
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="project_name" class="form-label">End date</label>
+                                            {{ form.package_end_date }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="status" class="form-label">Locations</label>
+                                            {{ form.package_locations }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="type" class="form-label">Activities</label>
+                                            {{ form.package_activities }}
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Understood</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -22,26 +83,28 @@
                         <img src="{{ package.package_pic.url }}" alt="" />
                     </figure>
                     <div class="article-body">
-                        <h2>{{ package.package_title  }}</h2>
+                        <h2>{{ package.package_title }}</h2>
                         <p>
                             {{ package.package_desc }}
                         </p>
-                        <a href="{% url 'package_detail' package.pk %}" class="read-more">
-                            View detail <span class="sr-only">about this is some title</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
+                        <div class="my-3">
+                            <a href="{% url 'package_detail' package.pk %}" class="read-more">
+                                View detail <span class="sr-only">about this is some title</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </article>
         </div>
         {% endfor %}
         <div class="col">
-            
+
         </div>
     </div>
 </div>

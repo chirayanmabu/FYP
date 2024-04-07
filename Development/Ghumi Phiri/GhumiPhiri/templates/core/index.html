@@ -1,7 +1,114 @@
 {% extends 'core/base.html' %}
 {% load static %}
+{% load ratings %}
+
 {% block content %}
-<div class="container">
+<div class="container mt-5">
+    <div class="row">
+        <div class="col d-flex flex-column justify-content-center align-items-center ">
+            <p class="main-text">Make your next trip an adventure</p>
+            <p class="main-text">Customize & book amazing packages.</p>
+            <p class="sub-text">Search, compare packages</p>
+            <div class="input-group" style="width: 800px;">
+                <input type="text" class="form-control" placeholder="City">
+                <input type="text" class="form-control" placeholder="Month">
+                <input type="text" class="form-control" placeholder="Duration">
+                <button class="checkout-btn" type="button">Search</button>
+              </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <p class="choose-title">Why choose us?</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="index-card">
+                <div class="row">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <div class="index-image-container">
+                            <img src="{% static 'images/web-images/globe.svg' %}" alt="">
+                        </div>
+                        <div class="mt-3">
+                            <p class="index-card-title">Best tours</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col index-card-desc">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque egestas viverra.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="index-card">
+                <div class="row">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <div class="index-image-container">
+                            <img src="{% static 'images/web-images/money.svg' %}" alt="">
+                        </div>
+                        <div class="mt-3">
+                            <p class="index-card-title">Low prices</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col index-card-desc">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque egestas viverra.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="index-card">
+                <div class="row">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <div class="index-image-container">
+                            <img src="{% static 'images/web-images/ticket.svg' %}" alt="">
+                        </div>
+                        <div class="mt-3">
+                            <p class="index-card-title">Easy bookings</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col index-card-desc">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque egestas viverra.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="index-card">
+                <div class="row">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <div class="index-image-container">
+                            <img src="{% static 'images/web-images/discount.svg' %}" alt="">
+                        </div>
+                        <div class="mt-3">
+                            <p class="index-card-title">Exciting deals</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col index-card-desc">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque egestas viverra.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <p class="index-row-title">Our picks for you</p>
+        </div>
+    </div>
     <div class="row">
         {% for package in packages %}
         <div class="col-md-4 mt-3">
@@ -12,9 +119,9 @@
                     </figure>
                     <div class="article-body">
                         <h2>{{ package.package_title  }}</h2>
-                        <p>
-                            {{ package.package_desc }}
-                        </p>
+                        <p>{% ratings package %}</p>
+                        <p>Rs. {{ package.package_price }}</p>
+                        <p>{{ package.package_desc }}</p>
                         <a href="{% url 'package_detail' package.pk %}" class="read-more">
                             View detail <span class="sr-only">about this is some title</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20"

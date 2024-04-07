@@ -47,3 +47,7 @@ class Booking(models.Model):
     booked_by = models.ForeignKey(User, on_delete=models.CASCADE)
     package = models.ForeignKey(Package, on_delete=models.CASCADE, related_name='package')
     booking_date = models.DateField(null=True, blank=True)
+    paid_amount = models.FloatField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.package} booked by {self.booked_by} - {self.booking_date}"

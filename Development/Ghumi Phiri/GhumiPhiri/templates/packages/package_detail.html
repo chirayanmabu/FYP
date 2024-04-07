@@ -24,6 +24,7 @@
                         <p class="package-header">{{ package.package_title }}</p>
                     </div>
                     <div class="col-6 d-flex justify-content-end align-items-center">
+                        
                         <button class="book-package-btn" data-bs-toggle="modal"
                             data-bs-target="#bookPackageModal">Book</button>
                         {% if booking_date_available %}
@@ -43,9 +44,9 @@
                                         <div class="modal-body">
                                             <div class="mb-3 row">
                                                 <div class="mb-3">
-                                                    <label for="start-date" class="form-label">Booking date</label>
-                                                    <!-- <input type="date" name="booking_date" id="booking_date" class="form-control"> -->
-                                                    {{ booking_form.booking_date }}
+                                                    <label for="booking_date" class="form-label">Booking date</label>
+                                                    <input type="date" name="booking_date" id="booking_date" class="form-control">
+                                                    <!-- {{ booking_form.booking_date }} -->
                                                 </div>
                                             </div>
                                         </div>

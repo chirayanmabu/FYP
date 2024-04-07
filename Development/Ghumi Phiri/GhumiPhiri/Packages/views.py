@@ -116,19 +116,19 @@ class PackageDetailView(View):
             if user_booking_date in existing_booking_dates:
                 print('cannot book')
                 return redirect(reverse('package_detail', kwargs={'pk': pk}) + '?bookingError=true')
-            if booking_form.is_valid():
-                new_booking = booking_form.save(commit=False)
-                new_booking.booked_by = request.user
-                new_booking.package = package
-                booking_form.save()
-                context['booking_date_available'] = True
-                print("Booking successful")
+            # if booking_form.is_valid():
+            #     new_booking = booking_form.save(commit=False)
+            #     new_booking.booked_by = request.user
+            #     new_booking.package = package
+            #     booking_form.save()
+            #     context['booking_date_available'] = True
+            #     print("Booking successful")
             else:
-                print(booking_form.errors())
+                context['booking_date_available'] = True
+        return render(request, 'Packages/package_detail.html', context)
 
         
 
-        return render(request, 'Packages/package_detail.html', context)
     
 
 class WriteReview(View):
@@ -161,10 +161,31 @@ class ListSellerPackages(View):
     def get(self, request, pk, *args, **kwargs):
         profile = User.objects.get(pk=pk)
         packages = Package.objects.filter(package_author=profile)
+        form = CreatePackageModelForm()
 
         context = {
-            'packages': packages
+            'packages': packages,
+            'form': form
         }
+        return render(request, 'Packages/seller_packages.html', context)
+    def post(self, request, pk, *args, **kwargs):
+        profile = User.objects.get(pk=pk)
+        packages = Package.objects.filter(package_author=profile)
+        form = CreatePackageModelForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            new_package = form.save(commit=False)
+            new_package.package_author = profile
+            new_package.save()
+            print("Package created")
+        else:
+            print(form.errors)
+
+        context = {
+            'packages': packages,
+            'form': form,
+        }
+
         return render(request, 'Packages/seller_packages.html', context)
     
 class ListPaymentDetails(View):
@@ -175,10 +196,11 @@ class ListPaymentDetails(View):
             'S no.',
             'Package Title',
             'Booked By',
+            'Paid Amount',
             'Booked date',
         ]
 
-        booking_list = Package.objects.prefetch_related('package').filter(package_author=user).values('package__package__package_title', 'package__booked_by__username', 'package__booking_date')
+        booking_list = Package.objects.prefetch_related('package').filter(package_author=user).values('package__package__package_title', 'package__booked_by__username', 'package__paid_amount', 'package__booking_date')
 
         context = {
             'headers': headers,
