@@ -58,6 +58,34 @@ class ListPackageView(View):
         }
         return render(request, 'Packages/list_packages.html', context)
     
+class ComparePackage(View):
+    def get(self, request, *args, **kwargs):
+        package_list = Package.objects.all()
+        package_filter = PackageFilter(request.GET)
+
+        package1_id = request.GET.get('package1')
+        package2_id = request.GET.get('package2')
+        package1 = get_object_or_404(Package, pk=package1_id)
+        package2 = get_object_or_404(Package, pk=package2_id)
+
+        package1_author = {'id': package1.package_author.id, 'username': package1.package_author.username}
+        package2_author = {'id': package2.package_author.id, 'username': package2.package_author.username}
+    
+        data = {
+                'package1': {
+                    'title': package1.package_title,
+                    'author': package1_author.get('username'),
+                    # Add other fields as needed
+                },
+                'package2': {
+                    'title': package2.package_title,
+                    'author': package2_author.get('username'),
+                    # Add other fields as needed
+                }
+            }
+        return JsonResponse(data)
+        
+    
 
 class PackageDetailView(View):
     def get(self, request, pk, *args, **kwargs):

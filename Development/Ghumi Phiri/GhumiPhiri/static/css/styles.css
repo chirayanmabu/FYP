@@ -158,6 +158,23 @@ color: black;
     font-weight: 450;
 }
 
+.view-package-btn{
+  background-color: rgba(226, 149, 120, 0.2);
+  border: none;
+  color: rgb(226, 149, 120);
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  cursor: default;
+}
+
+.view-package-btn:hover {
+  background-color: rgb(226, 149, 120);
+  color: white;
+  transition: 0.2s;
+}
+
 .rating {
     width: 125px;
     font-size: 30px;
@@ -351,7 +368,6 @@ article {
     transform-origin: center;
     transition: all 0.4s ease-in-out;
     overflow: hidden;
-    height: 450px;
   }
   
   article a::after {
@@ -362,11 +378,9 @@ article {
     content: "";
   }
   
-  /* basic article elements styling */
   article h2 {
     margin: 0 0 18px 0;
-    font-size: 1.9rem;
-    letter-spacing: 0.06em;
+    font-size: 1.8rem;
     color: var(--title-color);
     transition: color 0.3s ease-out;
   }

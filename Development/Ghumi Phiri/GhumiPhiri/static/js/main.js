@@ -37,6 +37,55 @@ function toggleNav() {
 }
 
 
+
+// Package comparision
+var packageId1 = "";
+var packageId2 = "";
+function addToCompare(packageId) {
+    if (!packageId1) {
+        packageId1 = packageId;
+    } else if (!packageId2) {
+        packageId2 = packageId;
+        openCompareModal();
+    }
+} 
+
+function openCompareModal() {
+    // Update modal content with package details
+    updateModalContent();
+    // Show the modal
+    var compareModal = new bootstrap.Modal(document.getElementById('compareModal'));
+    compareModal.show();
+}
+
+function updateModalContent() {
+    var compareUrl = document.getElementById("compareModal").dataset.compareUrl;
+    // AJAX request to fetch package details
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var response = JSON.parse(xhr.responseText);
+            // Update modal body with package details
+            var modalBody = document.getElementById("compareModalBody");
+            modalBody.innerHTML = `
+            <p>Package 1:</p>
+            <p>Title: ${response.package1.title}</p>
+            <p>Author: ${response.package1.author}</p>
+            <hr>
+            <p>Package 2:</p>
+            <p>Title: ${response.package2.title}</p>
+            <p>Author: ${response.package2.author}</p>
+            `;
+            // Show the modal
+            var compareModal = new bootstrap.Modal(document.getElementById('compareModal'));
+            compareModal.show();
+        }
+    };
+    xhr.open("GET", compareUrl + "?package1=" + packageId1 + "&package2=" + packageId2, true);
+    xhr.send();
+}
+
+
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 // Write feedback

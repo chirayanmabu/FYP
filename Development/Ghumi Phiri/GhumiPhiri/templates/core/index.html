@@ -111,7 +111,7 @@
     </div>
     <div class="row">
         {% for package in packages %}
-        <div class="col-md-4 mt-3">
+        <div class="col-md-4 mb-3">
             <article>
                 <div class="article-wrapper">
                     <figure>
@@ -119,9 +119,9 @@
                     </figure>
                     <div class="article-body">
                         <h2>{{ package.package_title  }}</h2>
-                        <p>{% ratings package %}</p>
+                        {% ratings package %}
                         <p>Rs. {{ package.package_price }}</p>
-                        <p>{{ package.package_desc }}</p>
+                        <!-- <p>{{ package.package_desc }}</p> -->
                         <a href="{% url 'package_detail' package.pk %}" class="read-more">
                             View detail <span class="sr-only">about this is some title</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20"
