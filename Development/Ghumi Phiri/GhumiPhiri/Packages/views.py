@@ -75,12 +75,10 @@ class ComparePackage(View):
                 'package1': {
                     'title': package1.package_title,
                     'author': package1_author.get('username'),
-                    # Add other fields as needed
                 },
                 'package2': {
                     'title': package2.package_title,
                     'author': package2_author.get('username'),
-                    # Add other fields as needed
                 }
             }
         return JsonResponse(data)

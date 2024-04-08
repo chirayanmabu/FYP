@@ -14,7 +14,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <div class="table-container mt-3">
+            <div class="common-container mt-3">
                 <table class="table">
                     <thead>
                         {% for header in headers %}
@@ -24,7 +24,7 @@
                     <tbody>
                         {% for data in booking_list %}
                         <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
+                            <td scope="row">{{ forloop.counter }}</th>
                             <td>{{ data.package__package__package_title }}</td>
                             <td>{{ data.package__booked_by__username }}</td>
                             <td>Rs. {{ data.package__paid_amount }}</td>

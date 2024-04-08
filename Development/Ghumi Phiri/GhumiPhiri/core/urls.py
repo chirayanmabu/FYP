@@ -8,4 +8,6 @@ urlpatterns = [
 
     path('profile/<int:pk>/', views.ProfilePageView.as_view(), name="profile"),
     path('profile-edit/<int:pk>/', views.ProfileEditView.as_view(), name="profile-edit"),
+
+    path('seller-profile/<int:pk>/', views.SellerProfileView.as_view(), name="seller_profile"),
 ]

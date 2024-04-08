@@ -81,6 +81,18 @@ class ProfileEditView(View):
         print(form.errors)
         return redirect('profile-edit', pk=pk)
     
+class SellerProfileView(View):
+    def get(self, request, pk, *args, **kwargs):
+        seller = get_object_or_404(User, pk=pk)
+        seller_profile = UserProfile.objects.filter(user=pk)
+
+        context = {
+            'seller': seller,
+            'seller_profile': seller_profile,
+        }
+
+        return render(request, 'core/seller_profile.html', context)
+    
 
     
     
