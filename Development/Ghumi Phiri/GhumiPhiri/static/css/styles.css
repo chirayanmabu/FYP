@@ -20,9 +20,16 @@ a {
     background-color: #006D77;
     height: 80px;
 }
+.dash-nav-background {
+    background-color: #fff;
+    height: 80px;
+}
 
 .nav-text {
 color: #D9D9D9;
+}
+.dash-nav-text {
+color: #111;
 }
 
 .footer-text{
@@ -32,6 +39,12 @@ font-family: 'Merriweather';
 
 .icon-color{
 color: black;
+}
+
+.nav-top-content{
+  top: 0;
+  z-index: 1;
+  position: sticky;
 }
 
 
@@ -375,13 +388,13 @@ article {
     overflow: hidden;
   }
   
-  article a::after {
+  /* article a::after {
     position: absolute;
     inset-block: 0;
     inset-inline: 0;
     cursor: pointer;
     content: "";
-  }
+  } */
   
   article h2 {
     margin: 0 0 18px 0;
@@ -504,23 +517,27 @@ article {
     z-index: 1; 
     top: 0;
     left: 0;
-    background-color: #006D77; 
-    overflow-x: hidden; 
-    padding-top: 30px;
+    background-color: #fff; 
+    overflow-x: hidden;
     transition: 0.5s; 
   }
   
   .sidebar a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 25px;
-    color: #818181;
+    font-size: 18px;
+    color: #111;
     display: block;
     transition: 0.3s;
   }
   
   .sidebar a:hover {
     color: #f1f1f1;
+    background: #006D77;
+  }
+  .sidebar .active {
+    color: #f1f1f1;
+    background: #006D77;
   }
   
   .sidebar .closebtn {
@@ -539,6 +556,18 @@ article {
     padding: 10px 15px;
     border: none;
   }
+  .dash-openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #fff;
+    color: #111;
+    padding: 10px 15px;
+    border: none;
+  }
+  .dash-logo{
+    padding-top: 23px !important;
+    padding-bottom: 23px !important;
+  }
 
   
   #main {
@@ -546,7 +575,7 @@ article {
   }
   
   @media screen and (max-height: 450px) {
-    .sidebar {padding-top: 15px;}
+    /* .sidebar {padding-top: 15px;} */
     .sidebar a {font-size: 18px;}
   }
 
@@ -600,10 +629,39 @@ article {
   box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.06);
 }
 
-.table th {
+.table {
+  border-collapse: separate;
+  border-spacing: 0px 6px;
+}
+
+/* .table th {
   color: rgba(0, 109, 119) !important;
   background-color: rgba(0, 109, 119, 0.1) !important;
   font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+} */
+
+.table th,
+.table td {
+  padding: 10px;
+  padding: 10px;
+  background-color: #f9fafb !important;
+  border-bottom-width: 0px;
+  color: #484b59;
+  box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+td:last-child {
+  padding: 10px 10px;
+}
+td:last-child {
+  padding: 10px 10px;
+}
+.table th {
+  color: rgba(0, 109, 119) !important;
+  background-color: rgba(0, 109, 119, 0.1) !important;
+  font-size: 16px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 600;
 }
@@ -623,4 +681,38 @@ td:first-child {
 td:last-child {
   border-top-right-radius: 14px;
   border-bottom-right-radius: 14px;
+}
+
+
+
+/* seller profile */
+.circular--landscape {
+  display: inline-block; 
+  position: relative; 
+  width: 150px; 
+  height: 150px; 
+  overflow: hidden; 
+  border-radius: 50%; 
+} 
+.circular--landscape img {
+   width: auto; 
+   height: 100%; 
+}
+
+.filter__card {
+  border-radius: 12px;
+  background: var(--Gray-White, #fff);
+  padding: 16px 20px;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.06);
+}
+.filter__search .input-group-text {
+  border-radius: 10px 0px 0px 10px;
+  background: transparent;
+}
+.filter__btn {
+  border-radius: 8px;
+  background: var(--Pri, #4747a1);
+  padding: 6px 20px 6px 16px;
+  border: none;
+  color: white;
 }

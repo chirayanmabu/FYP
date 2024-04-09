@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import *
 from .models import *
+from Packages.models import Package
 
 def registerPage(request):
     form = CreateUserForm()
@@ -84,11 +85,13 @@ class ProfileEditView(View):
 class SellerProfileView(View):
     def get(self, request, pk, *args, **kwargs):
         seller = get_object_or_404(User, pk=pk)
-        seller_profile = UserProfile.objects.filter(user=pk)
+        seller_profile = UserProfile.objects.filter(user=pk).first()
+        seller_packages = Package.objects.filter(package_author=seller)
 
         context = {
             'seller': seller,
             'seller_profile': seller_profile,
+            'seller_packages': seller_packages
         }
 
         return render(request, 'core/seller_profile.html', context)
