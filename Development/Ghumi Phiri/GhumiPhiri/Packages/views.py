@@ -16,9 +16,13 @@ from Packages.filters import PackageFilter
 class HomePageView(View):
     def get(self, request, *args, **kwargs):
         packages = Package.objects.all()
+        f = PackageFilter(
+            request.GET, queryset=packages
+        )
 
         context = {
-            'packages': packages
+            'packages': packages,
+            'filter': f,
         }
 
         return render(request, 'core/index.html', context)

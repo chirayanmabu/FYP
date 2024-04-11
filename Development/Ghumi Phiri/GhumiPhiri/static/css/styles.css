@@ -716,3 +716,9 @@ td:last-child {
   border: none;
   color: white;
 }
+
+
+/* seller package creation */
+#map{
+  height: 180px;
+}

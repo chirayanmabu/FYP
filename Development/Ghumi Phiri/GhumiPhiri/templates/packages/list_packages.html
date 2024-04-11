@@ -13,10 +13,22 @@
     </div>
     <div class="row">
         <div class="col-3">
-            <form action="" method="GET">
-                {{ package_filter.form.package_price }}
-                <button type="submit" class="btn btn-primary">Filter</button>
-            </form>
+            <div class="common-container">
+                <form action="" method="GET">
+                    {{ package_filter.form.package_price }}
+                    <div class="mt-2">
+                        {{ package_filter.form.package_locations }}
+                    </div>
+                    <div class="mt-2">
+                        {{ package_filter.form.package_duration }}
+                    </div>
+                    <div class="mt-2">
+                        <p class="mb-0">Rating</p>
+                        {{ package_filter.form.package__rating_average  }}
+                    </div>
+                    <button type="submit" class="view-package-btn mt-2">Filter</button>
+                </form>
+            </div>
         </div>
         <div class="col">
             <div class="container">

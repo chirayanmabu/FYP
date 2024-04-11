@@ -65,34 +65,61 @@
 </head>
 
 <body>
-    <div class="container-lg ms-0 align-items-center justify-content-center">
+    <div class="container-lg mx-0 align-items-center justify-content-center">
         <div class="row">
-            <div class="col-md ps-0 side-picture">
+            <div class="col-md-9 ps-0 side-picture">
                 <img src="/static/images/test/sign-in.jpg" alt="">
             </div>
             <div class="col-md-3">
-                <div class="logo mb-3">
-                    <img src="/static/images/test/logo-black.png" alt="">
-                </div>
-
-                <h3 class="card-title">Sign in to Ghumi Phiri</h3>
-                <h6 class="card-subtitle mb-3 text-body-secondary">Don't have an account?<a href="{% url 'register' %}"
-                        class="ml-2">Sign up</a></h6>
-                <div class="card-body">
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        <div class="input-group my-3">
-                            <i class="bi bi-person input-group-text"></i>
-                            <input type="text" class="form-control" placeholder="Username" name="username">
+                <div class="d-flex vh-100 align-items-center justify-content-center">
+                    <div class="card main-card">
+                        <div class="card-body">
+                            <div class="logo mb-3">
+                                <img src="/static/images/test/logo-black.png" alt="">
+                            </div>
+            
+                            <h3 class="card-title">Sign in to Ghumi Phiri</h3>
+                            <h6 class="card-subtitle mb-3 text-body-secondary">Don't have an account?<a href="{% url 'register' %}"
+                                    class="ml-2">Sign up</a></h6>
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <div class="input-group my-3">
+                                    <i class="bi bi-person input-group-text"></i>
+                                    <input type="text" class="form-control" placeholder="Username" name="username">
+                                </div>
+                                <div class="input-group my-3">
+                                    <i class="bi bi-key input-group-text"></i>
+                                    <input type="password" class="form-control" placeholder="Password" name="password">
+                                </div>
+                                <button class="btn login-button my-3" type="submit" value="Login">
+                                    Login
+                                </button>
+                            </form>
                         </div>
-                        <div class="input-group my-3">
-                            <i class="bi bi-key input-group-text"></i>
-                            <input type="password" class="form-control" placeholder="Password" name="password">
-                        </div>
-                        <button class="btn login-button my-3" type="submit" value="Login">
-                            Login
-                        </button>
-                    </form>
+                    </div>
+                    <!-- <div class="logo mb-3">
+                        <img src="/static/images/test/logo-black.png" alt="">
+                    </div>
+    
+                    <h3 class="card-title">Sign in to Ghumi Phiri</h3>
+                    <h6 class="card-subtitle mb-3 text-body-secondary">Don't have an account?<a href="{% url 'register' %}"
+                            class="ml-2">Sign up</a></h6>
+                    <div class="card-body">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="input-group my-3">
+                                <i class="bi bi-person input-group-text"></i>
+                                <input type="text" class="form-control" placeholder="Username" name="username">
+                            </div>
+                            <div class="input-group my-3">
+                                <i class="bi bi-key input-group-text"></i>
+                                <input type="password" class="form-control" placeholder="Password" name="password">
+                            </div>
+                            <button class="btn login-button my-3" type="submit" value="Login">
+                                Login
+                            </button>
+                        </form>
+                    </div> -->
                 </div>
             </div>
         </div>
