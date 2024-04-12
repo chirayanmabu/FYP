@@ -33,25 +33,22 @@
                                             {{ form.package_title }}
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="client_name" class="form-label">Package picture</label>
-                                            {{ form.package_pic }}
+                                            <label for="client_name" class="form-label">Images</label>
+                                            <input type="file" name="images" class="form-control" multiple>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="focal_person" class="form-label">Package description</label>
                                             {{ form.package_desc }}
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <label for="project_name" class="form-label">Package price</label>
                                             {{ form.package_price }}
                                         </div>
-                                        <div class="col-md-4">
-                                            <label for="project_name" class="form-label">Start date</label>
-                                            {{ form.package_start_date}}
+                                        <div class="col-md-6">
+                                            <label for="project_name" class="form-label">Duration</label>
+                                            {{ form.package_duration }}
                                         </div>
-                                        <div class="col-md-4">
-                                            <label for="project_name" class="form-label">End date</label>
-                                            {{ form.package_end_date }}
-                                        </div>
+                                        
                                         <div class="col-md-6">
                                             <label for="status" class="form-label">Locations</label>
                                             {{ form.package_locations }}

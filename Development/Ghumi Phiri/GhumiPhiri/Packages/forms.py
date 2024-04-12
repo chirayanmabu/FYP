@@ -25,14 +25,9 @@ class CreatePackageModelForm(ModelForm):
         widget=forms.NumberInput(attrs={'placeholder': 'Package price', 'class': 'form-control'})
     )
 
-    package_start_date = forms.DateField(
-        label='Start date',
-        widget=forms.TextInput(attrs={'type': 'date', 'class': 'form-control'})
-    )
-    
-    package_end_date = forms.DateField(
-        label='End date',
-        widget=forms.TextInput(attrs={'type': 'date', 'class': 'form-control'})
+    package_duration = forms.CharField(
+        label='Duration',
+        widget=forms.TextInput(attrs={'placeholder': 'Duration', 'class': 'form-control'})
     )
 
     package_locations = forms.CharField(
@@ -47,15 +42,20 @@ class CreatePackageModelForm(ModelForm):
         widget=forms.TextInput(attrs={'placeholder': 'Activities', 'class': 'form-control'})
     )
 
-    package_pic = forms.ImageField(
-        label='Package Picture',
-        required=False,
-        widget=forms.FileInput(attrs={'class': 'form-control', 'type': 'file', 'name': 'package_pic'})
-    )
-
     class Meta:
         model = Package
-        fields = ['package_title', 'package_desc', 'package_price', 'package_start_date', 'package_end_date', 'package_locations', 'package_activities', 'package_pic']
+        fields = ['package_title', 'package_desc', 'package_price', 'package_duration', 'package_locations', 'package_activities']
+
+
+class ImageForm(CreatePackageModelForm):
+    images = forms.FileField(
+        label='Image',
+        widget=forms.ClearableFileInput(attrs={'allow_multiple_selected': True, 'class': 'form-control', 'name': 'images', 'type': 'file'})
+    )
+
+    class Meta(CreatePackageModelForm.Meta):
+        models = PackageImage
+        fields =CreatePackageModelForm.Meta.fields + ['images']
 
 
 class CreateCommentForm(ModelForm):

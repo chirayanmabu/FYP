@@ -12,7 +12,6 @@ class Package(models.Model):
     package_duration = models.CharField(null=True, blank=True)
     package_locations = models.CharField(max_length=50, null=True, blank=True)
     package_activities = models.CharField(max_length=50, null=True, blank=True)
-    package_pic = models.ImageField(upload_to='package_pictures/', null=True, blank=True)
     
 
     def __str__(self):

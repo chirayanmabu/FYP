@@ -3,7 +3,7 @@ from django.views import View
 from django.views.generic.edit import UpdateView, DeleteView
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse, reverse_lazy
-
+from django.forms import modelformset_factory
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -191,23 +191,30 @@ class ListSellerPackages(View):
     def get(self, request, pk, *args, **kwargs):
         profile = User.objects.get(pk=pk)
         packages = Package.objects.filter(package_author=profile)
-        form = CreatePackageModelForm()
+        form = ImageForm()
 
         context = {
             'packages': packages,
-            'form': form
+            'form': form,
         }
         return render(request, 'Packages/seller_packages.html', context)
+    
     def post(self, request, pk, *args, **kwargs):
         profile = User.objects.get(pk=pk)
         packages = Package.objects.filter(package_author=profile)
-        form = CreatePackageModelForm(request.POST, request.FILES)
+        
+        form = ImageForm(request.POST, request.FILES)
+        files = request.FILES.getlist('images')
 
         if form.is_valid():
             new_package = form.save(commit=False)
             new_package.package_author = profile
             new_package.save()
             print("Package created")
+
+            for file in files:
+                package_image = PackageImage(package=new_package, images=file)
+                package_image.save()
         else:
             print(form.errors)
 

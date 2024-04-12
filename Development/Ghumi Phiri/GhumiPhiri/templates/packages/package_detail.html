@@ -18,53 +18,51 @@
 <div class="container">
     <div class="row my-3">
         <div class="col">
-            <div>
-                <div class="row">
-                    <div class="col-6">
-                        <p class="package-header">{{ package.package_title }}</p>
-                    </div>
-                    <div class="col-6 d-flex justify-content-end align-items-center">
-                        
-                        <button class="book-package-btn" data-bs-toggle="modal"
-                            data-bs-target="#bookPackageModal">Book</button>
-                        {% if booking_date_available %}
+            <div class="row">
+                <div class="col-6">
+                    <p class="package-header">{{ package.package_title }}</p> 
+                </div>
+                <div class="col-6 d-flex justify-content-end align-items-center">
+                    <button class="book-package-btn" data-bs-toggle="modal" data-bs-target="#bookPackageModal">Book</button>
+                    {% if booking_date_available %}
                         <button type="submit" id="bookPackage" class="checkout-btn ms-2" name={{package.id}}>Checkout</button>
-                        {% endif %}
-                        <div class="modal fade" id="bookPackageModal" tabindex="-1"
-                            aria-labelledby="bookPackageModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <form action="" method="POST" name="book_package">
-                                    {% csrf_token %}
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="bookPackageModal">Modal title</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="mb-3 row">
-                                                <div class="mb-3">
-                                                    <label for="booking_date" class="form-label">Booking date</label>
-                                                    <input type="date" name="booking_date" id="booking_date" class="form-control">
-                                                    <!-- {{ booking_form.booking_date }} -->
-                                                </div>
+                    {% endif %}
+                    <div class="modal fade" id="bookPackageModal" tabindex="-1"
+                        aria-labelledby="bookPackageModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form action="" method="POST" name="book_package">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="bookPackageModal">Modal title</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3 row">
+                                            <div class="mb-3">
+                                                <label for="booking_date" class="form-label">Booking date</label>
+                                                <input type="date" name="booking_date" id="booking_date" class="form-control">
+                                                <!-- {{ booking_form.booking_date }} -->
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary close-btn"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" id="bookPackage" class="btn confirm-booking-btn" name="book_package">Book</button>
-                                        </div>              
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary close-btn"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" id="bookPackage" class="btn confirm-booking-btn" name="book_package">Book</button>
+                                    </div>              
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="package-author-font">
-                    <span>By: {{ package.package_author }}</span>
-                    <span>Location: {{ package.package_locations }}</span>
-                </div>
+            </div>
+            <div class="package-author-font">
+                {% ratings package read_only=True %}     
+
+                <p class="mb-0">By: {{ package.package_author }}</p>
+                <p class="mb-0">Location: {{ package.package_locations }}</p>
             </div>
         </div>
     </div>
