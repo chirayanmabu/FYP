@@ -37,11 +37,11 @@
                     <div class="col">
                         <div class="card">
                             <div class="row g-0">
-                                <div class="col-md-4 package-image">
-                                    <img src="{{ package.package_pic.url }}"
+                                <div class="col-md-6 package-image">
+                                    <img src="{{ package.packageimage_set.first.images.url }}"
                                         class="img-fluid rounded-start" alt="">
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-6">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col">
@@ -79,7 +79,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="compareModal" data-compare-url="{% url 'compare_packages' %}" tabindex="-1" aria-labelledby="compareModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-header">
         <h1 class="modal-title fs-5" id="compareModalLabel">Comparision</h1>

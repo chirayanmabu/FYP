@@ -79,7 +79,7 @@
                 <div class="article-wrapper">
                     <a href="{% url 'package_detail' package.pk %}">
                         <figure>
-                            <img src="{{ package.package_pic.url }}" alt="" />
+                            <img src="{{ package.packageimage_set.first.images.url }}" alt="" />
                         </figure>
                     </a>
                     <div class="article-body">

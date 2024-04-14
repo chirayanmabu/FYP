@@ -73,11 +73,14 @@
                     <div class="all-images">                    
                         <div class="small-images">
                             {% for package_image in package_images %}
+                                {% if forloop.first %}
+                                {% else %}
                                 <img src="{{ package_image.images.url }}" alt="" onclick="clickimg(this)">
+                                {% endif %}
                             {% endfor %}
                         </div>
                         <div class="main-images">
-                            <img src="{{ package.package_pic.url }}" alt="" id="imagebox">
+                            <img src="{{ package_images.0.images.url }}" alt="" id="imagebox">
                         </div>
                     </div>
                 </div>
@@ -194,18 +197,34 @@
 
 <script>
     function clickimg(smallImg){
-    var fullImg = document.getElementById("imagebox")
-    fullImg.src = smallImg.src
-}
+        // var fullImg = document.getElementById("imagebox")
+        // fullImg.src = smallImg.src
 
-window.addEventListener('DOMContentLoaded', (event) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const bookingError = urlParams.get('bookingError');
-  if (bookingError === 'true') {
-    const bookingToast = new bootstrap.Toast(document.getElementById('bookingToast'));
-    bookingToast.show();
-  }
-});
+        var mainImg = document.getElementById("imagebox");
+        var mainImgSrc = mainImg.src;
+        var smallImgSrc = smallImg.src;
+
+        // mainImg.src = smallImgSrc;
+        // clickedImg.src = mainImgSrc;
+
+        // Get the src of the main image
+        var temp = mainImgSrc;
+
+        // Set the src of the main image to the src of the clicked small image
+        mainImg.src = smallImgSrc;
+
+        // Set the src of the clicked small image to the src of the main image
+        clickedImg.src = temp;
+    }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const bookingError = urlParams.get('bookingError');
+        if (bookingError === 'true') {
+            const bookingToast = new bootstrap.Toast(document.getElementById('bookingToast'));
+            bookingToast.show();
+        }
+    });
 </script>
 
 {% endblock %}

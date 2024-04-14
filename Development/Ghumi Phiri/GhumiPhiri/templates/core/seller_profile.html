@@ -1,4 +1,4 @@
-{% extends 'core/base.html' %}
+{% extends 'packages/dashboard.html' %}
 {% load static %}
 {% load ratings %}
 {% load crispy_forms_tags %}
@@ -100,7 +100,7 @@
                 <article>
                     <div class="article-wrapper">
                         <figure>
-                            <img src="{{ package.package_pic.url }}" alt="" />
+                            <img src="{{ package.packageimage_set.first.images.url }}" alt="" />
                         </figure>
                         <div class="article-body">
                             <h2>{{ package.package_title }}</h2>

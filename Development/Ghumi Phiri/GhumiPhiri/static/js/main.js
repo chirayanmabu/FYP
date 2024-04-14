@@ -71,17 +71,65 @@ function updateModalContent() {
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var response = JSON.parse(xhr.responseText);
+            var package1Id = response.package1.id;
+            var viewDetailPackage1Url = "/package-detail/" + package1Id;
+            var package2Id = response.package2.id;
+            var viewDetailPackage2Url = "/package-detail/" + package2Id;
             // Update modal body with package details
             var modalBody = document.getElementById("compareModalBody");
             modalBody.innerHTML = `
-            <p>Package 1:</p>
-            <p>Title: ${response.package1.title}</p>
-            <p>Author: ${response.package1.author}</p>
-            <hr>
-            <p>Package 2:</p>
-            <p>Title: ${response.package2.title}</p>
-            <p>Author: ${response.package2.author}</p>
+            <div class="containter">
+                <div class="row">
+                    <div class="col-6">
+                        <p class="package-header">${response.package1.title}</p>
+                        <div class="package-author-font">   
+                            <p class="mb-0">By: ${response.package1.author}</p>
+                            <p class="mb-0">Location: ${response.package1.location}</p>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="compare-img">
+                                ${response.package1.image_url ? `<img src="${response.package1.image_url}" alt="Package Image">` : ''}
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <p class="subheadings mb-0">About</p>
+                                <p>${response.package1.desc}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-end">
+                                <a href="${viewDetailPackage1Url}"><button class="view-package-btn">View Detail</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <p class="package-header">${response.package2.title}</p>
+                        <div class="package-author-font">   
+                            <p class="mb-0">By: ${response.package2.author}</p>
+                            <p class="mb-0">Location: ${response.package2.location}</p>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="compare-img">
+                                ${response.package2.image_url ? `<img src="${response.package2.image_url}" alt="Package Image">` : ''}
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <p class="subheadings mb-0">About</p>
+                                <p>${response.package2.desc}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-end">
+                                <a href="${viewDetailPackage2Url}"><button class="view-package-btn">View Detail</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             `;
+            initStarRatings();
             // Show the modal
             var compareModal = new bootstrap.Modal(document.getElementById('compareModal'));
             compareModal.show();

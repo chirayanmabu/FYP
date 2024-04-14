@@ -4,13 +4,11 @@ from django.utils import timezone
 
 class User(AbstractUser):
     BUYER = 1
-    TOUR_AGENCY = 2
-    HOTEL =3
+    SELLER = 2
     
     ROLE_CHOICES = (
         (BUYER, 'Buyer'),
-        (TOUR_AGENCY, 'Tour_Agency'),
-        (HOTEL, 'Hotel'),
+        (SELLER, 'Seller'),
     )
     role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, blank=True, null=True)
 

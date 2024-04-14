@@ -1,0 +1,128 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container my-3">
+    <div class="row">
+        <div class="col-3">
+            profile
+
+        </div>
+        <div class="col">
+            <div class="container-xxl profile-info-container p-3">
+                <div class="mb-3 row g-0 align-items-center">
+                    <div class="col-md-2">
+                        <div class="profile-picture">
+                            <img src="{{ profile.profile_pic.url }}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ user.username }}</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="{% url 'profile-edit' profile.pk %}" class="btn edit-profile-btn">Edit profile</a>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="edit-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Edit profile
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="" class="row g-3" method="POST">
+                                        <div class="col-md-6">
+                                            <label for="username" class="form-label">Username</label>
+                                            <input type="text" class="form-control" name="username" id="username" value="{{ profile.user.username }}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="text" class="form-control" name="email" id="email" value="{{ profile.user.email }}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="username" class="form-label">First name</label>
+                                            <input type="text" class="form-control" name="first_name" id="first_name" value="{{ profile.user.first_name }}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="email" class="form-label">Last name</label>
+                                            <input type="text" class="form-control" name="last_name" id="last_name" value="{{ profile.user.last_name }}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="username" class="form-label">Gender</label>
+                                            <select class="form-select" name="gender" id="gender">
+                                                {% for key, value in gender_choices.items %}
+                                                <option value="{{ key }}" {% if profile.gender == value %} selected {%endif %} >{{ value }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <!-- <input type="text" class="form-control" name="gender" id="gender" value="{{ profile.gender }}"> -->
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="email" class="form-label">Date of birth</label>
+                                            <input type="date" class="form-control" name="dob" id="dob" value="{{ profile.dob|date:'Y-m-d' }}">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="email" value="{{ user.email }}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="firstName" class="col-sm-2 col-form-label">First name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="firstName" value="{{ user.first_name }}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="lastName" class="col-sm-2 col-form-label">Last name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="lastName" value="{{ user.last_name }}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="gender" value="{{ profile.gender }}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="dob" class="col-sm-2 col-form-label">DOB</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="dob" value="{{ profile.dob }}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="contactNumber" class="col-sm-2 col-form-label">Contact number</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="contactNumber" value="{{ profile.phone }}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="address" class="col-sm-2 col-form-label">Address</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="address" value="{{ profile.address }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

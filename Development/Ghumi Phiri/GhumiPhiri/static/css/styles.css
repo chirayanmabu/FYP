@@ -142,12 +142,11 @@ color: black;
 
 /* list package */
 .package-image{
-    width: 313px;
-    height: 200px;
+  overflow: hidden; 
 }
 
 .package-image img{
-    width: 100%;
+    width: auto;
     height: 100%;
 }
 
@@ -228,6 +227,16 @@ color: black;
 .rating a:focus ~ a, .comment-rating a:focus ~ a{
     color: orange;
     cursor: pointer;
+}
+
+.compare-img {
+  width: 570px; 
+  height: 270px; 
+  overflow: hidden; 
+} 
+.compare-img img {
+   width: auto; 
+   height: 100%; 
 }
 
 
@@ -689,8 +698,8 @@ td:last-child {
 .circular--landscape {
   display: inline-block; 
   position: relative; 
-  width: 150px; 
-  height: 150px; 
+  width: 100px; 
+  height: 100px; 
   overflow: hidden; 
   border-radius: 50%; 
 } 

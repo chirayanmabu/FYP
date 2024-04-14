@@ -72,12 +72,6 @@ class ProfileForm(ModelForm):
 
 
 class UpdateProfileForm(forms.Form):
-    GENDER_CHOICES = [
-        ('male', 'Male'),
-        ('female', 'Female'),
-        ('other', 'Other'),
-    ]
-
     username = forms.CharField(
         label = 'Username',
         required=False,
@@ -109,21 +103,11 @@ class UpdateProfileForm(forms.Form):
         label='',
         widget=forms.TextInput(attrs={'type': 'number'})
     )
-    address = forms.CharField(
-        label='',
-        min_length=2, max_length=50,
-        widget=forms.TextInput(attrs={'placeholder': 'Address'})
-    )
-    dob = forms.DateField(
-        label='',
-        required=False,
-        widget=forms.TextInput(attrs={'type': 'date'})
-    )
-    gender = forms.ChoiceField(
-        label='',
-        choices=GENDER_CHOICES,
-        widget=forms.Select(attrs={'class': 'form-select'})
-    )
+    # address = forms.CharField(
+    #     label='',
+    #     min_length=2, max_length=50,
+    #     widget=forms.TextInput(attrs={'placeholder': 'Address'})
+    # )
 
     def save(self):
         user_id = self.initial.get('user_id')

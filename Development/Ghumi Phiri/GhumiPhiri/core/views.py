@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import Group
 
 from .forms import *
 from .models import *
@@ -21,6 +22,8 @@ def registerPage(request):
             new_user = form.save(commit=False)
             new_user.role=1
             new_user.save()
+            group = Group.objects.get(name='buyer')
+            new_user.groups.add(group)
 
             print("success")
             return redirect('login')
@@ -30,6 +33,27 @@ def registerPage(request):
     }
         
     return render(request, 'core/register.html', context)
+
+def registerSellerPage(request):
+    form = CreateUserForm()
+
+    if request.method == "POST":
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            new_user = form.save(commit=False)
+            new_user.role=2
+            new_user.save()
+            group = Group.objects.get(name='seller')
+            new_user.groups.add(group)
+
+            print("registered as seller")
+            return redirect('login')
+        
+    context = {
+        'form': form
+    }
+        
+    return render(request, 'core/seller_register.html', context)
 
 def loginPage(request):
     if request.method == "POST":
@@ -52,8 +76,8 @@ def logoutUser(request):
 
 class ProfilePageView(View, LoginRequiredMixin):
     def get(self, request, pk, *args, **kwargs):
+        user = get_object_or_404(User, pk=pk)
         profile = UserProfile.objects.get(pk=pk)
-        user = profile.user
 
         context = {
             'user': user,
@@ -80,13 +104,13 @@ class ProfileEditView(View):
             form.save()
             return redirect('profile', pk=pk)
         print(form.errors)
-        return redirect('profile-edit', pk=pk)
+        return redirect('profile', pk=pk)
     
 class SellerProfileView(View):
     def get(self, request, pk, *args, **kwargs):
         seller = get_object_or_404(User, pk=pk)
         seller_profile = UserProfile.objects.filter(user=pk).first()
-        seller_packages = Package.objects.filter(package_author=seller)
+        seller_packages = Package.objects.prefetch_related('packageimage_set').filter(package_author=seller)
 
         context = {
             'seller': seller,

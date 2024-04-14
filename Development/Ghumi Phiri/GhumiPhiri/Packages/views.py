@@ -6,6 +6,7 @@ from django.urls import reverse, reverse_lazy
 from django.forms import modelformset_factory
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Avg
 
 from datetime import datetime
 
@@ -13,9 +14,12 @@ from Packages.forms import *
 from Packages.models import *
 from Packages.filters import PackageFilter
 
+from star_ratings.models import Rating
+from django.template.loader import render_to_string
+
 class HomePageView(View):
     def get(self, request, *args, **kwargs):
-        packages = Package.objects.all()
+        packages = Package.objects.prefetch_related('packageimage_set').all()
         f = PackageFilter(
             request.GET, queryset=packages
         )
@@ -53,7 +57,7 @@ class CreatePackageView(View):
 
 class ListPackageView(View):
     def get(self, request, *args, **kwargs):
-        package_list = Package.objects.all()
+        package_list = Package.objects.prefetch_related('packageimage_set').all()
         package_filter = PackageFilter(request.GET)
 
         context = {
@@ -69,20 +73,35 @@ class ComparePackage(View):
 
         package1_id = request.GET.get('package1')
         package2_id = request.GET.get('package2')
-        package1 = get_object_or_404(Package, pk=package1_id)
-        package2 = get_object_or_404(Package, pk=package2_id)
+        package1 = get_object_or_404(Package.objects.prefetch_related('packageimage_set'), pk=package1_id)
+        package2 = get_object_or_404(Package.objects.prefetch_related('packageimage_set'), pk=package2_id)
 
         package1_author = {'id': package1.package_author.id, 'username': package1.package_author.username}
         package2_author = {'id': package2.package_author.id, 'username': package2.package_author.username}
+
+        package1_image_url = package1.packageimage_set.first().images.url
+        package2_image_url = package2.packageimage_set.first().images.url
     
         data = {
                 'package1': {
+                    'id': package1.id,
                     'title': package1.package_title,
                     'author': package1_author.get('username'),
+                    'location': package1.package_locations,
+                    'duration': package1.package_duration,
+                    'desc': package1.package_desc,
+                    'price': package1.package_price,
+                    'image_url': package1_image_url,
                 },
                 'package2': {
+                    'id': package2.id,
                     'title': package2.package_title,
                     'author': package2_author.get('username'),
+                    'location': package2.package_locations,
+                    'duration': package2.package_duration,
+                    'desc': package2.package_desc,
+                    'price': package2.package_price,
+                    'image_url': package2_image_url,
                 }
             }
         return JsonResponse(data)
@@ -190,7 +209,7 @@ class WriteReview(View):
 class ListSellerPackages(View):
     def get(self, request, pk, *args, **kwargs):
         profile = User.objects.get(pk=pk)
-        packages = Package.objects.filter(package_author=profile)
+        packages = Package.objects.prefetch_related('packageimage_set').filter(package_author=profile)
         form = ImageForm()
 
         context = {
