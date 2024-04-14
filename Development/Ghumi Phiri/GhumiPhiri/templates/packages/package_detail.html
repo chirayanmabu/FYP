@@ -89,107 +89,106 @@
     </div>
     <div class="row my-3">
         <div class="col-10">
-            <div class="row">
-                <div class="col">
-                    <span class="subheadings">About</span>
+            <div class="common-container">
+                <div class="row">
+                    <div class="col">
+                        <span class="subheadings">About</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ package.package_desc }}
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    {{ package.package_desc }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="contaner">
-                    <div class="row justify-content-center align-items-center my-3">
-                        <div class="col-10">
-                            <span class="subheadings">Reviews</span>
-                        </div>
-                        <div class="col">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary edit-profile-btn hide-feedback-btn" data-bs-toggle="modal"
-                                data-bs-target="#postReviewModal">
-                                Write a review
-                            </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="postReviewModal" tabindex="-1"
-                                aria-labelledby="postReviewModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <form action="{% url 'add_feedback' pk=package.id %}" method="POST" name="post_comment" id="post_comment">
-                                            {% csrf_token %}
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="postReviewModalLabel">Write a review</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="mb-3 row">
-                                                    <div class="mb-3">
-                                                        <label for="comment" class="form-label">Your review</label>
-                                                        <!-- {{comment_form}} -->
-                                                        {% ratings package %}
-                                                        <textarea class="form-control" id="comment" rows="3"
-                                                            name="comment"></textarea>
+            <div class="common-container mt-3">
+                <div class="row">
+                    <div class="contaner">
+                        <div class="row justify-content-center align-items-center my-3">
+                            <div class="col-10">
+                                <span class="subheadings">Reviews</span>
+                            </div>
+                            <div class="col">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary edit-profile-btn hide-feedback-btn" data-bs-toggle="modal"
+                                    data-bs-target="#postReviewModal">
+                                    Write a review
+                                </button>
+    
+                                <!-- Modal -->
+                                <div class="modal fade" id="postReviewModal" tabindex="-1"
+                                    aria-labelledby="postReviewModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="" method="POST" name="post_comment" id="post_comment">
+                                                {% csrf_token %}
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="postReviewModalLabel">Write a review</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3 row">
+                                                        <div class="mb-3">
+                                                            <label for="comment" class="form-label">Your review</label>
+                                                            <!-- {{comment_form}} -->
+                                                            {% ratings package %}
+                                                            <textarea class="form-control" id="comment" rows="3"
+                                                                name="comment"></textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary" name="post_comment">Post</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="row mb-3">
-                            <div class="col">
-                                <strong class="text-success" id="feedback-resp"></strong>
-                            </div>
-                        </div>
-                        <div class="feedback-list">
-                            {% for feedback in feedbacks %}
-                            <div class="row mb-3 feedback-content">
-                                <div class="container px-0">
-                                    <div class="row row g-0 mb-1">
-                                        <div class="col-md-2 comment-profile-picture">
-                                            <img src="{{ feedback.feedback_author.profile.profile_pic.url }}" alt="">
-                                        </div>
-                                        <div class="col ms-3">
-                                            <div class="comment-author-info">
-                                                <span>{{ feedback.feedback_author }}</span>
-                                                <span class="ms-3" style="font-weight: 200;">{{ feedback.created_on }}</span>
-                                            </div>
-                                            <div class="comment-rating">
-                                                <a href="#5" title="Give 5 stars">★</a>
-                                                <a href="#4" title="Give 4 stars">★</a>
-                                                <a href="#3" title="Give 3 stars">★</a>
-                                                <a href="#2" title="Give 2 stars">★</a>
-                                                <a href="#1" title="Give 1 star">★</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <span>{{ feedback.comment }}</span>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" name="post_comment">Post</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {% endfor %}
+                        </div>
+                        <div class="container">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <strong class="text-success" id="feedback-resp"></strong>
+                                </div>
+                            </div>
+                            <div class="feedback-list">
+                                {% for feedback in feedbacks %}
+                                <div class="row mb-3 feedback-content">
+                                    <div class="container px-0">
+                                        <div class="row row g-0 mb-1">
+                                            <div class="col-md-2 comment-profile-picture">
+                                                <img src="{{ feedback.feedback_author.profile.profile_pic.url }}" alt="">
+                                            </div>
+                                            <div class="col ms-3">
+                                                <div class="comment-author-info">
+                                                    <span>{{ feedback.feedback_author }}</span>
+                                                    <span class="ms-3" style="font-weight: 200;">{{ feedback.created_on }}</span>
+                                                </div>
+                                                {% ratings feedback read_only=True %}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <span>{{ feedback.comment }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-2">
-            <span class="subheadings">Features</span>
-            
+            <div class="common-container">
+                <span class="subheadings">Features</span>
+            </div>
         </div>
     </div>
 
@@ -197,23 +196,11 @@
 
 <script>
     function clickimg(smallImg){
-        // var fullImg = document.getElementById("imagebox")
-        // fullImg.src = smallImg.src
-
         var mainImg = document.getElementById("imagebox");
         var mainImgSrc = mainImg.src;
         var smallImgSrc = smallImg.src;
-
-        // mainImg.src = smallImgSrc;
-        // clickedImg.src = mainImgSrc;
-
-        // Get the src of the main image
         var temp = mainImgSrc;
-
-        // Set the src of the main image to the src of the clicked small image
         mainImg.src = smallImgSrc;
-
-        // Set the src of the clicked small image to the src of the main image
         clickedImg.src = temp;
     }
 

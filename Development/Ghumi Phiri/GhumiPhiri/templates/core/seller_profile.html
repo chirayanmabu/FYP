@@ -1,100 +1,131 @@
-{% extends 'packages/dashboard.html' %}
+{% extends 'core/index.html' %}
 {% load static %}
 {% load ratings %}
 {% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container">
-    <div class="row mt-5">
-        <div class="col common-container">
-            <div class="circular--landscape">
-                <img src="{{ seller_profile.profile_pic.url }}" />
+    <div class="row mt-3 d-flex justify-content-between">
+        <div class="col-md-8">
+            <div class="common-container">
+                <div class="row d-flex align-items-center">
+                    <div class="col-2">
+                        <div class="circular--landscape">
+                            <img src="{{ seller_profile.profile_pic.url }}" />
+                        </div>
+                    </div>
+                    <div class="col ps-0">
+                        <span class="mb-0 basic__user-name">{{ seller.username }}</span>
+                        <p class="basic__sub-info mb-0">{{ seller.email }}</p>
+                    </div>
+                </div>
             </div>
-            {{ seller.username }}
+        </div>
+        <div class="col-md-4">
+            <div class="common-container">
+                <div class="row mb-2">
+                    <div class="col">
+                        <p class="basic__title m-0">Details</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="m-0 basic__sub-title"><i class="bi bi-telephone me-1"></i>Phone no.</p>
+                        <p class="m-0">{{ seller_profile.phone }}</p>
+                    </div>
+                    <div class="col">
+                        <p class="m-0 basic__sub-title"><i class="bi bi-house me-1"></i>Address</p>
+                        <p class="m-0 basic__sub-name">{{ seller_profile.address }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row mt-3">
-        <div class="col common-container">
-            <div class="filter__search">
-                <form action="" method="POST" class="d-flex gap-2">
-                    <div class="input-group" style="width: 255px;" >
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Search" aria-label="search"
-                            aria-describedby="basic-addon1">
-                    </div>
-                  
-                    <button class="filter__btn " type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M5.40039 2.09998H18.6004C19.7004 2.09998 20.6004 2.99998 20.6004 4.09998V6.29998C20.6004 7.09998 20.1004 8.09998 19.6004 8.59998L15.3004 12.4C14.7004 12.9 14.3004 13.9 14.3004 14.7V19C14.3004 19.6 13.9004 20.4 13.4004 20.7L12.0004 21.6C10.7004 22.4 8.90039 21.5 8.90039 19.9V14.6C8.90039 13.9 8.50039 13 8.10039 12.5L4.30039 8.49998C3.80039 7.99998 3.40039 7.09998 3.40039 6.49998V4.19998C3.40039 2.99998 4.30039 2.09998 5.40039 2.09998Z"
-                                stroke="#F4F9FE" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path d="M10.93 2.09998L6 9.99998" stroke="#F4F9FE" stroke-width="1.5"
-                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        Filters
-                    </button>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Filter by:</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="col">
+            <div class="common-container d-flex justify-content-between align-items-center">
+                <span class="basic__title m-0">Available packages</span>
+                <div class="filter__search">
+                    <form action="" method="POST" class="d-flex gap-2">
+                        <div class="input-group" style="width: 255px;" >
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
                             </div>
-                            <div class="modal-body d-flex flex-column gap-3">
-                                <div>
-                                    <label class="mb-2" for="">Status</label>
-                                <select class="form-select form-select" aria-label=".form-select-sm example">
-                                    <option selected>Status</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                            <input type="text" class="form-control" placeholder="Search" aria-label="search"
+                                aria-describedby="basic-addon1">
+                        </div>
+                      
+                        <button class="filter__btn" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M5.40039 2.09998H18.6004C19.7004 2.09998 20.6004 2.99998 20.6004 4.09998V6.29998C20.6004 7.09998 20.1004 8.09998 19.6004 8.59998L15.3004 12.4C14.7004 12.9 14.3004 13.9 14.3004 14.7V19C14.3004 19.6 13.9004 20.4 13.4004 20.7L12.0004 21.6C10.7004 22.4 8.90039 21.5 8.90039 19.9V14.6C8.90039 13.9 8.50039 13 8.10039 12.5L4.30039 8.49998C3.80039 7.99998 3.40039 7.09998 3.40039 6.49998V4.19998C3.40039 2.99998 4.30039 2.09998 5.40039 2.09998Z"
+                                    stroke="#F4F9FE" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M10.93 2.09998L6 9.99998" stroke="#F4F9FE" stroke-width="1.5"
+                                    stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Filters
+                        </button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Filter by:</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div>
-                                    <label class="mb-2" for="">Project Type</label>
-                                <select class="form-select form-select" aria-label=".form-select-sm example">
-                                    <option selected>Project Type</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                                </div>
-                                <div>
-                                    <label class="mb-2" for="">Designation</label>
-                                <select class="form-select form-select" aria-label=".form-select-sm example">
-                                    <option selected>Designation</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                                </div>
-                                <div class="d-flex justify-content-between gap-2">
+                                <div class="modal-body d-flex flex-column gap-3">
+                                    <div>
+                                        <label class="mb-2" for="">Status</label>
+                                    <select class="form-select form-select" aria-label=".form-select-sm example">
+                                        <option selected>Status</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                    </div>
+                                    <div>
+                                        <label class="mb-2" for="">Project Type</label>
+                                    <select class="form-select form-select" aria-label=".form-select-sm example">
+                                        <option selected>Project Type</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                    </div>
+                                    <div>
+                                        <label class="mb-2" for="">Designation</label>
+                                    <select class="form-select form-select" aria-label=".form-select-sm example">
+                                        <option selected>Designation</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                    </div>
+                                    <div class="d-flex justify-content-between gap-2">
+                                        <div class="w-50">
+                                        <label class="mb-2" for="">Start Date</label>
+                                   <input class="w-100 form-control" type="date" name="" id="" value="2080-02-02">
+                                    </div>
                                     <div class="w-50">
-                                    <label class="mb-2" for="">Start Date</label>
-                               <input class="w-100 form-control" type="date" name="" id="" value="2080-02-02">
+                                        <label class="mb-2" for="">End Date</label>
+                                    <input class="w-100 form-control" type="date" name="" id="" value="2080-02-02">
+                                    </div>
+    
+                                    </div>
                                 </div>
-                                <div class="w-50">
-                                    <label class="mb-2" for="">End Date</label>
-                                <input class="w-100 form-control" type="date" name="" id="" value="2080-02-02">
+                                <div class="modal-footer border-0">
+                                    <button type="button" class="filter__cancel" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="filter__submit">Submit</button>
                                 </div>
-
                                 </div>
                             </div>
-                            <div class="modal-footer border-0">
-                                <button type="button" class="filter__cancel" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="filter__submit">Submit</button>
                             </div>
-                            </div>
-                        </div>
-                        </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row mt-3 common-container">
+    <div class="row mt-3">
             {% for package in seller_packages %}
             <div class="col-md-4 mb-3 ">
                 <article>

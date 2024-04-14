@@ -13,7 +13,11 @@
     <title>Register</title>
     <style>
         body {
-            background-color: #fff;
+            background-image: url('/static/images/test/sign-in.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            font-family: "Libre Franklin";
         }
 
         .login-title {
@@ -23,9 +27,21 @@
         }
 
         .login-button {
-            width: 220px;
-            background-color: #1F276F;
-            color: #F5F8FF;
+            width: 350px;
+            background-color: rgba(0, 109, 119);
+            border: none;
+            color: #fff;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: default;
+        }
+
+        .login-button:hover{
+            background-color: rgb(0, 109, 119, 0.2);
+            color: rgba(0, 109, 119);
+            transition: 0.2s;
         }
 
         .reset-text {
@@ -48,8 +64,8 @@
         }
 
         .logo {
-            width: 150px;
-            height: 50px;
+            width: 250px;
+            height: 100px;
             /* overflow: hidden; */
         }
 
@@ -57,55 +73,54 @@
             width: 100%;
             height: auto;
         }
-
-        .login-button {
-            width: 100%;
-        }
     </style>
 </head>
 
 <body>
-    <div class="container-xl mx-0">
-        <div class="row">
-            <div class="col-md px-0 side-picture">
-                <img src="/static/images/test/sign-in.jpg" alt="">
+    <div class="container vh-100">
+        <div class="row vh-100">
+            <div class="col-6">
+                
             </div>
-            <div class="col-md-3">
-                <div class="logo mb-3">
-                    <img src="/static/images/test/logo-black.png" alt="">
-                </div>
-
-                <h3 class="card-title">Register as a Seller</h3>
-                <h6 class="card-subtitle mb-3 text-body-secondary">Already have an account? <a href="{% url 'login' %}"
-                        class="ml-2">Log in</a></h6>
-                <div class="card-body">
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Username</label>
-                            {{form.username}}
+            <div class="col-6 my-3">
+                <div class="auth__container">
+                    <div class="auth__main">
+                        <div class="logo mb-3">
+                            <img src="/static/images/test/logo-black.png" alt="">
                         </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                            {{form.email}}
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Password</label>
-                            {{form.password1}}
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Confirm Password</label>
-                            {{form.password2}}
-                        </div>
-                        <button class="btn btn-third login-button my-3 text-first">
-                            Register
-                        </button>
-                    </form>
+                        <h3 class="">Register as a Seller</h3>
+                        <h6 class="mb-3 text-body-secondary">Already have an account? <a href="{% url 'login' %}"class="ml-2">Log in</a></h6>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" placeholder="Username" name="username">
+                                <!-- {{form.username}} -->
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                                <input type="text" class="form-control" placeholder="Email" name="email">
+                                <!-- {{form.email}} -->
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Password</label>
+                                <input type="text" class="form-control" placeholder="Password" name="password1">
+                                <!-- {{form.password1}} -->
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Confirm Password</label>
+                                <input type="text" class="form-control" placeholder="Confirm password" name="password2">
+                                <!-- {{form.password2}} -->
+                            </div>
+                            <button class="btn btn-third login-button my-3 text-first" type="submit">
+                                Register
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

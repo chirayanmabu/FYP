@@ -60,9 +60,8 @@
                     class="d-inline-block align-text-top">
             </a>
             <a href="{% url 'my_packages' pk=request.user.pk %}" class="active">My Packages</a>
-            <a href="{% url 'seller_profile' pk=request.user.pk %}">Profile</a>
+            <a href="{% url 'profile' pk=request.user.pk %}">Account</a>
             <a href="{% url 'payment_details' %}">Payment</a>
-            <a href="#">Account</a>
         </div>
 
         {% block content %}
