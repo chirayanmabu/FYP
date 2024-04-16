@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from django.views.generic.edit import UpdateView, DeleteView
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse, reverse_lazy
-from django.forms import modelformset_factory
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Avg
@@ -196,8 +195,10 @@ class FavouritePackageView(View):
         user = request.user
         if package.favourites.filter(id=user.id).exists():
             package.favourites.remove(request.user)
+            messages.error(request, f"Removed from favourites.")
         else:
             package.favourites.add(request.user)
+            messages.success(request, f"Added to favourites.")
         return HttpResponseRedirect(reverse('package_detail', kwargs={'pk': pk}))
     
 

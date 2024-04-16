@@ -5,6 +5,7 @@ from django.views.generic.edit import UpdateView, DeleteView
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
 
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
@@ -25,8 +26,20 @@ def registerPage(request):
             group = Group.objects.get(name='buyer')
             new_user.groups.add(group)
 
-            print("success")
+            messages.success(request, f'Account created!')
             return redirect('login')
+        else:
+            if 'email' in form.errors:
+                messages.error(request, f'Enter a valid email address.')
+            elif 'password1' in form.errors:
+                messages.error(request, f'Password must meet requirements.')
+            elif 'password2' in form.errors:
+                messages.error(request, f'{form.errors.get('password2')[0]}')
+            elif 'username' in form.errors:
+                if User.objects.filter(username=form.cleaned_data.get('username')).exists():
+                    messages.error(request, f'Email already exists.')
+                else:
+                    messages.error(request, f'Invalid email address.')
         
     context = {
         'form': form
@@ -45,9 +58,21 @@ def registerSellerPage(request):
             new_user.save()
             group = Group.objects.get(name='seller')
             new_user.groups.add(group)
-
-            print("registered as seller")
+            
+            messages.success(request, f'Seller account created!')
             return redirect('login')
+        else:
+            if 'email' in form.errors:
+                messages.error(request, f'Enter a valid email address.')
+            elif 'password1' in form.errors:
+                messages.error(request, f'Password must meet requirements.')
+            elif 'password2' in form.errors:
+                messages.error(request, f'{form.errors.get('password2')[0]}')
+            elif 'username' in form.errors:
+                if User.objects.filter(username=form.cleaned_data.get('username')).exists():
+                    messages.error(request, f'Email already exists.')
+                else:
+                    messages.error(request, f'Invalid email address.')
         
     context = {
         'form': form
@@ -65,7 +90,7 @@ def loginPage(request):
             login(request, user)
             return redirect('home')
         else:
-            print('error')
+            messages.error(request, f"Invalid username/password.")
 
     return render(request, 'core/login.html')
 

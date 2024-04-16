@@ -4,17 +4,6 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="toast-container position-fixed top-0 end-0 p-3">
-    <div class="toast" id="bookingToast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <strong class="me-auto">Booking Error</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-          Sorry, the selected date is not available for booking.
-        </div>
-      </div>
-</div>
 <div class="container">
     <div class="row my-3">
         <div class="col">
@@ -26,9 +15,9 @@
                     <form action="{% url 'favourite_package' package.id %}" method="POST">
                         {% csrf_token %}
                         {% if is_favourite == True %}
-                        <button type="submit" name="fav_package" class="fav-package-btn"><i class="bi bi-heart"></i></button>
+                        <button type="submit" id="favPackageBtn" name="fav_package" class="fav-package-btn"><i class="bi bi-heart"></i></button>
                         {% else %}
-                        <button type="submit" name="fav_package" class="fav-active"><i class="bi bi-heart"></i></button>
+                        <button type="submit" id="favPackageBtn" name="fav_package" class="fav-active"><i class="bi bi-heart"></i></button>
                         {% endif %}
                     </form>
                     <button class="book-package-btn ms-2" data-bs-toggle="modal" data-bs-target="#bookPackageModal">Book</button>
@@ -217,14 +206,20 @@
         clickedImg.src = temp;
     }
 
-    window.addEventListener('DOMContentLoaded', (event) => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const bookingError = urlParams.get('bookingError');
-        if (bookingError === 'true') {
-            const bookingToast = new bootstrap.Toast(document.getElementById('bookingToast'));
-            bookingToast.show();
-        }
-    });
+    {% if messages %}
+        document.addEventListener("DOMContentLoaded", function(event) {
+            toastr.options = { "closeButton": true, "debug": false, "newestOnTop": true,
+                "progressBar": false, "positionClass": "toast-top-right", "preventDuplicates": true,
+                "onclick": null, "showDuration": "300", "hideDuration": "1000", "timeOut": "5000",
+                "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "linear",
+                "showMethod": "fadeIn", "hideMethod": "fadeOut" };
+            {% autoescape off %}
+                {% for msg in messages %}
+                    toastr["{{ msg.level_tag }}"]("{{ msg }}");
+                {% endfor %}
+            {% endautoescape %}
+        });
+    {% endif %}
 </script>
 
 {% endblock %}

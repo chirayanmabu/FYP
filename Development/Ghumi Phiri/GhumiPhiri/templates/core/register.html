@@ -7,9 +7,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/static/css/styles.css">
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stars.css' %}">
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/9e9dbc66ce.js" crossorigin="anonymous"></script>
     <title>Register</title>
     <style>
         body {
@@ -73,6 +87,11 @@
             width: 100%;
             height: auto;
         }
+
+        form i {
+            margin-left: -30px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -95,22 +114,24 @@
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" placeholder="Username" name="username">
-                                <!-- {{form.username}} -->
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Email address</label>
                                 <input type="text" class="form-control" placeholder="Email" name="email">
-                                <!-- {{form.email}} -->
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Password</label>
-                                <input type="text" class="form-control" placeholder="Password" name="password1">
-                                <!-- {{form.password1}} -->
+                                <div class="input-group">
+                                    <input type="password" class="form-control" placeholder="Password" name="password1" id="password1">
+                                    <i class="bi bi-eye-slash input-group-text togglePassword" data-target="password1"></i>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Confirm Password</label>
-                                <input type="text" class="form-control" placeholder="Confirm password" name="password2">
-                                <!-- {{form.password2}} -->
+                                <div class="input-group">
+                                    <input type="password" class="form-control" placeholder="Confirm password" name="password2" id="password2">
+                                    <i class="bi bi-eye-slash input-group-text togglePassword" data-target="password2"></i>
+                                </div>
                             </div>
                             <button class="btn btn-third login-button my-3 text-first" type="submit">
                                 Register
@@ -121,25 +142,39 @@
             </div>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <script src="{% static 'js/scripts.js' %}"></script>
-</body>
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        {% if messages %}
+            document.addEventListener("DOMContentLoaded", function(event) {
+                toastr.options = { "closeButton": true, "debug": false, "newestOnTop": true,
+                    "progressBar": false, "positionClass": "toast-top-right", "preventDuplicates": true,
+                    "onclick": null, "showDuration": "300", "hideDuration": "1000", "timeOut": "5000",
+                    "extendedTimeOut": "1000", "showEasing": "swing", "hideEasing": "linear",
+                    "showMethod": "fadeIn", "hideMethod": "fadeOut" };
+                {% autoescape off %}
+                    {% for msg in messages %}
+                        toastr["{{ msg.level_tag }}"]("{{ msg }}");
+                    {% endfor %}
+                {% endautoescape %}
+            });
+        {% endif %}
 
+        document.querySelectorAll('.togglePassword').forEach(function (toggle) {
+            toggle.addEventListener('click', function () {
+                const targetId = this.getAttribute('data-target');
+                const passwordInput = document.getElementById(targetId);
+
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+
+                this.classList.toggle('bi-eye');
+            });
+        });
+
+    </script>
+</body>
 </html>
-<form action="" method="POST">
-    {% csrf_token %}
-    <div class="input-group my-3">
-        <i class="bi bi-person input-group-text"></i>
-        <input type="text" class="form-control" placeholder="Username" name="username">
-    </div>
-    <div class="input-group my-3">
-        <i class="bi bi-key input-group-text"></i>
-        <input type="password" class="form-control" placeholder="Password" name="password">
-    </div>
-    <button class="btn login-button my-3" type="submit" value="Login">
-        Login
-    </button>
-</form>
