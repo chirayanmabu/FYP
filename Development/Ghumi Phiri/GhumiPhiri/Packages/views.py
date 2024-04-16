@@ -115,6 +115,7 @@ class PackageDetailView(View):
         feedbacks = Feedback.objects.filter(package=package).order_by('-created_on')
         comment_form = CreateCommentForm()
         booking_form = BookingForm(request.POST)
+        user_booking_date_str = request.GET.get('booking_date')
 
         # add_feedback = True
         # if request.user.is_authenticated:
@@ -128,6 +129,7 @@ class PackageDetailView(View):
             'feedbacks': feedbacks,
             'comment_form': comment_form,
             'booking_form': booking_form,
+            'booking_date': user_booking_date_str
             # 'add_feedback': add_feedback
         }
 
@@ -174,6 +176,7 @@ class PackageDetailView(View):
             #     print("Booking successful")
             else:
                 context['booking_date_available'] = True
+                context['booking_date'] = user_booking_date_str
         return render(request, 'Packages/package_detail.html', context)
 
         

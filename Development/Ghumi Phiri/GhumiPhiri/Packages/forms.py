@@ -67,7 +67,7 @@ class CreateCommentForm(ModelForm):
 
     class Meta:
         model = Feedback
-        fields = ["comment", "rating"]
+        fields = ["comment"]
 
 
 class BookingForm(ModelForm):

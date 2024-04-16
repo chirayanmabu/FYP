@@ -15,6 +15,7 @@ import stripe, json
 
 from Packages.models import Package, Booking
 from core.models import User
+from Packages.models import PaymentStatus
 
 
 # Create your views here.
@@ -25,16 +26,24 @@ def stripe_config(request):
         return JsonResponse(stripe_config, safe=False)
     
 
-def create_checkout_session(request,pk):
+def create_checkout_session(request, pk,):
     package = Package.objects.get(pk=pk)
     user = request.user.id
 
     if request.method == "GET":
         domain_url = 'http://localhost:8000/'
         stripe.api_key = settings.STRIPE_SECRET_KEY
+        booking_date = request.GET.get('booking_date')
+        user = User.objects.get(id=user)
+        booking = Booking.objects.create(
+            booked_by=user, 
+            package=package,
+            booking_date=booking_date,
+            paid_amount=package.package_price,
+        )
         try:
             checkout_session = stripe.checkout.Session.create(
-                success_url=domain_url + f'success?session_id={{CHECKOUT_SESSION_ID}}&product_id={pk}',
+                success_url=domain_url + f'success?session_id={{CHECKOUT_SESSION_ID}}&product_id={pk}/',
                 cancel_url=domain_url + 'cancelled/',
                 payment_method_types=['card'],
                 mode='payment',
@@ -52,13 +61,13 @@ def create_checkout_session(request,pk):
                     }
                 ],
                 metadata={
-                    "product_id": package.id,
+                    "product_id": booking.id,
                     "user": user,
                 }
             )
 
+            
             # Booking.objects.create(booked_by=request.user, package=package, booking_date=)
-
             return JsonResponse({
                 'sessionId': checkout_session['id']
             })
@@ -78,6 +87,9 @@ def stripe_webhook(request):
         event = stripe.Webhook.construct_event(
             payload, sig_header, endpoint_secret
         )
+        session = event['data']['object']
+        booking_id = session['metadata']['product_id']
+        booking = Booking.objects.filter(pk=booking_id).first()
     except ValueError as e:
         return HttpResponse(status=400)
     
@@ -87,11 +99,16 @@ def stripe_webhook(request):
     
     if event["type"] == 'checkout.session.completed':
         print('inside checkout session completed')
-        session = event['data']['object']
         
-        package_id = session['metadata']['product_id']
+        
+        
         user_id = session['metadata']['user']
-        package = Package.objects.get(pk=package_id)
+        booking_date = session['metadata']['booking_date']
+        print(f"{booking_date} from metadata")
+        # package = Package.objects.get(pk=package_id)
+        
+        booking.status = PaymentStatus.COMPLETED
+        booking.save()
         user = User.objects.get(pk=user_id)
         
         payment_intent_id = session['payment_intent']
@@ -100,16 +117,12 @@ def stripe_webhook(request):
         currency = session['currency']
         
         # if request.user.is_authenticated:
-        booking = Booking.objects.create(
-            booked_by=user, 
-            package=package,
-            booking_date=timezone.now(),
-            paid_amount=package.package_price,
-        )
+        
         print("Payment success")
         return HttpResponse(status=200)
         
-
+    booking.status = PaymentStatus.FAILED
+    booking.save()
     return HttpResponse(status=400)
 
 

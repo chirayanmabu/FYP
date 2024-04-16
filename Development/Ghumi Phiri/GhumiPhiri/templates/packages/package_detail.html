@@ -25,7 +25,12 @@
                 <div class="col-6 d-flex justify-content-end align-items-center">
                     <button class="book-package-btn" data-bs-toggle="modal" data-bs-target="#bookPackageModal">Book</button>
                     {% if booking_date_available %}
-                        <button type="submit" id="bookPackage" class="checkout-btn ms-2" name={{package.id}}>Checkout</button>
+                        <p>{{ booking_date }}</p>
+                        <form action="{% url 'Payment:checkout_session' package.id %}" method="GET">
+                            <input type="date" name="booking_date" id="book_name" value="{{ booking_date }}">
+                            <!-- <input type="hidden" name="booking_date" value="{{ booking_date }}"> -->
+                            <button type="submit" id="bookPackage" class="checkout-btn ms-2" name={{package.id}}>Checkout</button>
+                        </form>
                     {% endif %}
                     <div class="modal fade" id="bookPackageModal" tabindex="-1"
                         aria-labelledby="bookPackageModalLabel" aria-hidden="true">
@@ -120,7 +125,7 @@
                                     aria-labelledby="postReviewModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <form action="" method="POST" name="post_comment" id="post_comment">
+                                            <form action="{% url 'package_detail' package.id %}" method="POST" name="post_comment" id="post_comment">
                                                 {% csrf_token %}
                                                 <div class="modal-header">
                                                     <h1 class="modal-title fs-5" id="postReviewModalLabel">Write a review</h1>
@@ -131,10 +136,10 @@
                                                     <div class="mb-3 row">
                                                         <div class="mb-3">
                                                             <label for="comment" class="form-label">Your review</label>
-                                                            <!-- {{comment_form}} -->
                                                             {% ratings package %}
-                                                            <textarea class="form-control" id="comment" rows="3"
-                                                                name="comment"></textarea>
+                                                            {{comment_form}}
+                                                            <!-- <textarea class="form-control" id="comment" rows="3"
+                                                                name="comment"></textarea> -->
                                                         </div>
                                                     </div>
                                                 </div>
