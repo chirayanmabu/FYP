@@ -78,10 +78,12 @@ class ProfilePageView(View, LoginRequiredMixin):
     def get(self, request, pk, *args, **kwargs):
         user = get_object_or_404(User, pk=pk)
         profile = UserProfile.objects.get(pk=pk)
+        fav_packages = Package.objects.filter(favourites=request.user)
 
         context = {
             'user': user,
             'profile': profile,
+            'fav_packages': fav_packages
         }
 
         return render(request, 'core/profile.html', context)

@@ -23,7 +23,15 @@
                     <p class="package-header">{{ package.package_title }}</p> 
                 </div>
                 <div class="col-6 d-flex justify-content-end align-items-center">
-                    <button class="book-package-btn" data-bs-toggle="modal" data-bs-target="#bookPackageModal">Book</button>
+                    <form action="{% url 'favourite_package' package.id %}" method="POST">
+                        {% csrf_token %}
+                        {% if is_favourite == True %}
+                        <button type="submit" name="fav_package" class="fav-package-btn"><i class="bi bi-heart"></i></button>
+                        {% else %}
+                        <button type="submit" name="fav_package" class="fav-active"><i class="bi bi-heart"></i></button>
+                        {% endif %}
+                    </form>
+                    <button class="book-package-btn ms-2" data-bs-toggle="modal" data-bs-target="#bookPackageModal">Book</button>
                     {% if booking_date_available %}
                         <p>{{ booking_date }}</p>
                         <form action="{% url 'Payment:checkout_session' package.id %}" method="GET">

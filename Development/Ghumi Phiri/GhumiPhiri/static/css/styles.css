@@ -610,6 +610,39 @@ article {
     color: white;
     transition: 0.2s;
   }
+  
+  .fav-package-btn {
+    background-color: rgba(254, 124, 150, 0.2);
+    border: none;
+    color: #fe7c96;;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: default;
+  }
+  
+  .fav-package-btn:hover {
+    background-color: rgba(254, 124, 150);
+    color: white;
+    transition: 0.2s;
+  }
+
+  .fav-active{
+    background-color: rgba(254, 124, 150);
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: default;
+  }
+  .fav-active:hover {
+    background-color: rgba(254, 124, 150, 0.2);
+    color: rgba(254, 124, 150);
+    transition: 0.2s;
+  }
 
   .checkout-btn {
     background-color: rgba(0, 109, 119, 0.2);

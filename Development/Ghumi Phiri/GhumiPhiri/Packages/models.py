@@ -12,8 +12,9 @@ class Package(models.Model):
     package_duration = models.CharField(null=True, blank=True)
     package_locations = models.CharField(max_length=50, null=True, blank=True)
     package_activities = models.CharField(max_length=50, null=True, blank=True)
-    
 
+    favourites = models.ManyToManyField(User, related_name='favourites', blank=True)
+    
     def __str__(self):
         return self.package_title
 

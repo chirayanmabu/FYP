@@ -113,9 +113,14 @@ class PackageDetailView(View):
         package = Package.objects.get(pk=pk)
         package_images = PackageImage.objects.filter(package=package)
         feedbacks = Feedback.objects.filter(package=package).order_by('-created_on')
+
+        user = request.user
+
         comment_form = CreateCommentForm()
         booking_form = BookingForm(request.POST)
         user_booking_date_str = request.GET.get('booking_date')
+
+        
 
         # add_feedback = True
         # if request.user.is_authenticated:
@@ -132,6 +137,11 @@ class PackageDetailView(View):
             'booking_date': user_booking_date_str
             # 'add_feedback': add_feedback
         }
+
+        if package.favourites.filter(id=user.id).exists():
+            context["is_favourite"] = False
+        else:
+            context["is_favourite"] = True
 
         return render(request, 'Packages/package_detail.html', context)
     
@@ -180,7 +190,15 @@ class PackageDetailView(View):
         return render(request, 'Packages/package_detail.html', context)
 
         
-
+class FavouritePackageView(View):
+    def post(self, request, pk, *args, **kwargs):
+        package = Package.objects.get(pk=pk)
+        user = request.user
+        if package.favourites.filter(id=user.id).exists():
+            package.favourites.remove(request.user)
+        else:
+            package.favourites.add(request.user)
+        return HttpResponseRedirect(reverse('package_detail', kwargs={'pk': pk}))
     
 
 class WriteReview(View):
