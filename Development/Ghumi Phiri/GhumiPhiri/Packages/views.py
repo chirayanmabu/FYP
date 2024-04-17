@@ -266,6 +266,28 @@ class ListSellerPackages(View):
 
         return render(request, 'Packages/seller_packages.html', context)
     
+
+class ManageSellerPackages(View):
+    def get(self, request, pk, *args, **kwargs):
+        pass
+
+    def post(self, request, pk, *args, **kwargs):
+        pacakge_instance = get_object_or_404(Package, pk=pk)
+        url = reverse("package_detail", kwargs={"pk": pacakge_instance.id})
+        form = ImageForm(request.POST, request.FILES, instance=pacakge_instance)
+        files = request.FILES.getlist('images')
+        if form.is_valid():
+            form.save()
+            for file in files:
+                package_image = PackageImage(package=pacakge_instance, images=file)
+                package_image.save()
+        else:
+            print(form.errors)
+        return HttpResponseRedirect(url)
+            
+        
+
+    
 class ListPaymentDetails(View):
     def get(self, request, *args, **kwargs):
         user = request.user

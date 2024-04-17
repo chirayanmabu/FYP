@@ -96,6 +96,62 @@
                                     clip-rule="evenodd" />
                                 </svg>
                             </a>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="view-package-btn"  data-bs-toggle="modal" data-bs-target="#updatePackage_{{ package.id }}">
+                                Edit
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="updatePackage_{{ package.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Involvement</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+            
+                                        <div class="modal-body">
+                                            <form class="row g-3" action="{% url 'manage_package' pk=package.id %}" method="POST" name="update_package">
+                                                {% csrf_token %}
+                                                <div class="col-md-12">
+                                                    <label for="project_name" class="form-label">Package title</label>
+                                                    <input type="text" class="form-control" name="package_title" id="package_title" value="{{ package.package_title }}">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label for="images" class="form-label">Images</label>
+                                                    <input type="file" name="images" class="form-control" multiple>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label for="package_desc" class="form-label">Package description</label>
+                                                    <textarea name="package_desc" id="package_desc" cols="10" rows="5" class="form-control ">{{ package.package_desc }}</textarea>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="package_price" class="form-label">Package price</label>
+                                                    <input type="text" class="form-control" name="package_price" id="package_price" value="{{ package.package_price }}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="package_duration" class="form-label">Duration</label>
+                                                    <input type="text" class="form-control" name="package_duration" id="package_duration" value="{{ package.package_duration }}">
+                                                </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <label for="package_locations" class="form-label">Locations</label>
+                                                    <input type="text" class="form-control" name="package_locations" id="package_locations" value="{{ package.package_locations }}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="package_activities" class="form-label">Activities</label>
+                                                    <input type="text" class="form-control" name="package_activities" id="package_activities" value="{{ package.package_activities }}">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary" name="update_involvement">Save changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                             <button class="checkout-btn ms-3" onclick="console.log('Package ID:', '{{ package.pk }}'); addToCompare('{{ package.pk }}')">Compare</button>
                         </div>
                     </div>
@@ -108,4 +164,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
