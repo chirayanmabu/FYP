@@ -44,17 +44,26 @@
       <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a href="{% url 'list-package' %}" class="nav-link nav-text">List Packages</a>
+            <a href="{% url 'list-package' %}" class="nav-link nav-text">Packages</a>
           </li>
           <li class="nav-item">
-            <a href="" class="nav-link nav-text">View Profile</a>
+            <a href="{% url 'list_sellers' %}" class="nav-link nav-text">Hotels</a>
           </li>
-          <li class="nav-item">
-            <a href="" class="nav-link nav-text">Manage</a>
-          </li>
-          <li class="nav-item">
-            <a href="{% url 'logout' %}" class="nav-link nav-text">Logout</a>
-          </li>
+          {% if request.user.is_authenticated  %}
+            <li class="nav-item dropdown ms-2">
+              <div class="nav-profile-img" data-bs-toggle="dropdown" aria-expanded="false" >
+                <img src="{{ user.profile.profile_pic.url }}" alt="">
+              </div>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="{% url 'profile' pk=user.id %}">Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a href="{% url 'logout' %}" class="nav-link nav-text">Log in</a>
+            </li>
+          {% endif %}
         </ul>
       </div>
     </div>

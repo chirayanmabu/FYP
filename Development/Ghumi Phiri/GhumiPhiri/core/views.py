@@ -14,6 +14,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from .forms import *
 from .models import *
+from core.mixins import GroupRequiredMixin
 from Packages.models import Package
 
 def registerPage(request):

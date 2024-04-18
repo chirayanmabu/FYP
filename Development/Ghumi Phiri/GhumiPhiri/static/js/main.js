@@ -37,7 +37,17 @@ function toggleNav() {
     }
 }
 
-
+function activeNav() {
+    var nav_list = document.querySelectorAll(".sidebar .sidebar_a")
+    const location = window.location.href;
+    for (let i = 0; i < nav_list.length; i++) {
+      if (location === nav_list[i].href) {
+        nav_list[i].classList.add("active");
+      } else {
+        nav_list[i].classList.remove("active");
+      }
+    }
+  };
 
 // Package comparision
 var packageId1 = "";

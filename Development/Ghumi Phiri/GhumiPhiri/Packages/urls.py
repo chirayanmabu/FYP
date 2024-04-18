@@ -14,5 +14,7 @@ urlpatterns = [
     path('my-packages/<int:pk>', views.ListSellerPackages.as_view(), name="my_packages"),
     path('manage-package/<int:pk>', views.ManageSellerPackages.as_view(), name="manage_package"),
 
+    path('list-sellers/', views.ListSellerView.as_view(), name="list_sellers"),
+
     path('payment-details/', views.ListPaymentDetails.as_view(), name="payment_details"),
 ]

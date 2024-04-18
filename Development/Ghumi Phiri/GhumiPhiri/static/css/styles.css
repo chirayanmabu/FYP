@@ -21,7 +21,7 @@ a {
     height: 80px;
 }
 .dash-nav-background {
-    background-color: #fff;
+    background-color: #006D77;
     height: 80px;
 }
 
@@ -29,7 +29,16 @@ a {
 color: #D9D9D9;
 }
 .dash-nav-text {
-color: #111;
+color: #D9D9D9;
+}
+
+.nav-link{
+  border-radius: 12px;
+}
+
+.nav-link:hover{
+  color: white;
+  border-radius: 12px;
 }
 
 .footer-text{
@@ -529,15 +538,18 @@ article {
     background-color: #fff; 
     overflow-x: hidden;
     transition: 0.5s; 
+    
   }
   
   .sidebar a {
-    padding: 8px 8px 8px 32px;
+    padding: 12px 8px 12px 32px;
     text-decoration: none;
     font-size: 18px;
     color: #111;
     display: block;
     transition: 0.3s;
+    border-radius: 18px;
+    margin: 8px 8px 8px 8px
   }
   
   .sidebar a:hover {
@@ -556,6 +568,8 @@ article {
     font-size: 36px;
     margin-left: 50px;
   }
+
+
   
   .openbtn {
     font-size: 20px;
@@ -568,14 +582,24 @@ article {
   .dash-openbtn {
     font-size: 20px;
     cursor: pointer;
-    background-color: #fff;
-    color: #111;
+    background-color: #006D77;
+    color: white;
     padding: 10px 15px;
     border: none;
   }
   .dash-logo{
     padding-top: 23px !important;
     padding-bottom: 23px !important;
+    margin: 0px !important;
+    border-radius: 0px !important;
+    background-color: #006D77;
+    color: white;
+  }
+  .dash-logo:hover{
+    padding-top: 23px !important;
+    padding-bottom: 23px !important;
+    margin: 0px !important;
+    border-radius: 0px !important;
   }
 
   
@@ -838,3 +862,20 @@ td:last-child {
   height: auto; 
   display: block; 
 }
+
+
+.nav-profile-img{
+  display: inline-block; 
+  position: relative; 
+  width: 40px; 
+  height: 40px; 
+  overflow: hidden; 
+  border-radius: 50%; 
+  cursor: pointer;
+}
+ 
+.nav-profile-img img{
+  width: auto; 
+  height: 100%;
+}
+

@@ -54,14 +54,14 @@
                 </div>
             </div>
         </nav>
-        <div id="mySidebar" class="sidebar shadow">
+        <div id="mySidebar" class="sidebar shadow sidebar_list">
             <a href="{% url 'home' %}" class="dash-logo">
-                <img src="/static/images/test/logo-black.png" alt="Logo" width="90px" height="33px"
+                <img src="/static/images/test/logo-white.png" alt="Logo" width="90px" height="33px"
                     class="d-inline-block align-text-top">
             </a>
-            <a href="{% url 'my_packages' pk=request.user.pk %}" class="active">My Packages</a>
-            <a href="{% url 'profile' pk=request.user.pk %}">Account</a>
-            <a href="{% url 'payment_details' %}">Payment</a>
+            <a href="{% url 'my_packages' pk=request.user.pk %}" class="sidebar_a active">My Packages</a>
+            <a href="{% url 'profile' pk=request.user.pk %}" class="sidebar_a">Account</a>
+            <a href="{% url 'payment_details' %}" class="sidebar_a">Payment</a>
         </div>
 
         {% block content %}
@@ -74,6 +74,7 @@
     crossorigin="anonymous"></script>
     <script src="{% static 'js/main.js' %}"></script>
     <script>
+        activeNav();
         toggleNav();
     </script>
 </body>

@@ -9,12 +9,16 @@ from django.db.models import Avg
 
 from datetime import datetime
 
+from core.mixins import GroupRequiredMixin
+
 from Packages.forms import *
 from Packages.models import *
 from Packages.filters import PackageFilter
 
 from star_ratings.models import Rating
 from django.template.loader import render_to_string
+
+from django.core.exceptions import PermissionDenied
 
 class HomePageView(View):
     def get(self, request, *args, **kwargs):
@@ -26,6 +30,7 @@ class HomePageView(View):
         context = {
             'packages': packages,
             'filter': f,
+            'user': request.user
         }
 
         return render(request, 'core/index.html', context)
@@ -189,17 +194,23 @@ class PackageDetailView(View):
         return render(request, 'Packages/package_detail.html', context)
 
         
-class FavouritePackageView(View):
+class FavouritePackageView(GroupRequiredMixin, View):
+    group_required=[u'buyer']
+
     def post(self, request, pk, *args, **kwargs):
-        package = Package.objects.get(pk=pk)
-        user = request.user
-        if package.favourites.filter(id=user.id).exists():
-            package.favourites.remove(request.user)
-            messages.error(request, f"Removed from favourites.")
-        else:
-            package.favourites.add(request.user)
-            messages.success(request, f"Added to favourites.")
-        return HttpResponseRedirect(reverse('package_detail', kwargs={'pk': pk}))
+        try:
+            package = Package.objects.get(pk=pk)
+            user = request.user
+            if package.favourites.filter(id=user.id).exists():
+                package.favourites.remove(request.user)
+                messages.error(request, f"Removed from favourites.")
+            else:
+                package.favourites.add(request.user)
+                messages.success(request, f"Added to favourites.")
+            return HttpResponseRedirect(reverse('package_detail', kwargs={'pk': pk}))
+        except Exception:
+            messages.error(request, f"Please register as a user for this functionality.")
+            return HttpResponseRedirect(reverse('package_detail', kwargs={'pk': pk}))
     
 
 class WriteReview(View):
@@ -227,6 +238,18 @@ class WriteReview(View):
                 'context': context
             }
         )
+    
+
+class ListSellerView(View):
+    def get(self, request, *args, **kwargs):
+        sellers = User.objects.filter(role=User.SELLER)
+
+        context = {
+            'sellers': sellers
+        }
+
+        return render(request, 'Packages/list_sellers.html', context)
+
 
 class ListSellerPackages(View):
     def get(self, request, pk, *args, **kwargs):

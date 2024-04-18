@@ -1,0 +1,84 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load ratings %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col my-3">
+            <div class="common-container">
+                <p class="package__list_title mb-0">Sellers</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="common-container">
+                <form action="" method="GET">
+                    {{ package_filter.form.package_price }}
+                    <div class="mt-2">
+                        {{ package_filter.form.package_locations }}
+                    </div>
+                    <div class="mt-2">
+                        {{ package_filter.form.package_duration }}
+                    </div>
+                    <div class="mt-2">
+                        <p class="mb-0">Rating</p>
+                        {{ package_filter.form.package__rating_average  }}
+                    </div>
+                    <button type="submit" class="view-package-btn mt-2">Filter</button>
+                </form>
+            </div>
+        </div>
+        <div class="col p-0">
+            <div class="container">
+                <div class="row mb-3">
+                {% for seller in sellers %}
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-md-6 package-image">
+                                    <img src="{{ seller.profile.profile_pic.url }}"
+                                        class="img-fluid rounded-start" alt="">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="card-title">{{ seller.username }}</h5>
+                                                <p class="mb-0">Location: {{ seller.profile.address }}</p>
+                                            </div>
+                                        </div>
+                                        <p class="card-text">{{ seller.profile.bio }}</p>
+                                        <a href="{% url 'seller_profile' pk=seller.id %}"><button class="view-package-btn">View Detail</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="compareModal" data-compare-url="{% url 'compare_packages' %}" tabindex="-1" aria-labelledby="compareModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="compareModalLabel">Comparision</h1>
+        <button type="button" class="btn-close" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="compareModalBody">
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}

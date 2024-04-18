@@ -38,12 +38,6 @@ class CreateUserForm(UserCreationForm):
         fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
 
 class ProfileForm(ModelForm):
-    # GENDER_CHOICES = [
-    #     ('male', 'Male'),
-    #     ('female', 'Female'),
-    #     ('other', 'Other'),
-    # ]
-
     profile_pic = forms.ImageField(
         label='',
         required=False,
@@ -101,13 +95,20 @@ class UpdateProfileForm(forms.Form):
     
     phone = forms.CharField(
         label='',
+        required=False,
         widget=forms.TextInput(attrs={'type': 'number'})
     )
-    # address = forms.CharField(
-    #     label='',
-    #     min_length=2, max_length=50,
-    #     widget=forms.TextInput(attrs={'placeholder': 'Address'})
-    # )
+
+    bio = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={'type': 'text'})
+    )
+    
+    address = forms.CharField(
+        label='',
+        min_length=2, max_length=50,
+        widget=forms.TextInput(attrs={'placeholder': 'Address'})
+    )
 
     def save(self):
         user_id = self.initial.get('user_id')
@@ -123,18 +124,12 @@ class UpdateProfileForm(forms.Form):
 
         profile.phone = user_data.get("phone", profile.phone)
         profile.address = user_data.get("address", profile.address)
-        profile.gender = user_data.get("gender", profile.gender)
         profile.phone = user_data.get("phone", profile.phone)
         profile.dob = user_data.get("dob", profile.dob)
-        profile.profile_pic = user_data.get("profile_pic", profile.profile_pic)
+        profile.bio = user_data.get("bio", profile.bio)
+
+        if 'profile_pic' in self.files:
+            profile.profile_pic = self.files['profile_pic']
 
         user.save()
         profile.save()
-
-        print(user_data)    
-        print(user_id)
-
-
-
-
-        
