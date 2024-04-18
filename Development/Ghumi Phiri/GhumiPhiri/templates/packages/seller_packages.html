@@ -111,7 +111,7 @@
                                         </div>
             
                                         <div class="modal-body">
-                                            <form class="row g-3" action="{% url 'manage_package' pk=package.id %}" method="POST" name="update_package">
+                                            <form class="row g-3" action="{% url 'manage_package' pk=package.id %}" method="POST" name="update_package" enctype="multipart/form-data">
                                                 {% csrf_token %}
                                                 <div class="col-md-12">
                                                     <label for="project_name" class="form-label">Package title</label>

@@ -151,6 +151,9 @@ class PackageDetailView(View):
     
     def post(self, request, pk, *args, **kwargs):
         package = Package.objects.get(pk=pk)
+        package_images = PackageImage.objects.filter(package=package)
+        feedbacks = Feedback.objects.filter(package=package).order_by('-created_on')
+
         bookings = Booking.objects.filter(package=package)
 
         existing_booking_dates=list(Booking.objects.filter(package=package).values_list('booking_date', flat=True))
@@ -160,7 +163,9 @@ class PackageDetailView(View):
 
         context = {
             'package': package,
-            'form': comment_form,
+            'package_images': package_images,
+            'feedbacks': feedbacks,
+            'comment_form': comment_form,
             'booking_form': booking_form,
         }
 
@@ -179,8 +184,7 @@ class PackageDetailView(View):
             user_booking_date_str = request.POST.get('booking_date')
             user_booking_date = datetime.strptime(user_booking_date_str, "%Y-%m-%d").date()
             if user_booking_date in existing_booking_dates:
-                print('cannot book')
-                return redirect(reverse('package_detail', kwargs={'pk': pk}) + '?bookingError=true')
+                messages.error(request, f"The chosen booking date is not available.")
             # if booking_form.is_valid():
             #     new_booking = booking_form.save(commit=False)
             #     new_booking.booked_by = request.user
@@ -189,13 +193,14 @@ class PackageDetailView(View):
             #     context['booking_date_available'] = True
             #     print("Booking successful")
             else:
+                messages.success(request, f"The chosen booking date is available. Proceed to checkout.")
                 context['booking_date_available'] = True
                 context['booking_date'] = user_booking_date_str
         return render(request, 'Packages/package_detail.html', context)
 
         
-class FavouritePackageView(GroupRequiredMixin, View):
-    group_required=[u'buyer']
+class FavouritePackageView(View):
+    # group_required=[u'buyer']
 
     def post(self, request, pk, *args, **kwargs):
         try:
@@ -295,14 +300,16 @@ class ManageSellerPackages(View):
         pass
 
     def post(self, request, pk, *args, **kwargs):
-        pacakge_instance = get_object_or_404(Package, pk=pk)
-        url = reverse("package_detail", kwargs={"pk": pacakge_instance.id})
-        form = ImageForm(request.POST, request.FILES, instance=pacakge_instance)
+        package_instance = get_object_or_404(Package, pk=pk)
+        url = reverse("package_detail", kwargs={"pk": package_instance.id})
+
+        form = ImageForm(request.POST, request.FILES, instance=package_instance)
         files = request.FILES.getlist('images')
         if form.is_valid():
+            package_instance.packageimage_set.all().delete()
             form.save()
             for file in files:
-                package_image = PackageImage(package=pacakge_instance, images=file)
+                package_image = PackageImage(package=package_instance, images=file)
                 package_image.save()
         else:
             print(form.errors)

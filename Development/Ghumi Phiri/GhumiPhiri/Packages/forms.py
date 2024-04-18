@@ -15,8 +15,6 @@ class CreatePackageModelForm(ModelForm):
     
     package_desc = forms.CharField(
         label='Package description',
-        min_length = 2,
-        max_length = 100,
         widget=forms.TextInput(attrs={'placeholder': 'Package description', 'class': 'form-control'})
     )
 
@@ -55,7 +53,7 @@ class ImageForm(CreatePackageModelForm):
 
     class Meta(CreatePackageModelForm.Meta):
         models = PackageImage
-        fields =CreatePackageModelForm.Meta.fields + ['images']
+        fields = CreatePackageModelForm.Meta.fields + ['images']
 
 
 class CreateCommentForm(ModelForm):

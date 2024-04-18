@@ -6,12 +6,12 @@ from core.models import User
 
 class Package(models.Model):
     package_author = models.ForeignKey(User, on_delete=models.CASCADE)
-    package_title = models.CharField(max_length=50)
-    package_desc = models.CharField(max_length=200, null=True, blank=True)
+    package_title = models.CharField(max_length=255)
+    package_desc = models.TextField(null=True, blank=True)
     package_price = models.FloatField(null=True, blank=True)
     package_duration = models.CharField(null=True, blank=True)
-    package_locations = models.CharField(max_length=50, null=True, blank=True)
-    package_activities = models.CharField(max_length=50, null=True, blank=True)
+    package_locations = models.CharField(max_length=255, null=True, blank=True)
+    package_activities = models.CharField(max_length=255, null=True, blank=True)
 
     favourites = models.ManyToManyField(User, related_name='favourites', blank=True)
     

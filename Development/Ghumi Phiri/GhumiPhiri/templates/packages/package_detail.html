@@ -9,7 +9,7 @@
         <div class="col">
             <div class="row">
                 <div class="col-6">
-                    <p class="package-header">{{ package.package_title }}</p> 
+                    <p class="package-header m-0">{{ package.package_title }}</p> 
                 </div>
                 <div class="col-6 d-flex justify-content-end align-items-center">
                     <form action="{% url 'favourite_package' package.id %}" method="POST">
@@ -22,10 +22,7 @@
                     </form>
                     <button class="book-package-btn ms-2" data-bs-toggle="modal" data-bs-target="#bookPackageModal">Book</button>
                     {% if booking_date_available %}
-                        <p>{{ booking_date }}</p>
                         <form action="{% url 'Payment:checkout_session' package.id %}" method="GET">
-                            <input type="date" name="booking_date" id="book_name" value="{{ booking_date }}">
-                            <!-- <input type="hidden" name="booking_date" value="{{ booking_date }}"> -->
                             <button type="submit" id="bookPackage" class="checkout-btn ms-2" name={{package.id}}>Checkout</button>
                         </form>
                     {% endif %}
