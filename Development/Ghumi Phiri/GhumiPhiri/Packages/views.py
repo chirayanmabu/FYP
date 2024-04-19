@@ -5,9 +5,10 @@ from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Avg
-
-from datetime import datetime
+from django.db.models import Avg, Count, Sum
+from django.db.models.functions import TruncMonth
+from django.utils import timezone
+from datetime import datetime, timedelta
 
 from core.mixins import GroupRequiredMixin
 from core.models import UserProfile
@@ -20,6 +21,7 @@ from star_ratings.models import Rating
 from django.template.loader import render_to_string
 
 from django.core.exceptions import PermissionDenied
+
 
 class HomePageView(View):
     def get(self, request, *args, **kwargs):
@@ -324,9 +326,42 @@ class ManageSellerPackages(View):
 
 
 class SellerDashboardView(View):
-    def get(self, request, *args, **kwargs):
-        context = {
+    def get(self, request, pk, *args, **kwargs):
+        seller = get_object_or_404(User, pk=pk)
 
+        booking_headers = [
+            "#",
+            "Package Title",
+            "Booked By",
+            "Booked Date"
+        ]
+
+        packages = Package.objects.filter(package_author=seller)
+        booking_values = Booking.objects.filter(package__package_author=seller)
+
+        # For weekly bookings data
+        today = timezone.now()
+        start_of_week = today - timedelta(days=today.weekday())
+        end_of_week = start_of_week + timedelta(days=6)
+
+        bookings_this_week = Booking.objects.filter(
+            package__package_author=seller,
+            booking_date__gte=start_of_week,
+            booking_date__lte=end_of_week
+        )
+
+        # For total sales
+        total_sales = booking_values.aggregate(Sum('paid_amount')).get('paid_amount__sum')
+
+        graph_data = list(Booking.objects.annotate(month=TruncMonth('booking_date')).values('month').annotate(c=Count('id')).order_by('month').values('month', 'c'))
+
+        context = {
+            'booking_headers': booking_headers,
+            'booking_values': bookings_this_week,
+            'graph_data': graph_data,
+            'total_packages': packages.count(),
+            'bookings_this_week': bookings_this_week.count(),
+            'total_sales': total_sales,
         }
         return render(request, 'packages/seller_dashboard.html', context)
     

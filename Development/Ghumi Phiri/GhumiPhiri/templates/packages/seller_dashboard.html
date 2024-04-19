@@ -3,5 +3,177 @@
 {% load ratings %}
 
 {% block content %}
+<div class="container mt-4">
+    <div class="row g-4">
+        <div class="col-lg-4 col-md-6 col-12">
+            <div class="dashboard__card project__card">
+                <div class="dashboard__card-body">
+                    <div class="d-flex gap-1 mb-3">
+                        <div>
+                            <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path opacity="0.4"
+                                    d="M21 7.5V17.5C21 20.5 19.5 22.5 16 22.5H8C4.5 22.5 3 20.5 3 17.5V7.5C3 4.5 4.5 2.5 8 2.5H16C19.5 2.5 21 4.5 21 7.5Z"
+                                    fill="#FF8A29" />
+                                <path
+                                    d="M18.5 9.75H16.5C14.98 9.75 13.75 8.52 13.75 7V5C13.75 4.59 14.09 4.25 14.5 4.25C14.91 4.25 15.25 4.59 15.25 5V7C15.25 7.69 15.81 8.25 16.5 8.25H18.5C18.91 8.25 19.25 8.59 19.25 9C19.25 9.41 18.91 9.75 18.5 9.75Z"
+                                    fill="#FF8A29" />
+                                <path
+                                    d="M12 14.25H8C7.59 14.25 7.25 13.91 7.25 13.5C7.25 13.09 7.59 12.75 8 12.75H12C12.41 12.75 12.75 13.09 12.75 13.5C12.75 13.91 12.41 14.25 12 14.25Z"
+                                    fill="#FF8A29" />
+                                <path
+                                    d="M16 18.25H8C7.59 18.25 7.25 17.91 7.25 17.5C7.25 17.09 7.59 16.75 8 16.75H16C16.41 16.75 16.75 17.09 16.75 17.5C16.75 17.91 16.41 18.25 16 18.25Z"
+                                    fill="#FF8A29" />
+                            </svg>
+                        </div>
 
+                        <p class="h5 project__p mb-0">Packages</p>
+                    </div>
+                    <div class="d-flex flex-column gap-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-0 dashboard__title">Total Packages</p>
+                            <p class="mb-0 dashboard__data">
+                                {{ total_packages }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-12">
+            <div class="dashboard__card skillRental__card">
+                <div class="dashboard__card-body">
+                    <div class="d-flex gap-1 mb-3">
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path opacity="0.4"
+                                d="M9.33398 2.5C6.71398 2.5 4.58398 4.63 4.58398 7.25C4.58398 9.82 6.59398 11.9 9.21398 11.99C9.29398 11.98 9.37398 11.98 9.43398 11.99C9.45398 11.99 9.46398 11.99 9.48398 11.99C9.49398 11.99 9.49398 11.99 9.50398 11.99C12.064 11.9 14.074 9.82 14.084 7.25C14.084 4.63 11.954 2.5 9.33398 2.5Z"
+                                fill="#0874F2" />
+                            <path
+                                d="M14.4149 14.65C11.6249 12.79 7.07492 12.79 4.26492 14.65C2.99492 15.5 2.29492 16.65 2.29492 17.88C2.29492 19.11 2.99492 20.25 4.25492 21.09C5.65492 22.03 7.49492 22.5 9.33492 22.5C11.1749 22.5 13.0149 22.03 14.4149 21.09C15.6749 20.24 16.3749 19.1 16.3749 17.86C16.3649 16.63 15.6749 15.49 14.4149 14.65Z"
+                                fill="#0874F2" />
+                            <path opacity="0.4"
+                                d="M20.3234 7.83998C20.4834 9.77998 19.1034 11.48 17.1934 11.71C17.1834 11.71 17.1834 11.71 17.1734 11.71H17.1434C17.0834 11.71 17.0234 11.71 16.9734 11.73C16.0034 11.78 15.1134 11.47 14.4434 10.9C15.4734 9.97998 16.0634 8.59998 15.9434 7.09998C15.8734 6.28998 15.5934 5.54998 15.1734 4.91998C15.5534 4.72998 15.9934 4.60998 16.4434 4.56998C18.4034 4.39998 20.1534 5.85998 20.3234 7.83998Z"
+                                fill="#0874F2" />
+                            <path
+                                d="M22.3242 17.09C22.2442 18.06 21.6242 18.9 20.5842 19.47C19.5842 20.02 18.3242 20.28 17.0742 20.25C17.7942 19.6 18.2142 18.79 18.2942 17.93C18.3942 16.69 17.8042 15.5 16.6242 14.55C15.9542 14.02 15.1742 13.6 14.3242 13.29C16.5342 12.65 19.3142 13.08 21.0242 14.46C21.9442 15.2 22.4142 16.13 22.3242 17.09Z"
+                                fill="#0874F2" />
+                        </svg>
+
+                        <p class="h5 mb-0 skill__p">Weekly Bookings</p>
+                    </div>
+                    <div class="d-flex flex-column gap-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-0 dashboard__title">Total Bookings</p>
+                            <p class="mb-0 dashboard__data">
+                                {{ bookings_this_week }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-12">
+            <div class="dashboard__card product__card">
+                <div class="dashboard__card-body">
+                    <div class="d-flex gap-1 mb-3">
+                        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M22.666 22.5H2.66602C2.25602 22.5 1.91602 22.16 1.91602 21.75C1.91602 21.34 2.25602 21 2.66602 21H22.666C23.076 21 23.416 21.34 23.416 21.75C23.416 22.16 23.076 22.5 22.666 22.5Z"
+                                fill="#059669" />
+                            <path
+                                d="M10.416 4.5V22.5H14.916V4.5C14.916 3.4 14.466 2.5 13.116 2.5H12.216C10.866 2.5 10.416 3.4 10.416 4.5Z"
+                                fill="#059669" />
+                            <path opacity="0.4"
+                                d="M3.66602 10.5V22.5H7.66602V10.5C7.66602 9.4 7.26602 8.5 6.06602 8.5H5.26602C4.06602 8.5 3.66602 9.4 3.66602 10.5Z"
+                                fill="#059669" />
+                            <path opacity="0.4"
+                                d="M17.666 15.5V22.5H21.666V15.5C21.666 14.4 21.266 13.5 20.066 13.5H19.266C18.066 13.5 17.666 14.4 17.666 15.5Z"
+                                fill="#059669" />
+                        </svg>
+
+                        <p class="h5 mb-0 product__p">Sales</p>
+                    </div>
+                    <div class="d-flex flex-column gap-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-0 dashboard__title">Total Sales</p>
+                            <p class="mb-0 dashboard__data">
+                                Rs. {{ total_sales }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <div class="common-container">
+                <div>
+                    <h5 class="m-0">Weekly Bookings</h5>
+                </div>
+                <table class="table mt-2 mb-0">
+                    <thead>
+                      <tr>
+                        {% for booking_header in booking_headers %}
+                        <th scope="col">{{ booking_header }}</th>
+                        {% endfor %}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for booking in booking_values %}
+                      <tr>
+                        <td scope="row">{{ forloop.counter }}</th>
+                        <td>{{ booking.package }}</td>
+                        <td>{{ booking.booked_by }}</td>
+                        <td>{{ booking.booking_date }}</td>
+                      </tr>
+                      {% endfor %}
+                    
+                    </tbody>
+                   
+                  </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="common-container">
+                <div class="d-flex justify-content-center flex-column align-items-center">
+                    <h5>Monthly Bookings</h5>
+                </div>
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const ctx = document.getElementById('myChart');
+
+    const labels = [];
+    const data = [];
+
+    {% for item in graph_data %}
+        labels.push('{{ item.month|date:"F Y" }}');  
+        data.push('{{ item.c }}');  
+    {% endfor %}
+
+    new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Number of booking in each month',
+            data: data,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+        scales: {
+        y: {
+            beginAtZero: true
+        }
+        }
+    }
+    });
+</script>
 {% endblock %}

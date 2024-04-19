@@ -927,3 +927,50 @@ td:last-child {
 .accordion-button:not(.collapsed){
   background-color: rgba(0, 109, 119, 0.2) !important; 
 }
+
+
+
+
+/* seller dashboard */
+.dashboard__content {
+  background-color: #eef2f5;
+  border-radius: 20px 0px 0px 0px;
+}
+
+.dashboard__card {
+  padding: 12px 20px 16px 20px;
+  border-radius: 12px;
+  background: #fff7f0;
+  border: none;
+  /* min-height: 166px; */
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.06);
+}
+.project__card {
+  background-color: #fff7f0;
+}
+.skillRental__card {
+  background-color: #eff6ff;
+}
+.product__card {
+  background-color: #f6fffb;
+}
+.project__p {
+  color: #ff8a29;
+}
+.skill__p {
+  color: #0874f2;
+}
+.product__p {
+  color: #059669;
+}
+.dashboard__title {
+  color: var(--700, #5a5e6f);
+  font-size: 14px;
+  font-weight: 400;
+}
+.dashboard__data {
+  color: var(--Gray, #3f4354);
+
+  font-size: 18px;
+  font-weight: 600;
+}

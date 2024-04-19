@@ -43,6 +43,11 @@
       <!-- navbar links -->
       <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
         <ul class="navbar-nav">
+          {% if request.user.is_authenticated  %}
+          <li class="nav-item">
+            <a href="{% url 'seller_dashboard' pk=request.user.id %}" class="nav-link nav-text">Dashboard</a>
+          </li>
+          {% endif %}
           <li class="nav-item">
             <a href="{% url 'list-package' %}" class="nav-link nav-text">Packages</a>
           </li>
