@@ -118,22 +118,20 @@
                                 <div class="modal fade" id="postReviewModal" tabindex="-1"
                                     aria-labelledby="postReviewModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <form action="{% url 'package_detail' package.id %}" method="POST" name="post_comment" id="post_comment">
-                                                {% csrf_token %}
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="postReviewModalLabel">Write a review</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
+                                        <!-- <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="postReviewModalLabel">Write a review</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{% url 'package_detail' package.id %}" method="POST" name="post_comment" id="comment">
+                                                    {% csrf_token %}
                                                     <div class="mb-3 row">
                                                         <div class="mb-3">
                                                             <label for="comment" class="form-label">Your review</label>
                                                             {% ratings package %}
                                                             {{comment_form}}
-                                                            <!-- <textarea class="form-control" id="comment" rows="3"
-                                                                name="comment"></textarea> -->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -143,6 +141,29 @@
                                                     <button type="submit" class="btn btn-primary" name="post_comment">Post</button>
                                                 </div>
                                             </form>
+                                        </div> -->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="createModalLabel">Add project</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="row g-3" action="{% url 'package_detail' package.id %}" method="POST" name="">
+                                                    {% csrf_token %}
+                                                    <div class="mb-3 col-md-12">
+                                                        <label for="comment" class="form-label">Your review</label>
+                                                        {% ratings package %}
+                                                        <!-- {{comment_form}} -->
+                                                        <textarea class="form-control" id="comment" rows="3"
+                                                        name="comment"></textarea>
+                                                    </div>
+                                                    <button type="submit" class="filter__submit" name="post_comment">Save changes</button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="filter__cancel" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="filter__submit" name="post_comment">Save changes</button>
+                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

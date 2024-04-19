@@ -10,10 +10,11 @@ from django.db.models import Avg
 from datetime import datetime
 
 from core.mixins import GroupRequiredMixin
+from core.models import UserProfile
 
 from Packages.forms import *
 from Packages.models import *
-from Packages.filters import PackageFilter
+from Packages.filters import PackageFilter, SellerFilter
 
 from star_ratings.models import Rating
 from django.template.loader import render_to_string
@@ -247,10 +248,15 @@ class WriteReview(View):
 
 class ListSellerView(View):
     def get(self, request, *args, **kwargs):
-        sellers = User.objects.filter(role=User.SELLER)
+        # seller_users = User.objects.filter(role=User.SELLER)
+        sellers_qs = UserProfile.objects.filter(user__role=2)
+        seller_filter = SellerFilter(request.GET, queryset=sellers_qs)
+
+        sellers=seller_filter.qs
 
         context = {
-            'sellers': sellers
+            'sellers': sellers,
+            'filter': seller_filter
         }
 
         return render(request, 'Packages/list_sellers.html', context)
@@ -315,8 +321,15 @@ class ManageSellerPackages(View):
             print(form.errors)
         return HttpResponseRedirect(url)
             
-        
 
+
+class SellerDashboardView(View):
+    def get(self, request, *args, **kwargs):
+        context = {
+
+        }
+        return render(request, 'packages/seller_dashboard.html', context)
+    
     
 class ListPaymentDetails(View):
     def get(self, request, *args, **kwargs):

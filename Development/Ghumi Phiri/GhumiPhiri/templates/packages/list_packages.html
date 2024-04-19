@@ -15,21 +15,51 @@
     </div>
     <div class="row">
         <div class="col-3">
-            <div class="common-container">
-                <form action="" method="GET">
-                    {{ package_filter.form.package_price }}
-                    <div class="mt-2">
-                        {{ package_filter.form.package_locations }}
-                    </div>
-                    <div class="mt-2">
-                        {{ package_filter.form.package_duration }}
-                    </div>
-                    <div class="mt-2">
-                        <p class="mb-0">Rating</p>
-                        {{ package_filter.form.package__rating_average  }}
-                    </div>
-                    <button type="submit" class="view-package-btn mt-2">Filter</button>
-                </form>
+            <div class="common-container p-0">
+                <p class="filter-title m-0">Filters</p>
+                <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
+                    <form action="" method="GET">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                Price
+                              </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                              <div class="accordion-body">
+                                {{ package_filter.form.package_price }}
+                              </div>
+                            </div>
+                          </div>
+                        <div class="accordion-item">
+                          <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                              Location
+                            </button>
+                          </h2>
+                          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                              {{ package_filter.form.package_locations }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                              Duration
+                            </button>
+                          </h2>
+                          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                              {{ package_filter.form.package_duration }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="d-flex justify-content-start filter-sub-btn">
+                            <button type="submit" class="view-package-btn">Filter</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="col p-0">

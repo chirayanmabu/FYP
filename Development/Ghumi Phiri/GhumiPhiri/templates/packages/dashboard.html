@@ -59,6 +59,7 @@
                 <img src="/static/images/test/logo-white.png" alt="Logo" width="90px" height="33px"
                     class="d-inline-block align-text-top">
             </a>
+            <a href="{% url 'seller_dashboard' pk=request.user.pk %}" class="sidebar_a">Dashboard</a>
             <a href="{% url 'my_packages' pk=request.user.pk %}" class="sidebar_a active">My Packages</a>
             <a href="{% url 'profile' pk=request.user.pk %}" class="sidebar_a">Account</a>
             <a href="{% url 'payment_details' %}" class="sidebar_a">Payment</a>
