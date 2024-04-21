@@ -91,6 +91,11 @@ color: black;
     border-radius: 30px;
 }
 
+.auth_sub_head{
+  font-weight: 300;
+  font-size: 14px;
+}
+
 
 /* Index page */
 
@@ -181,8 +186,8 @@ color: black;
 }
 
 .subheadings{
-    font-size: 22px;
-    font-weight: 450;
+    font-size: 25px;
+    font-weight: 500;
 }
 
 .view-package-btn{
@@ -252,7 +257,7 @@ color: black;
 
 /* Reviews page */
 .feedback-content{
-    background-color: #EDF6F9;
+    background-color: #f5f5f5;
     border-radius: 30px;
     padding: 16px;
 }
@@ -293,6 +298,21 @@ color: black;
 .close-btn{
     border-radius: 30px;
     height: 45px;
+}
+
+.comment-username{
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.comment-date-text{
+  font-size: 14px;
+  font-weight: 200;
+}
+
+.comment-subhead{
+  font-size: 14px;
+  font-weight: 500;
 }
 
 /* 
@@ -484,6 +504,32 @@ article {
     --link-icon-translate: 0;
     --link-icon-opacity: 1;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  }
+
+
+
+  .home-article-display-img{
+    width: 415px;
+    height: auto;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+
+  .home-article-display-img img{
+    width: 100%;
+    height: 100%;
+  }
+
+  .article-display-img{
+    width: 471px;
+    height: auto;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+
+  .article-display-img img{
+    width: 100%;
+    height: 100%;
   }
   
   *,
@@ -928,7 +974,10 @@ td:last-child {
   background-color: rgba(0, 109, 119, 0.2) !important; 
 }
 
-
+.seller-detail-btn{
+  position: absolute;
+  bottom:0;
+}
 
 
 /* seller dashboard */
@@ -938,39 +987,50 @@ td:last-child {
 }
 
 .dashboard__card {
-  padding: 12px 20px 16px 20px;
+  padding: 20px 20px 20px 20px;
   border-radius: 12px;
   background: #fff7f0;
   border: none;
   /* min-height: 166px; */
   box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.06);
 }
-.project__card {
-  background-color: #fff7f0;
+.totalProject__card {
+  /* background-color: #fff7f0; */
+  background: linear-gradient(90deg, #ffbf96, #fe7096);
+  color: white !important;
 }
-.skillRental__card {
-  background-color: #eff6ff;
+.weeklyBookings__card {
+  /* background-color: #eff6ff; */
+  background: linear-gradient(90deg, #90caf9, #047edf 99%);
 }
-.product__card {
-  background-color: #f6fffb;
+.sales__card {
+  /* background-color: #f6fffb; */
+  background: linear-gradient(90deg, #84d9d2, #07cdae);
 }
 .project__p {
-  color: #ff8a29;
+  /* color: #ff8a29; */
+  color: white !important;
 }
 .skill__p {
-  color: #0874f2;
+  /* color: #0874f2; */
+  color: white !important;
 }
 .product__p {
-  color: #059669;
+  /* color: #059669; */
+  color: white !important;
 }
 .dashboard__title {
-  color: var(--700, #5a5e6f);
+  color: white !important;
   font-size: 14px;
   font-weight: 400;
 }
 .dashboard__data {
-  color: var(--Gray, #3f4354);
+  color: white !important;
 
   font-size: 18px;
   font-weight: 600;
+}
+
+.main-links{
+  text-decoration: underline;
 }

@@ -58,9 +58,9 @@ class ImageForm(CreatePackageModelForm):
 
 class CreateCommentForm(ModelForm):
     comment = forms.CharField(
-        label='Comment',
-        required=False,
-        widget=forms.Textarea(attrs={'placeholder': 'Comment', 'class': 'form-control', 'rows': '3'})
+        label='',
+        required=True,
+        widget=forms.Textarea(attrs={'placeholder': 'Add a comment...', 'class': 'form-control', 'rows': '3'})
     )
 
     class Meta:

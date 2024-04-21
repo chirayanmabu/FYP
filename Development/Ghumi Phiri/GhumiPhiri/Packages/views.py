@@ -153,6 +153,11 @@ class PackageDetailView(View):
         return render(request, 'Packages/package_detail.html', context)
     
     def post(self, request, pk, *args, **kwargs):
+        try:
+            logged_in_user = request.user
+        except:
+            messages.error(request, f"Please log in to your account to use this feature.")
+
         package = Package.objects.get(pk=pk)
         package_images = PackageImage.objects.filter(package=package)
         feedbacks = Feedback.objects.filter(package=package).order_by('-created_on')
@@ -175,12 +180,14 @@ class PackageDetailView(View):
         if 'post_comment' in request.POST:
             if comment_form.is_valid():
                 new_comment = comment_form.save(commit=False)
-                new_comment.feedback_author = request.user
+                new_comment.feedback_author = logged_in_user
                 new_comment.package = package
                 new_comment.save()
                 print("Posted review")
+                messages.success(request, f"Your review has been posted.")
 
             else:
+                messages.error(request, f"Invalid input.")
                 print(comment_form.errors())
 
         elif 'book_package' in request.POST:
@@ -188,17 +195,14 @@ class PackageDetailView(View):
             user_booking_date = datetime.strptime(user_booking_date_str, "%Y-%m-%d").date()
             if user_booking_date in existing_booking_dates:
                 messages.error(request, f"The chosen booking date is not available.")
-            # if booking_form.is_valid():
-            #     new_booking = booking_form.save(commit=False)
-            #     new_booking.booked_by = request.user
-            #     new_booking.package = package
-            #     booking_form.save()
-            #     context['booking_date_available'] = True
-            #     print("Booking successful")
             else:
-                messages.success(request, f"The chosen booking date is available. Proceed to checkout.")
+                if request.user.is_authenticated:
+                    messages.success(request, f"The chosen booking date is available. Proceed to checkout.")
+                else:
+                    messages.warning(request, f"The chosen booking date is available. Please log in to checkout.")
                 context['booking_date_available'] = True
                 context['booking_date'] = user_booking_date_str
+            
         return render(request, 'Packages/package_detail.html', context)
 
         

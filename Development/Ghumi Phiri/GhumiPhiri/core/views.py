@@ -91,7 +91,7 @@ def loginPage(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, f"Loggend in successfully.")
+            messages.success(request, f"Logged in successfully.")
             return redirect('home')
         else:
             messages.error(request, f"Invalid username/password.")

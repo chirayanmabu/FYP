@@ -98,12 +98,13 @@
             </div>
             <div class="col-6 my-3">
                 <div class="auth__container">
+                    <h6><a href="{% url 'home' %}"><i class="bi bi-arrow-left me-2"></i>Home</a></h6>
                     <div class="auth__main">
                         <div class="logo mb-3">
                             <img src="/static/images/test/logo-black.png" alt="">
                         </div>
                         <h3 class="">Sign in to Ghumi Phiri</h3>
-                        <h6 class="mb-3 text-body-secondary">Dont have an account? <a href="{% url 'register' %}"class="ml-2">Sign up</a></h6>
+                        <h6 class="mb-3 text-body-secondary auth_sub_head">Dont have an account? <a href="{% url 'register' %}"class="ml-2 main-links">Sign up</a></h6>
                         <form action="" method="POST">
                             {% csrf_token %}
                             <div class="input-group my-3">
@@ -119,8 +120,9 @@
                                 Login
                             </button>
                             <div class="d-flex justify-content-center">
-                                <h6 class="mb-3 text-body-secondary"><a href="{% url 'password_reset' %}"class="ml-2">Forgot password?</a></h6>
+                                <h6 class="mb-3 text-body-secondary main-links"><a href="{% url 'password_reset' %}"class="ml-2">Forgot password?</a></h6>
                             </div>
+                            
                         </form>
                     </div>
                 </div>

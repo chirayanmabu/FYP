@@ -50,15 +50,17 @@
                                         class="img-fluid rounded-start" alt="">
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="card-body">
+                                    <div class="card-body" style="height: 100%;">
                                         <div class="row">
                                             <div class="col">
                                                 <h5 class="card-title">{{ seller.user.username }}</h5>
-                                                <p class="mb-0">Location: {{ seller.address }}</p>
+                                                <p class="mb-3 auth_sub_head">Location: {{ seller.address }}</p>
                                             </div>
                                         </div>
-                                        <p class="card-text">{{ seller.bio }}</p>
-                                        <a href="{% url 'seller_profile' pk=seller.user.id %}"><button class="view-package-btn">View Detail</button></a>
+                                        <div class="d-flex flex-column">
+                                            <p class="card-text">{{ seller.bio }}</p>
+                                            <a href="{% url 'seller_profile' pk=seller.user.id %}"><button class="view-package-btn mb-3 seller-detail-btn">View Detail</button></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

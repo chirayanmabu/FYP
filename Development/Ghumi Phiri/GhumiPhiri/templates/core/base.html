@@ -43,7 +43,7 @@
       <!-- navbar links -->
       <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
         <ul class="navbar-nav">
-          {% if request.user.is_authenticated  %}
+          {% if request.user.is_authenticated and request.user.role == 2 %}
           <li class="nav-item">
             <a href="{% url 'seller_dashboard' pk=request.user.id %}" class="nav-link nav-text">Dashboard</a>
           </li>
@@ -67,6 +67,9 @@
           {% else %}
             <li class="nav-item">
               <a href="{% url 'logout' %}" class="nav-link nav-text">Log in</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'register_seller' %}" class="nav-link nav-text">Seller Account</a>
             </li>
           {% endif %}
         </ul>

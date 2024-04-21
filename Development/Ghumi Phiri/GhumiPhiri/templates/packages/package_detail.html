@@ -21,7 +21,7 @@
                         {% endif %}
                     </form>
                     <button class="book-package-btn ms-2" data-bs-toggle="modal" data-bs-target="#bookPackageModal">Book</button>
-                    {% if booking_date_available %}
+                    {% if booking_date_available and request.user.is_authenticated %}
                         <form action="{% url 'Payment:checkout_session' package.id %}" method="GET">
                             <button type="submit" id="bookPackage" class="checkout-btn ms-2" name={{package.id}}>Checkout</button>
                         </form>
@@ -103,67 +103,42 @@
             <div class="common-container mt-3">
                 <div class="row">
                     <div class="contaner">
-                        <div class="row justify-content-center align-items-center my-3">
+                        <div class="row justify-content-center align-items-center">
                             <div class="col-10">
                                 <span class="subheadings">Reviews</span>
                             </div>
-                            <div class="col">
+                            <div class="col d-flex justify-content-end">
+                                {% if request.user.is_authenticated %}
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary edit-profile-btn hide-feedback-btn" data-bs-toggle="modal"
+                                <button type="button" class="view-package-btn hide-feedback-btn" data-bs-toggle="modal"
                                     data-bs-target="#postReviewModal">
                                     Write a review
                                 </button>
+                                {% endif %}
     
                                 <!-- Modal -->
                                 <div class="modal fade" id="postReviewModal" tabindex="-1"
                                     aria-labelledby="postReviewModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <!-- <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="postReviewModalLabel">Write a review</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="{% url 'package_detail' package.id %}" method="POST" name="post_comment" id="comment">
-                                                    {% csrf_token %}
-                                                    <div class="mb-3 row">
-                                                        <div class="mb-3">
-                                                            <label for="comment" class="form-label">Your review</label>
-                                                            {% ratings package %}
-                                                            {{comment_form}}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary" name="post_comment">Post</button>
-                                                </div>
-                                            </form>
-                                        </div> -->
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="createModalLabel">Add project</h1>
+                                                <h1 class="modal-title fs-5" id="createModalLabel">Leave a review</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">
-                                                <form class="row g-3" action="{% url 'package_detail' package.id %}" method="POST" name="">
-                                                    {% csrf_token %}
+                                            <form class="row g-3" action="{% url 'package_detail' package.id %}" method="POST" name="">
+                                                {% csrf_token %}
+                                            <div class="modal-body" style="padding-left: 20px; padding-right: 20px;">
                                                     <div class="mb-3 col-md-12">
-                                                        <label for="comment" class="form-label">Your review</label>
+                                                        <p class="m-0 comment-subhead">Rating</p>
                                                         {% ratings package %}
-                                                        <!-- {{comment_form}} -->
-                                                        <textarea class="form-control" id="comment" rows="3"
-                                                        name="comment"></textarea>
+                                                        <p class="m-0 comment-subhead">Comment</p>
+                                                        {{comment_form}}
                                                     </div>
-                                                    <button type="submit" class="filter__submit" name="post_comment">Save changes</button>
+                                                    <div class="d-flex justify-content-end">
+                                                        <button type="submit" class="view-package-btn" name="post_comment">Submit</button>
+                                                    </div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="filter__cancel" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="filter__submit" name="post_comment">Save changes</button>
-                                            </form>
-                                            </div>
+                                        </form>
                                         </div>
                                     </div>
                                 </div>
@@ -184,14 +159,14 @@
                                                 <img src="{{ feedback.feedback_author.profile.profile_pic.url }}" alt="">
                                             </div>
                                             <div class="col ms-3">
-                                                <div class="comment-author-info">
-                                                    <span>{{ feedback.feedback_author }}</span>
-                                                    <span class="ms-3" style="font-weight: 200;">{{ feedback.created_on }}</span>
+                                                <div class="comment-author-info mb-1">
+                                                    <span class="comment-username">{{ feedback.feedback_author }}</span>
+                                                    <span class="ms-2 comment-date-text">{{ feedback.created_on }}</span>
                                                 </div>
-                                                {% ratings feedback read_only=True %}
+                                                {% ratings package read_only=True %}
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row mt-3">
                                             <div class="col">
                                                 <span>{{ feedback.comment }}</span>
                                             </div>

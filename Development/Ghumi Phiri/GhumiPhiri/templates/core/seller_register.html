@@ -98,12 +98,13 @@
             </div>
             <div class="col-6 my-3">
                 <div class="auth__container">
+                    <h6><a href="{% url 'home' %}"><i class="bi bi-arrow-left me-2"></i>Home</a></h6>
                     <div class="auth__main">
                         <div class="logo mb-3">
                             <img src="/static/images/test/logo-black.png" alt="">
                         </div>
                         <h3 class="">Register as a Seller</h3>
-                        <h6 class="mb-3 text-body-secondary">Already have an account? <a href="{% url 'login' %}"class="ml-2">Log in</a></h6>
+                        <h6 class="mb-3 text-body-secondary auth_sub_head">Already have an account? <a href="{% url 'login' %}"class="ml-2 main-links">Log in</a></h6>
                         <form action="" method="POST">
                             {% csrf_token %}
                             <div class="mb-3">
