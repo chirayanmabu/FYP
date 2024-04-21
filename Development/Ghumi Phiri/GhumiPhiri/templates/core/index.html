@@ -13,7 +13,8 @@
                 {% csrf_token %}
                 <div class="input-group" style="width: 800px;">
                     {{filter.form.package_locations}}
-                    <input type="text" class="form-control" placeholder="Month">
+                    {{filter.form.package_author__username}}
+                    <!-- <input type="text" class="form-control" placeholder="Month"> -->
                     {{filter.form.package_duration}}
                     <button class="checkout-btn" type="submit">Search</button>
                 </div>

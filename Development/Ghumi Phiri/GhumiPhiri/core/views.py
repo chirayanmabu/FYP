@@ -16,6 +16,7 @@ from .forms import *
 from .models import *
 from core.mixins import GroupRequiredMixin
 from Packages.models import Package
+from Packages.filters import PackageFilter
 
 def registerPage(request):
     form = CreateUserForm()
@@ -119,11 +120,13 @@ class ProfilePageView(View, LoginRequiredMixin):
         user = get_object_or_404(User, pk=pk)
         profile = UserProfile.objects.get(pk=pk)
         fav_packages = Package.objects.filter(favourites=request.user)
+        package_filter = PackageFilter(request.GET, queryset=fav_packages)
 
         context = {
             'user': user,
             'profile': profile,
-            'fav_packages': fav_packages
+            'fav_packages': fav_packages,
+            'package_filter': package_filter
         }
 
         return render(request, 'core/profile.html', context)

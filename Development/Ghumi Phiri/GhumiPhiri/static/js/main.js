@@ -1,14 +1,16 @@
 id = document.getElementById("bookPackage").name
-booking_date = document.getElementById("book_name").value
+booking_date = document.getElementById("bookingDate").value
+packageId = document.getElementById("bookPackage").getAttribute("data-package-id");
+console.log(booking_date)
 fetch("/config/")
 .then((result) => {return result.json();})
 .then((data) => {
     const stripe = Stripe(data.publicKey);
-    const url = `/create-checkout-session/${id}/`
+    const url = `/create-checkout-session/${packageId}/`
 
 
     document.querySelector("#bookPackage").addEventListener("click", () => {
-        fetch(url)
+        fetch(`${url}?booking_date=${booking_date}`)
         .then((result) => {
             return result.json();
         })

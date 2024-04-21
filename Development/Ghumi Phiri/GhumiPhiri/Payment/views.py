@@ -25,7 +25,7 @@ def stripe_config(request):
         stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
         return JsonResponse(stripe_config, safe=False)
     
-
+@csrf_exempt
 def create_checkout_session(request, pk,):
     package = Package.objects.get(pk=pk)
     user = request.user.id
@@ -62,7 +62,7 @@ def create_checkout_session(request, pk,):
                 ],
                 metadata={
                     "product_id": booking.id,
-                    "user": user,
+                    "user": user.id,
                 }
             )
 
@@ -103,9 +103,8 @@ def stripe_webhook(request):
         
         
         user_id = session['metadata']['user']
-        booking_date = session['metadata']['booking_date']
-        print(f"{booking_date} from metadata")
-        # package = Package.objects.get(pk=package_id)
+        booking_date = booking.booking_date
+        print(f'booking_date from booking object {booking_date}')
         
         booking.status = PaymentStatus.COMPLETED
         booking.save()

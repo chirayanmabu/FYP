@@ -26,13 +26,17 @@ from django.core.exceptions import PermissionDenied
 class HomePageView(View):
     def get(self, request, *args, **kwargs):
         packages = Package.objects.prefetch_related('packageimage_set').all()
+        sellers = User.objects.filter(role=2)
         f = PackageFilter(
             request.GET, queryset=packages
         )
 
+        seller_filter = SellerFilter(request.GET, queryset=sellers)
+
         context = {
             'packages': packages,
             'filter': f,
+            'seller_filter': seller_filter,
             'user': request.user
         }
 
@@ -65,7 +69,7 @@ class CreatePackageView(View):
 class ListPackageView(View):
     def get(self, request, *args, **kwargs):
         package_list = Package.objects.prefetch_related('packageimage_set').all()
-        package_filter = PackageFilter(request.GET)
+        package_filter = PackageFilter(request.GET, queryset=package_list)
 
         context = {
             'package_list': package_list,
@@ -204,6 +208,26 @@ class PackageDetailView(View):
                 context['booking_date'] = user_booking_date_str
             
         return render(request, 'Packages/package_detail.html', context)
+
+
+class EditDeleteFeedbackView(View):
+    def post(self, request, pk, *args, **kwargs):
+        feedback_instace = get_object_or_404(Feedback, pk=pk)
+        package_id = feedback_instace.package.id
+        url = reverse('package_detail', kwargs={"pk": package_id})
+        if "update_feedback" in request.POST:
+            form = CreateCommentForm(request.POST, instance=feedback_instace)
+            if form.is_valid():
+                messages.success(request, "Feedback edited successfully.")
+                form.save()
+                return HttpResponseRedirect(url)
+            else:
+                messages.error(request, "Invalid input.")
+                return HttpResponseRedirect(url)
+        elif "delete_feedback" in request.POST:
+            feedback_instace.delete()
+            messages.success(request, "Feedback deleted.")
+            return HttpResponseRedirect(url)
 
         
 class FavouritePackageView(View):

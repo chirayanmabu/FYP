@@ -7,6 +7,7 @@ urlpatterns = [
     path('list-package/', views.ListPackageView.as_view(), name="list-package"),
     path('package-detail/<int:pk>/', views.PackageDetailView.as_view(), name="package_detail"),
     path('add-feedback/<int:pk>', views.WriteReview.as_view(), name="add_feedback"),
+    path('edit-delete-feedback/<int:pk>', views.EditDeleteFeedbackView.as_view(), name="edit_delete_feedback"),
 
     path('favourite-package/<int:pk>/', views.FavouritePackageView.as_view(), name="favourite_package"),
     path('compare_packages/', views.ComparePackage.as_view(), name="compare_packages"),
