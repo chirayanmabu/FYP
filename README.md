@@ -1,2 +1,2 @@
-# FYP
-Islington Final Year
+# FYP - Ghumi Phiri
+# Overview
