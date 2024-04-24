@@ -17,6 +17,7 @@
                     <div class="col ps-0">
                         <span class="mb-0 basic__user-name">{{ seller.username }}</span>
                         <p class="basic__sub-info mb-0">{{ seller.email }}</p>
+                        <p class="basic__sub-bio mt-2 mb-0" {% if seller_profile.bio == None %} hidden {% endif %} >{{ seller_profile.bio }}</p> 
                     </div>
                 </div>
             </div>

@@ -2,7 +2,30 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
-    Payment cancelled.
+<div class="common-container">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <div class="success-img">
+                <img src="{% static 'images/test/payment-error.svg' %}" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="d-flex justify-content-center">
+                <h3>Payment cancelled.</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <p>Your payment was cancelled.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <p><a href="{% url 'home' %}">Back to home.</a></p>
+        </div>
+    </div>
 </div>
 {% endblock %}

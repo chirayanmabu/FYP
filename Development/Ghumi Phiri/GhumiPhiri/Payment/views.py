@@ -18,7 +18,6 @@ from core.models import User
 from Packages.models import PaymentStatus
 
 
-# Create your views here.
 @csrf_exempt
 def stripe_config(request):
     if request.method == "GET":
@@ -29,7 +28,6 @@ def stripe_config(request):
 def create_checkout_session(request, pk,):
     package = Package.objects.get(pk=pk)
     user = request.user.id
-
     if request.method == "GET":
         domain_url = 'http://localhost:8000/'
         stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -65,9 +63,6 @@ def create_checkout_session(request, pk,):
                     "user": user.id,
                 }
             )
-
-            
-            # Booking.objects.create(booked_by=request.user, package=package, booking_date=)
             return JsonResponse({
                 'sessionId': checkout_session['id']
             })
@@ -98,10 +93,6 @@ def stripe_webhook(request):
         return HttpResponse(status=400)
     
     if event["type"] == 'checkout.session.completed':
-        print('inside checkout session completed')
-        
-        
-        
         user_id = session['metadata']['user']
         booking_date = booking.booking_date
         print(f'booking_date from booking object {booking_date}')
@@ -114,9 +105,7 @@ def stripe_webhook(request):
         payment_status = session['payment_status']
         payment_amount = session['amount_total']
         currency = session['currency']
-        
-        # if request.user.is_authenticated:
-        
+
         print("Payment success")
         return HttpResponse(status=200)
         
@@ -128,15 +117,11 @@ def stripe_webhook(request):
 
 class PaymentSuccessView(View):
     def get(self, request, *args, **kwargs):
-        ''' WRITE LOGIC FOR PAYEMENT SUCCESS '''
-
-
         return render(request, 'core/payment_success.html')
 
 
 class PaymentCancelledView(View):
         def get(self, request, *args, **kwargs):
-            ''' '''
             return render(request, 'core/payment_cancellation.html')
         
 

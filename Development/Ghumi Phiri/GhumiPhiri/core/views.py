@@ -132,23 +132,13 @@ class ProfilePageView(View, LoginRequiredMixin):
         return render(request, 'core/profile.html', context)
     
 class ProfileEditView(View):
-
-    def get(self, request, pk, *args, **kwargs):
-        profile = UserProfile.objects.get(pk=pk)
-        user = profile.user
-
-        context = {
-            'user': user,
-            'profile': profile,
-        }
-        return render(request, 'core/profileEdit.html', context)
-
     def post(self, request, pk, *args, **kwargs):
         form = UpdateProfileForm(request.POST, request.FILES, initial={'user_id': pk})
         if form.is_valid():
             form.save()
+            messages.success(request, "Profile updated!")
             return redirect('profile', pk=pk)
-        print(form.errors)
+        messages.error(request, f'Invalid input for {list(form.errors)[0]}.')
         return redirect('profile', pk=pk)
     
 class SellerProfileView(View):

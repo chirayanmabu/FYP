@@ -9,7 +9,7 @@
         <div class="col">
             <div class="row">
                 <div class="col-6">
-                    <p class="package-header m-0">{{ package.package_title }} {{ booking_date }}</p> 
+                    <p class="package-header m-0">{{ package.package_title }}</p> 
                 </div>
                 <div class="col-6 d-flex justify-content-end align-items-center">
                     <form action="{% url 'favourite_package' package.id %}" method="POST">
@@ -22,7 +22,7 @@
                     </form>
                     <button class="book-package-btn ms-2" data-bs-toggle="modal" data-bs-target="#bookPackageModal">Book</button>
                     {% if booking_date_available and request.user.is_authenticated %}
-                        <input type="date" name="" id="bookingDate" name="{{ booking_date }}" value="{{ booking_date }}">
+                        <input type="date" name="" id="bookingDate" name="{{ booking_date }}" value="{{ booking_date }}" hidden>
                         <button type="submit" id="bookPackage" class="checkout-btn ms-2" name={{package.id}} data-package-id="{{ package.id }}">Checkout</button>
                         
                     {% endif %}
@@ -33,7 +33,7 @@
                                 {% csrf_token %}
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="bookPackageModal">Modal title</h1>
+                                        <h1 class="modal-title fs-5" id="bookPackageModal">Check date availablity</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -47,9 +47,9 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary close-btn"
+                                        <button type="button" class="fav-package-btn"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" id="bookPackage" class="btn confirm-booking-btn" name="book_package">Book</button>
+                                        <button type="submit" id="bookPackage" class="checkout-btn" name="book_package">Book</button>
                                     </div>              
                                 </div>
                             </form>
@@ -87,16 +87,16 @@
         </div>
     </div>
     <div class="row my-3">
-        <div class="col-10">
+        <div class="col-9">
             <div class="common-container">
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col">
-                        <span class="subheadings">About</span>
+                        <span class="subheadings mb-3">About</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        {{ package.package_desc }}
+                        <p class="package-desc-text m-0">{{ package.package_desc }}</p>
                     </div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                                 <span class="subheadings">Reviews</span>
                             </div>
                             <div class="col d-flex justify-content-end">
-                                {% if request.user.is_authenticated %}
+                                {% if request.user.is_authenticated and request.user.id != package.package_author.id and user_has_booked and user_has_reviewed == False %}
                                 <!-- Button trigger modal -->
                                 <button type="button" class="view-package-btn hide-feedback-btn" data-bs-toggle="modal"
                                     data-bs-target="#postReviewModal">
@@ -246,9 +246,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-2">
+        <div class="col-3">
             <div class="common-container">
-                <span class="subheadings">Features</span>
+                <p class="features-headings mb-0">Features</p>
+                <p class="package-desc-text m-0">{{ package.package_activities }}</p>
             </div>
         </div>
     </div>

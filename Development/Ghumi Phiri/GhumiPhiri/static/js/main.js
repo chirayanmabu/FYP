@@ -94,10 +94,10 @@ function updateModalContent() {
             <div class="containter">
                 <div class="row">
                     <div class="col-6">
-                        <p class="package-header">${response.package1.title}</p>
+                        <p class="package-header m-0">${response.package1.title}</p>
                         <div class="package-author-font">   
-                            <p class="mb-0">By: ${response.package1.author}</p>
-                            <p class="mb-0">Location: ${response.package1.location}</p>
+                            <p class="mb-0 auth_sub_head">By: ${response.package1.author}</p>
+                            <p class="mb-0 auth_sub_head">Location: ${response.package1.location}</p>
                         </div>
                         <div class="row mt-3">
                             <div class="compare-img">
@@ -106,7 +106,7 @@ function updateModalContent() {
                         </div>
                         <div class="row mt-3">
                             <div class="col">
-                                <p class="subheadings mb-0">About</p>
+                                <p class="h5 mb-2">About</p>
                                 <p>${response.package1.desc}</p>
                             </div>
                         </div>
@@ -117,10 +117,10 @@ function updateModalContent() {
                         </div>
                     </div>
                     <div class="col-6">
-                        <p class="package-header">${response.package2.title}</p>
+                        <p class="package-header m-0">${response.package2.title}</p>
                         <div class="package-author-font">   
-                            <p class="mb-0">By: ${response.package2.author}</p>
-                            <p class="mb-0">Location: ${response.package2.location}</p>
+                            <p class="mb-0 auth_sub_head">By: ${response.package2.author}</p>
+                            <p class="mb-0 auth_sub_head">Location: ${response.package2.location}</p>
                         </div>
                         <div class="row mt-3">
                             <div class="compare-img">
@@ -129,7 +129,7 @@ function updateModalContent() {
                         </div>
                         <div class="row mt-3">
                             <div class="col">
-                                <p class="subheadings mb-0">About</p>
+                                <p class="h5 mb-2">About</p>
                                 <p>${response.package2.desc}</p>
                             </div>
                         </div>

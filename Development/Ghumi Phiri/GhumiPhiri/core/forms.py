@@ -110,6 +110,12 @@ class UpdateProfileForm(forms.Form):
         widget=forms.TextInput(attrs={'placeholder': 'Address'})
     )
 
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+        if phone and len(phone) != 10:
+            raise forms.ValidationError("Phone number must be 10 digits.")
+        return phone
+
     def save(self):
         user_id = self.initial.get('user_id')
         user_data=self.cleaned_data

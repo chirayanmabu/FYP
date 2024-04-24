@@ -2,6 +2,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from .models import *
 
@@ -15,7 +16,7 @@ class CreatePackageModelForm(ModelForm):
     
     package_desc = forms.CharField(
         label='Package description',
-        widget=forms.TextInput(attrs={'placeholder': 'Package description', 'class': 'form-control'})
+        widget=forms.Textarea(attrs={'placeholder': 'Description', 'class': 'form-control', 'rows': '3'})
     )
 
     package_price = forms.FloatField(
@@ -39,6 +40,12 @@ class CreatePackageModelForm(ModelForm):
         max_length=100,
         widget=forms.TextInput(attrs={'placeholder': 'Activities', 'class': 'form-control'})
     )
+
+    def clean_package_price(self):
+        package_price = self.cleaned_data.get('package_price')
+        if package_price <= 0:
+            raise forms.ValidationError("Price must be greater than 0.")
+        return package_price
 
     class Meta:
         model = Package
@@ -74,6 +81,12 @@ class BookingForm(ModelForm):
         widget=forms.TextInput(attrs={'type': 'date', 'class': 'form-control'}),
         required=True
     )
+
+    def clean_booking_date(self):
+        booking_date = self.cleaned_data.get('booking_date')
+        if booking_date < timezone.now().date():
+            raise forms.ValidationError("Booking date cannot be in the past.")
+        return booking_date
 
     class Meta:
         model = Booking

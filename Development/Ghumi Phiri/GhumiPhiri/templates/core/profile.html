@@ -14,9 +14,10 @@
                             <img src="{{ profile.profile_pic.url }}" />
                         </div>
                     </div>
-                    <div class="col ps-0">
+                    <div class="col-8 ps-0">
                         <span class="mb-0 basic__user-name">{{ user.username }}</span>
                         <p class="basic__sub-info mb-0">{{ user.email }}</p>
+                        <p class="basic__sub-bio mt-2 mb-0" {% if user.profile.bio == None %} hidden {% endif %} >{{ user.profile.bio }}</p> 
                     </div>
                     <div class="col d-flex justify-content-end">
                         <button type="button" class="view-package-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -43,6 +44,7 @@
                                                 <label for="email" class="form-label">Email</label>
                                                 <input type="email" class="form-control" name="email" id="email" value="{{ user.email }}" readonly>
                                             </div>
+                                            {% if request.user.role == 1 %}
                                             <div class="col-md-6">
                                                 <label for="first_name" class="form-label">First name</label>
                                                 <input type="text" class="form-control" name="first_name" id="first_name" value="{{ user.first_name }}">
@@ -51,6 +53,7 @@
                                                 <label for="last_name" class="form-label">Last name</label>
                                                 <input type="text" class="form-control" name="last_name" id="last_name" value="{{ user.first_name }}">
                                             </div>
+                                            {% endif %}
                                             <div class="col-md-6">
                                                 <label for="address" class="form-label">Address</label>
                                                 <input type="text" class="form-control" name="address" id="address" value="{{ user.profile.address }}">
@@ -85,27 +88,29 @@
             <div class="common-container">
                 <div class="row mb-2">
                     <div class="col">
-                        <p class="basic__title m-0">Personal Info</p>
+                        <p class="basic__title m-0">User Information</p>
                     </div>
                 </div>
+                {% if request.user.role == 1 %}
                 <div class="row">
                     <div class="col">
                         <p class="m-0 basic__sub-title"><i class="bi bi-person me-1"></i>Full name</p>
                         <p class="m-0 basic__sub-name">{{ user.first_name }} {{ user.last_name }}</p>
                     </div>
                     <div class="col">
-                        <p class="m-0 basic__sub-title"><i class="bi bi-telephone me-1"></i>Phone no.</p>
-                        <p class="m-0">{{ profile.phone }}</p>
+                        <p class="m-0 basic__sub-title"><i class="bi bi-balloon me-1"></i>Date of birth</p>
+                        <p class="m-0 basic__sub-name">{{ profile.dob }}</p>
                     </div>
                 </div>
+                {% endif %}
                 <div class="row mt-2">
                     <div class="col">
                         <p class="m-0 basic__sub-title"><i class="bi bi-house me-1"></i>Address</p>
                         <p class="m-0 basic__sub-name">{{ profile.address }}</p>
                     </div>
                     <div class="col">
-                        <p class="m-0 basic__sub-title"><i class="bi bi-balloon me-1"></i>Date of birth</p>
-                        <p class="m-0 basic__sub-name">{{ profile.dob }}</p>
+                        <p class="m-0 basic__sub-title"><i class="bi bi-telephone me-1"></i>Phone no.</p>
+                        <p class="m-0">{{ profile.phone }}</p>
                     </div>
                 </div>
             </div>

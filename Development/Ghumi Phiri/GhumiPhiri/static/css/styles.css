@@ -189,6 +189,15 @@ color: black;
     font-size: 25px;
     font-weight: 500;
 }
+.features-headings{
+  font-size: 20px;
+  font-weight: 500;
+}
+.package-desc-text{
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 180%;
+}
 
 .view-package-btn{
   background-color: rgba(226, 149, 120, 0.2);
@@ -245,13 +254,26 @@ color: black;
 }
 
 .compare-img {
-  width: 570px; 
+  width: 565px; 
   height: 270px; 
   overflow: hidden; 
 } 
 .compare-img img {
-   width: auto; 
+   width: 100%; 
    height: 100%; 
+}
+
+
+/* List hotels */
+.list-sellers-image{
+  width: 482px;
+  height: 295px;
+  overflow: hidden; 
+}
+
+.list-sellers-image img{
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -874,7 +896,7 @@ td:last-child {
   color: var(--Gray-gray, #1e3a4c);
   font-size: 14px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 133%;
 }
 .basic__user-name {
@@ -884,7 +906,13 @@ td:last-child {
   font-weight: 600;
   line-height: 133%;
 }
-
+.basic__sub-bio {
+  color: var(--Gray-gray, #1e3a4c);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 133%;
+}
 
 .package__list_title {
   color: var(--Gray-600, #374151);
