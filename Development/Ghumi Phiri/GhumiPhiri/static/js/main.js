@@ -110,7 +110,7 @@ function updateModalContent() {
                         <div class="row mt-3">
                             <div class="col">
                                 <p class="h5 mb-2">About</p>
-                                <p>${response.package1.desc}</p>
+                                <p class="compare-package-desc-text">${response.package1.desc}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -133,7 +133,7 @@ function updateModalContent() {
                         <div class="row mt-3">
                             <div class="col">
                                 <p class="h5 mb-2">About</p>
-                                <p>${response.package2.desc}</p>
+                                <p class="compare-package-desc-text">${response.package2.desc}</p>
                             </div>
                         </div>
                         <div class="row">

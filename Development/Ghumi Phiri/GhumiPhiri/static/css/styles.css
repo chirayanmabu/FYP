@@ -1087,3 +1087,21 @@ td:last-child {
   width: 100%;
   height: 100%;
 }
+
+.no-fav-data-img{
+  width: 212px;
+  height: 212px;
+}
+
+.no-fav-data-img img{
+  width: 100%;
+  height: 100%;
+}
+
+.compare-package-desc-text{
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 180%;
+  text-align: justify;
+  text-justify: inter-word;
+}

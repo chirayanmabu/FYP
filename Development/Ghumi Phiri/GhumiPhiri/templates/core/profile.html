@@ -176,36 +176,47 @@
         </div>
     </div>
     <div class="row mt-3">
+        {% if package_filter.qs %}
             {% for package in package_filter.qs %}
-            <div class="col-md-4 mb-3 ">
-                <article>
-                    <div class="article-wrapper">
-                        <a href="{% url 'package_detail' package.pk %}">
-                            <figure class="home-article-display-img">
-                                <img src="{{ package.packageimage_set.first.images.url }}" alt="" />
-                            </figure>
-                        </a>
-                        <div class="article-body">
-                            <h2><a href="{% url 'package_detail' package.pk %}">{{ package.package_title  }}</a></h2>
-                            <p class="mb-2"><a href="{% url 'seller_profile' package.package_author.id %}">By: {{ package.package_author }}</a></p>
-                            {% ratings package read_only=True %}
-                            <p>Rs. {{ package.package_price }}</p>
-                            <div class="d-flex justify-content-between">
-                                <a href="{% url 'package_detail' package.pk %}" class="read-more">
-                                    View detail <span class="sr-only">about this is some title</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                    </svg>
-                                </a>
-                                <button class="checkout-btn ms-3" onclick="console.log('Package ID:', '{{ package.pk }}'); addToCompare('{{ package.pk }}')">Compare</button>
+                <div class="col-md-4 mb-3 ">
+                    <article>
+                        <div class="article-wrapper">
+                            <a href="{% url 'package_detail' package.pk %}">
+                                <figure class="home-article-display-img">
+                                    <img src="{{ package.packageimage_set.first.images.url }}" alt="" />
+                                </figure>
+                            </a>
+                            <div class="article-body">
+                                <h2><a href="{% url 'package_detail' package.pk %}">{{ package.package_title  }}</a></h2>
+                                <p class="mb-2"><a href="{% url 'seller_profile' package.package_author.id %}">By: {{ package.package_author }}</a></p>
+                                {% ratings package read_only=True %}
+                                <p>Rs. {{ package.package_price }}</p>
+                                <div class="d-flex justify-content-between">
+                                    <a href="{% url 'package_detail' package.pk %}" class="read-more">
+                                        View detail <span class="sr-only">about this is some title</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                            d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                    <button class="checkout-btn ms-3" onclick="console.log('Package ID:', '{{ package.pk }}'); addToCompare('{{ package.pk }}')">Compare</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </article>
-            </div>
+                    </article>
+                </div>
             {% endfor %}
+        {% else %}
+        <div class="col-md-12">
+            <div class="common-container d-flex flex-column justify-content-center align-items-center">
+                <div class="no-fav-data-img">
+                    <img src="{% static 'images/test/empty.png' %}" alt="">
+                </div>
+                <h5>No data available, Please try other filters or try adding a package as favourite.</h5>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 
