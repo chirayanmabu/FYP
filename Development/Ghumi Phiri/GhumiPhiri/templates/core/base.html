@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test</title>
+  <title>GhumiPhiri</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
@@ -52,7 +52,7 @@
             <a href="{% url 'list-package' %}" class="nav-link nav-text">Packages</a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'list_sellers' %}" class="nav-link nav-text">Hotels</a>
+            <a href="{% url 'list_sellers' %}" class="nav-link nav-text">Hotels/Agencies</a>
           </li>
           {% if request.user.is_authenticated  %}
             <li class="nav-item dropdown ms-2">
@@ -81,34 +81,37 @@
 
   {% endblock %}
 
-  <footer>
+  <footer class="footer-bg py-3">
     <div class="container my-3">
       <div class="row">
         <div class="col-3">
-          <img src="/static/images/test/logo-black.png" alt="logo" width="90px" height="30px">
+          <img src="/static/images/test/logo-white.png" alt="logo" width="90px" height="30px">
         </div>
         <div class="col-3">
           <ul class="footer-text">
             <li class="mb-3">Company</li>
-            <li>Home</li>
-            <li>Packages</li>
-            <li>Hotels</li>
-            <li>Contact Us</li>
-            <li>About Us</li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'list-package' %}">Packages</a></li>
+            <li><a href="{% url 'list_sellers' %}">Hotels/Agencies</a></li>
           </ul>
         </div>
         <div class="col-3">
           <ul class="footer-text">
             <li class="mb-3">Account</li>
-            <li>View Profile</li>
-            <li>Manage your account</li>
+            {% if request.user.is_authenticated  %}
+            <li><a href="{% url 'profile' pk=user.id %}">Manage your account</a></li>
+            {% else %}
+            <li class="nav-item">
+              <a href="{% url 'logout' %}">Log in</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'register_seller' %}">Seller Account</a>
+            </li>
+            {% endif %}
           </ul>
         </div>
         <div class="col-3">
-          <a href="" class="icon-color">
-            <i class="bi bi-facebook icon-color"></i>
-          </a>
-          
+          <i class="bi bi-facebook"></i>
           <i class="bi bi-instagram"></i>
           <i class="bi bi-tiktok"></i>
           <i class="bi bi-twitter-x"></i>

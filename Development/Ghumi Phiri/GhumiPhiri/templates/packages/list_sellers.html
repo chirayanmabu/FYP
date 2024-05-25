@@ -20,16 +20,18 @@
                 <div class="accordion accordion-flush" id="accordionPanelsStayOpenExample">
                     <form action="" method="GET">
                         <div class="accordion-item">
-                          <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                              Location
-                            </button>
-                          </h2>
-                          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-                            <div class="accordion-body">
-                              {{ filter.form.address }}
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                    aria-controls="panelsStayOpen-collapseTwo">
+                                    Location
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    {{ filter.form.address }}
+                                </div>
                             </div>
-                          </div>
                         </div>
                         <div class="d-flex justify-content-start filter-sub-btn">
                             <button type="submit" class="view-package-btn">Filter</button>
@@ -40,50 +42,65 @@
         </div>
         <div class="col p-0">
             <div class="container">
-                {% for seller in filter.qs %}
-                <div class="row mb-3">
-                    <div class="col">
-                        <div class="card">
-                            <div class="row g-0">
-                                <div class="col-md-6 list-sellers-image">
-                                    <img src="{{ seller.profile_pic.url }}"
-                                        class="img-fluid rounded-start" alt="">
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card-body" style="height: 100%;">
-                                        <div class="row">
-                                            <div class="col">
-                                                <h5 class="card-title">{{ seller.user.username }}</h5>
-                                                <p class="mb-3 auth_sub_head">Location: {{ seller.address }}</p>
-                                            </div>
+                {% if filter.qs %}
+                    {% for seller in filter.qs %}
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="row g-0">
+                                        <div class="col-md-6 list-sellers-image">
+                                            <img src="{{ seller.profile_pic.url }}" class="img-fluid rounded-start" alt="">
                                         </div>
-                                        <div class="d-flex flex-column">
-                                            <p class="card-text">{{ seller.bio }}</p>
-                                            <a href="{% url 'seller_profile' pk=seller.user.id %}"><button class="view-package-btn mb-3 seller-detail-btn">View Detail</button></a>
+                                        <div class="col-md-6">
+                                            <div class="card-body" style="height: 100%;">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h5 class="card-title">{{ seller.user.username }}</h5>
+                                                        <p class="mb-3 auth_sub_head">Location: {{ seller.address }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-column">
+                                                    <p class="card-text">{{ seller.bio }}</p>
+                                                    <a href="{% url 'seller_profile' pk=seller.user.id %}"><button
+                                                            class="view-package-btn mb-3 seller-detail-btn">View
+                                                            Detail</button></a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    {% endfor %}
+                {% else %}
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="common-container d-flex flex-column justify-content-center align-items-center">
+                            <div class="no-data-img">
+                                <img src="{% static 'images/test/empty.png' %}" alt="">
+                            </div>
+                            <h3>No data available, Please try other filters.</h3>
+                        </div>
                     </div>
                 </div>
-                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="compareModal" data-compare-url="{% url 'compare_packages' %}" tabindex="-1" aria-labelledby="compareModalLabel" aria-hidden="true">
+<div class="modal fade" id="compareModal" data-compare-url="{% url 'compare_packages' %}" tabindex="-1"
+    aria-labelledby="compareModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h1 class="modal-title fs-5" id="compareModalLabel">Comparision</h1>
-        <button type="button" class="btn-close" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="compareModalLabel">Comparision</h1>
+                <button type="button" class="btn-close" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="compareModalBody">
+            </div>
         </div>
-        <div class="modal-body" id="compareModalBody">
-        </div>
-    </div>
     </div>
 </div>
 

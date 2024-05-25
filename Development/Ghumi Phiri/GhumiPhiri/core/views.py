@@ -19,6 +19,12 @@ from Packages.models import Package
 from Packages.filters import PackageFilter
 
 def registerPage(request):
+    """
+    Allows user to register with the role of buyer.
+        
+    **Template:**
+    :template:`core/register.html`
+    """
     form = CreateUserForm()
 
     if request.method == "POST":
@@ -52,6 +58,12 @@ def registerPage(request):
     return render(request, 'core/register.html', context)
 
 def registerSellerPage(request):
+    """
+    Allows user to register with the role of seller.
+        
+    **Template:**
+    :template:`core/login.html`
+    """
     form = CreateUserForm()
 
     if request.method == "POST":
@@ -82,9 +94,16 @@ def registerSellerPage(request):
         'form': form
     }
         
-    return render(request, 'core/seller_register.html', context)
+    return render(request, 'core/login.html', context)
 
 def loginPage(request):
+    """
+    Allows user to login and authenticate as a user 
+    if the user provides the correct credentials.
+        
+    **Template:**
+    :template:`core/login.html`
+    """
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -100,11 +119,26 @@ def loginPage(request):
     return render(request, 'core/login.html')
 
 def logoutUser(request):
+    """
+    Allows the authenticated user to log out of the application.
+        
+    **Template:**
+    :template:`core/login.html`
+    """
     logout(request)
     return redirect('login')
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    """
+    Allows the user to reset their password through their email.
+        
+    **Template:**
+    :template:`core/password_reset.html`
+    :template:`core/password_reset_email.html`
+    :template:`core/password_reset_subject.html`
+    :template:`core/index.html`
+    """
     template_name = 'core/password_reset.html'
     email_template_name = 'core/password_reset_email.html'
     subject_template_name = 'core/password_reset_subject.txt'
@@ -115,11 +149,25 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     success_url = reverse_lazy('home')
 
 
-class ProfilePageView(View, LoginRequiredMixin):
+class ProfilePageView(LoginRequiredMixin, View):
+    """
+    Allows the user to access their profile page. The profile
+    page displays the user's details, their favourite packages and 
+    allows the user to apply filters to their favourite pacakges.
+        
+    **Template:**
+    :template:`core/profile.html`
+    """
     def get(self, request, pk, *args, **kwargs):
         user = get_object_or_404(User, pk=pk)
+        # Allowing only the current authenticated user to view their profile
+        if request.user.id != user.id:
+            return HttpResponse(status=400)
+
         profile = UserProfile.objects.get(pk=pk)
         fav_packages = Package.objects.filter(favourites=request.user)
+
+        # Filter for favourite pacakges
         package_filter = PackageFilter(request.GET, queryset=fav_packages)
 
         context = {
@@ -131,7 +179,13 @@ class ProfilePageView(View, LoginRequiredMixin):
 
         return render(request, 'core/profile.html', context)
     
-class ProfileEditView(View):
+class ProfileEditView(LoginRequiredMixin, View):
+    """
+    Allows the user to update their personal details.
+        
+    **Template:**
+    :template:`core/profile.html`
+    """
     def post(self, request, pk, *args, **kwargs):
         form = UpdateProfileForm(request.POST, request.FILES, initial={'user_id': pk})
         if form.is_valid():
@@ -142,9 +196,18 @@ class ProfileEditView(View):
         return redirect('profile', pk=pk)
     
 class SellerProfileView(View):
+    """
+    Retrieve the details of the users with role seller.
+    The packages created by that user is also retrieved.
+        
+    **Template:**
+    :template:`core/seller_profile.html`
+    """
     def get(self, request, pk, *args, **kwargs):
         seller = get_object_or_404(User, pk=pk)
         seller_profile = UserProfile.objects.filter(user=pk).first()
+
+        # Retrieving the seller's pacakges
         seller_packages = Package.objects.prefetch_related('packageimage_set').filter(package_author=seller)
 
         context = {

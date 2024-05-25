@@ -16,4 +16,5 @@ def user_profile(sender, instance, created, **kwargs):
         )
         print('Profile Created')
 
+# Sends signal at the end of the save method
 post_save.connect(user_profile, sender=User)

@@ -128,10 +128,16 @@
                         <td>{{ booking.booking_date }}</td>
                       </tr>
                       {% endfor %}
-                    
                     </tbody>
-                   
                   </table>
+                  {% if not booking_values %}
+                  <div class="d-flex flex-column align-items-center">
+                      <div class="no-data-table-img">
+                          <img src="{% static 'images/test/no-data-table.png' %}" alt="">
+                      </div>
+                      <h5>No data available</h5>
+                  </div>
+                  {% endif %}
             </div>
         </div>
         <div class="col-md-4">

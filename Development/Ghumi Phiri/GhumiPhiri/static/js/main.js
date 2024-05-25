@@ -55,7 +55,10 @@ function activeNav() {
 var packageId1 = "";
 var packageId2 = "";
 function addToCompare(packageId) {
-    if (!packageId1) {
+    if (packageId1 === packageId || packageId2 === packageId) {
+        // Display a message if the package ID is already selected
+        alert("You cannot compare the same package. Please choose a different package.");
+    } else if (!packageId1) {
         packageId1 = packageId;
     } else if (!packageId2) {
         packageId2 = packageId;

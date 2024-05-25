@@ -41,7 +41,7 @@
                                         <div class="mb-3 row">
                                             <div class="mb-3">
                                                 <label for="booking_date" class="form-label">Booking date</label>
-                                                <input type="date" name="booking_date" id="booking_date" class="form-control">
+                                                <input type="date" name="booking_date" id="booking_date" class="form-control" required>
                                                 <!-- {{ booking_form.booking_date }} -->
                                             </div>
                                         </div>
@@ -144,6 +144,7 @@
                                 </div>
                             </div>
                         </div>
+                        {% if feedbacks %}
                         <div class="container">
                             <div class="row mb-3">
                                 <div class="col">
@@ -151,6 +152,7 @@
                                 </div>
                             </div>
                             <div class="feedback-list">
+                                
                                 {% for feedback in feedbacks %}
                                 <div class="row mb-3 feedback-content">
                                     <div class="container px-0">
@@ -240,8 +242,12 @@
                                     </div>
                                 </div>
                                 {% endfor %}
+                                
                             </div>
                         </div>
+                        {% else %}
+                            <p class="mb-0 mt-2">No reviews yet. Be the first one by booking the package and leaving a review!</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>

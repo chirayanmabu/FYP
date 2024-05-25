@@ -56,7 +56,10 @@ color: black;
   position: sticky;
 }
 
-
+.footer-bg{
+  background-color: #006D77;
+  color: white;
+}
 
 /* Profile page */
 .profile-picture{
@@ -1061,4 +1064,26 @@ td:last-child {
 
 .main-links{
   text-decoration: underline;
+}
+
+
+
+.no-data-img{
+  width: 412px;
+  height: 412px;
+}
+
+.no-data-img img{
+  width: 100%;
+  height: 100%;
+}
+
+.no-data-table-img{
+  width: 100px;
+  height: 100px;
+}
+
+.no-data-table-img img{
+  width: 100%;
+  height: 100%;
 }

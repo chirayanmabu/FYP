@@ -111,12 +111,19 @@ class UpdateProfileForm(forms.Form):
     )
 
     def clean_phone(self):
+        """
+        Validation for the user's phone number.
+        Allows the user to only input phone number with length of 10
+        """
         phone = self.cleaned_data.get('phone')
         if phone and len(phone) != 10:
             raise forms.ValidationError("Phone number must be 10 digits.")
         return phone
 
     def save(self):
+        """
+        updates the existing values with the new data passed in the form.
+        """
         user_id = self.initial.get('user_id')
         user_data=self.cleaned_data
 
