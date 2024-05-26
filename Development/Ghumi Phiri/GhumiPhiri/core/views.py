@@ -209,11 +209,12 @@ class SellerProfileView(View):
 
         # Retrieving the seller's pacakges
         seller_packages = Package.objects.prefetch_related('packageimage_set').filter(package_author=seller)
+        package_filter = PackageFilter(request.GET, queryset=seller_packages)
 
         context = {
             'seller': seller,
             'seller_profile': seller_profile,
-            'seller_packages': seller_packages
+            'seller_packages': package_filter
         }
 
         return render(request, 'core/seller_profile.html', context)
